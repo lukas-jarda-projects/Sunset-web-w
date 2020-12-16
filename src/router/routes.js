@@ -1,27 +1,11 @@
 
 const routes = [
   {
-    path: '/gekon/:lang?',
-    props: true,
-    component: () => import('src/gekon.cz/layouts/Layout.vue'),
-    children: [
-      { path: '', component: () => import('../gekon.cz/pages/IndexGekon') }
-    ]
-  },
-  {
-    path: '/jidelnasql/:lang?',
-    props: true,
-    component: () => import('src/jidelnasql.cz/layouts/Layout.vue'),
-    children: [
-      { path: '', component: () => import('../jidelnasql.cz/pages/IndexJidelna') }
-    ]
-  },
-  {
     path: '/:lang?',
     props: true,
-    component: () => import('src/dorsys.cz/layouts/Layout.vue'),
+    component: () => import('src/layouts/Layout.vue'),
     children: [
-      { path: '', component: () => import('../dorsys.cz/pages/IndexDorsys') }
+      { path: '', component: () => import('pages/IndexJidelna') }
     ]
   }
 
