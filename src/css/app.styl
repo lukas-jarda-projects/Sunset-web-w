@@ -1,0 +1,98 @@
+@font-face
+  font-family RedHatDisplay-bld
+  src url(./fonts/RedHatDisplay-Bold.woff)
+
+@font-face
+  font-family RedHatDisplay-med
+  src url(./fonts/RedHatDisplay-Medium.woff)
+
+@font-face
+  font-family RedHatDisplay-reg
+  src url(./fonts/RedHatText-Regular.woff)
+
+.page-fixed-width
+  max-width $pageFixWidth
+  margin-left auto
+  margin-right auto
+
+.jidelnasql-bg-img
+  background-image: url("../assets/lzice-vidlicka-background.png")
+  background-position: center
+  background-repeat:  no-repeat
+  background-attachment: fixed
+  background-size: cover //- 100%
+  background-color: white
+
+
+.gekon-bg-img
+  background-image: url("../assets/ornamenty-gekon-background.png")
+  background-position: center
+  background-repeat:  no-repeat
+  background-attachment: fixed
+  background-size: cover //- 100%
+  background-color: white
+
+.bg-img
+  background-image: url("../assets/dorsys-ornamenty.png")
+  background-position: center
+  background-repeat:  no-repeat
+  background-attachment: fixed
+  background-size: cover //- 100%
+  background-color: white
+
+body
+  font-family $alt-text-font
+  font-size $alt-text-size
+  // letter-spacing .035rem
+  color $alt-text-color
+
+
+h1
+  font-family RedHatDisplay-bld
+  font-size 26px
+  line-height 40px
+  // letter-spacing .035rem
+
+h2
+  font-size 42px
+  line-height 1.3em
+  // letter-spacing .035rem
+  color dark
+
+h3
+  font-family RedHatDisplay-med
+  font-size 20px
+  line-height 30px
+  letter-spacing .035rem
+  color $alt-title-color
+
+p
+  font-family RedHatDisplay-reg
+  font-size $alt-text-size
+
+a
+  color $primary
+  font-decoration none
+
+.drs-menu
+  color $primary
+  font-size 16px
+  padding 26px
+  text-decoration none
+  letter-spacing .035rem
+
+
+.drs-menu-v
+  color $primary
+  font-size 16px
+  text-decoration none
+  letter-spacing .035rem
+  padding-bottom 6px
+  padding-top 6px
+
+// Helpers
+
+
+.no-alt-scroll
+  *
+    overflow hidden
