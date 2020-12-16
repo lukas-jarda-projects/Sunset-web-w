@@ -9,10 +9,10 @@
       div.text-center
         .alt-text-caption
           | Altisima je také výrobce řešení
+        a(href="https://dorsys.cz" target="_blank")
+          img(src="~/assets/logo-dorsys-p.svg" alt="logo dorsys" width="130")
         a(href="https://gekon-sw.cz" target="_blank")
-          img(src="~/assets/logo-gekon.svg" alt="logo gekon" width="120")
-        a(href="https://jidelnasql.cz" target="_blank")
-          img(src="~/assets/logo-jidelnasql.svg" alt="logo jidelnasql" width="130")
+          img(src="~/assets/logo-gekon.svg" alt="logo gekon" width="130").q-mb-xs
       div.text-left
         .alt-text-caption
           strong Telefon:
@@ -29,7 +29,7 @@
 </template>
 <style scoped lang="stylus">
 .footer
-  background-color $footer-background
+  background-color $jidelna-blue-light
   color $footer-color
 
   .alt-text-caption
