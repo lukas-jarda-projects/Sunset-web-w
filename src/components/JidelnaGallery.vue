@@ -2,29 +2,16 @@
 
 import TinyBox from 'components/TinyBox'
 
-const images = [
-  { src: 'statics/jidelnasql/images/jidelnasql_1.png', alt: 'Titulní obrazovka', thumbnail: null },
-  { src: 'statics/jidelnasql/images/jidelnicek_2.jpg', alt: 'Jídelníček', thumbnail: null },
-  { src: 'statics/jidelnasql/images/evidence_stravniku.jpg', alt: 'Evidence strávníků', thumbnail: null },
-  { src: 'statics/jidelnasql/images/platby_za_stravu.jpg', alt: 'Platby', thumbnail: null },
-  { src: 'statics/jidelnasql/images/pokladna1.jpg', alt: 'Pokladna', thumbnail: null },
-  { src: 'statics/jidelnasql/images/generator_tiskovych_sestav.jpg', alt: 'Generátor tiskových sestav', thumbnail: null },
-  { src: 'statics/jidelnasql/images/cenik.jpg', alt: 'Ceník', thumbnail: null },
-  { src: 'statics/jidelnasql/images/pokladna.jpg', alt: 'Pokladna', thumbnail: null }
-]
-
 export default {
   name: 'JidelnaGallery',
   components: { TinyBox },
+  props: {
+    images: { type: Array, required: true }
+  },
   data () {
     return {
       index: null,
       headerOpenCache: false
-    }
-  },
-  computed: {
-    images () {
-      return images
     }
   },
 
