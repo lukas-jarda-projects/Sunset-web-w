@@ -12,6 +12,7 @@
     "serve:dorsys-quasar": "quasar dev",
     "lint": "eslint --ext .js,.vue src",
     "test": "echo \"No test specified\" && exit 0",
+    "build:icons": "icongenie generate -p spa --s app-icon.png -t src/statics",
     "build:spa": "quasar build",
     "build:ssr": "quasar build --mode ssr",
     "deploy:dev": "scp -r -P 22 dist/spa/* deploy@example.invalid:/srv/www-apache-webs/dorsys/www/",
