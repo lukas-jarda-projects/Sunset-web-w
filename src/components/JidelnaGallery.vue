@@ -55,7 +55,7 @@ export default {
 
 <style scoped lang="stylus">
   .gek-screenshots
-    width 300px
+    width 200px
     border 1px solid $gekon-primary
     box-shadow 0px 0px 5px 0px rgba(0, 0, 0, .18)
 </style>
