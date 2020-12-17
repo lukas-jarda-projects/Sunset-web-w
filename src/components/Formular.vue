@@ -77,7 +77,7 @@ export default {
 
   methods: {
     async sendSklikConversion () {
-      window.seznam_cId = 100068364
+      window.seznam_cId = 100057253
       window.seznam_value = null
       const code = await axios.get('https://www.seznam.cz/rs/static/rc.js')
       // eslint-disable-next-line no-eval
