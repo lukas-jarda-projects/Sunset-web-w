@@ -31,7 +31,7 @@ li
 </style>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import PodminkyDialog from 'src/components/PodminkyDialog'
 import { postForm } from 'src/postForm'
 import { email, required } from 'vuelidate/lib/validators'
