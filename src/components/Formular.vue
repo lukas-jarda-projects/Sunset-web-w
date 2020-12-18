@@ -77,11 +77,11 @@ export default {
 
   methods: {
     async sendSklikConversion () {
-      window.seznam_cId = 100057253
-      window.seznam_value = null
-      const code = await axios.get('https://www.seznam.cz/rs/static/rc.js')
+      // window.seznam_cId = 100057253
+      // window.seznam_value = null
+      // const code = await axios.get('https://www.seznam.cz/rs/static/rc.js')
       // eslint-disable-next-line no-eval
-      eval(code)
+      // eval(code)
     },
     async sendForm () {
       this.$v.$touch()
@@ -90,7 +90,7 @@ export default {
       }
       try {
         await postForm({
-          name: 'dorsys.cz-contact-form',
+          name: 'jidelna.sql-contact-form',
           formData: {
             name: this.name,
             company: this.company,
