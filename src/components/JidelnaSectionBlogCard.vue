@@ -24,7 +24,7 @@ export default {
 
   $cardWidth = ($pageFixWidth - ($gekonNumberOfCardsPerLine - 1) * $gutterSize) / $gekonNumberOfCardsPerLine
   $jidelnaCardHeight ?= $cardWidth
-  $contentHeight = $jidelnaCardHeight - $gekonTitleContainerSize
+  $contentHeight = $jidelnaCardHeight - $gekonTitleContainerSize -280px
 
   .q-card__section
     margin 0
@@ -48,7 +48,7 @@ export default {
   .page-section-card-title
     text-align left
     font-size 20px
-    font-family  $alt-title-font
+    font-family $alt-title-font
     height $gekonTitleContainerSize
     min-height $gekonTitleContainerSize
     max-height $gekonTitleContainerSize
