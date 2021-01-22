@@ -1,8 +1,8 @@
 {
-  "name": "dorsys-quasar",
+  "name": "dorsys-jidelna",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "description": "Stravovací systém Altisma - JidelnaSQL",
+  "productName": "Jídelna SQL",
   "cordovaId": "org.cordova.quasar.app",
   "capacitorId": "",
   "author": "Jaroslav Povolný <qwanap@gmail.com>",
