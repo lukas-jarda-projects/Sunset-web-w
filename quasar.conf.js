@@ -107,9 +107,9 @@ module.exports = function (ctx) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'Quasar App',
-        short_name: 'Quasar App',
-        description: 'A Quasar Framework app',
+        name: 'jidelnasql.cz',
+        short_name: 'jidelnasql.cz',
+        description: 'jidelnasql.cz - produktový web',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
@@ -175,7 +175,7 @@ module.exports = function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'dorsys-quasar'
+        appId: 'jidelnasqlcz-quasar'
       },
 
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
