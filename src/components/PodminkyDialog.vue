@@ -35,6 +35,8 @@ export default {
 <template lang="pug">
   q-dialog(:value="alert" @input="closeDialog" style="width: 900px; max-width: 100vw;")
     q-card
+      q-page-sticky(position="top-right" :offset="[18, 18]")
+        q-fab(icon="close" color="primary" v-close-popup)
       q-card-section
         .text-h6 Podmínky ochrany osobních údajů
       q-card-section.q-pt-none
@@ -134,9 +136,11 @@ export default {
 
 
       q-card-actions(align="right")
-        q-btn(flat="" label="Zavřít" color="primary" v-close-popup="")
+        q-btn(no-caps color="orange" label="Zavřít" size="lg" v-close-popup="").q-px-md.q-mt-lg
 </template>
 
 <style scoped lang="stylus">
-
+.gekon-btn
+  background-color $green
+  color white
 </style>
