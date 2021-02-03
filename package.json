@@ -22,11 +22,11 @@
     "relink-lib": "rm -rf lib && junction lib c:/work/projects/altisima-central-server/src/lib"
   },
   "dependencies": {
-    "@quasar/extras": "^1.9.11",
+    "@quasar/extras": "^1.9.14",
     "@quasar/quasar-ui-qmediaplayer": "^1.1.4",
     "axios": "^0.19.2",
     "esm": "^3.2.25",
-    "quasar": "^1.14.7",
+    "quasar": "^1.15.1",
     "socketio": "^1.0.0",
     "vue-i18n": "^8.0.0",
     "vue-timers": "^2.0.4",
