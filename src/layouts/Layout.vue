@@ -1,6 +1,6 @@
 <template lang="pug">
   q-layout(view="lHh Lpr lFf" class="is-gekon")
-    q-header(elevated reveal v-model="headerOpen").layout-header
+    q-header(elevated reveal v-model="headerOpen" class="bg-white")
       q-toolbar.page-fixed-width
         img(src="~/assets/logo-jidelnasql.svg" alt="Logo Dorsys" width="150")
         q-toolbar-title
