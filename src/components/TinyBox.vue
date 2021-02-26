@@ -7,10 +7,10 @@
             .absolute-bottom.text-subtitle1.text-center(v-if="images[index].alt")
               | {{ images[index].alt }}
         .tinybox__content__control.tinybox__content__control--prev(v-if="prevImage !== index" @click.stop="prev")
-          .tinybox__content__control.tinybox__content__control--next(v-if="nextImage !== index" @click.stop="next")
-            .tinybox__content__control.tinybox__content__control--close(@click.stop="close")
-            .tinybox__thumbs(v-if="!noThumbs" @touchmove.stop="" @wheel.stop="")
-              q-img.tinybox__thumbs__item(v-for="(image, idx) in images" :key="idx" :class="{'tinybox__thumbs__item--active': index === idx}" :src="image.thumbnail || image.src || image || ''" :alt="image.alt || ''" @click.stop="goto(idx)")
+        .tinybox__content__control.tinybox__content__control--next(v-if="nextImage !== index" @click.stop="next")
+          .tinybox__content__control.tinybox__content__control--close(@click.stop="close")
+          .tinybox__thumbs(v-if="!noThumbs" @touchmove.stop="" @wheel.stop="")
+            q-img.tinybox__thumbs__item(v-for="(image, idx) in images" :key="idx" :class="{'tinybox__thumbs__item--active': index === idx}" :src="image.thumbnail || image.src || image || ''" :alt="image.alt || ''" @click.stop="goto(idx)")
 
 </template>
 
