@@ -29,6 +29,7 @@
     "quasar": "^1.15.1",
     "socketio": "^1.0.0",
     "vue-i18n": "^8.0.0",
+    "vue-print-nb": "^1.6.0",
     "vue-timers": "^2.0.4",
     "vuelidate": "^0.7.5"
   },
