@@ -29,7 +29,7 @@
 </template>
 <style scoped lang="stylus">
 .footer
-  background-color $jidelna-blue-light
+  background-color $orange-light
   color $footer-color
 
   .alt-text-caption
