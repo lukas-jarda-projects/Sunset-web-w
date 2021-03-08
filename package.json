@@ -22,6 +22,7 @@
     "relink-lib": "rm -rf lib && junction lib c:/work/projects/altisima-central-server/src/lib"
   },
   "dependencies": {
+    "@ent/ent-plugin-sentry-browser": "^1.0.8",
     "@quasar/extras": "^1.9.14",
     "@quasar/quasar-ui-qmediaplayer": "^1.1.4",
     "axios": "^0.19.2",
