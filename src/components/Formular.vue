@@ -50,6 +50,7 @@ export default {
       // const code = await axios.get('https://www.seznam.cz/rs/static/rc.js')
       // eslint-disable-next-line no-eval
       // eval(code)
+      window.rc.conversionHit({ id: 100057253, seznam_value: null ,seznam_orderId: null });
     },
     async sendForm () {
       this.$v.$touch()
