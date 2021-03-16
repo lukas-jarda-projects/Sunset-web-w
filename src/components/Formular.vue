@@ -45,13 +45,14 @@ export default {
 
   methods: {
     async sendSklikConversion () {
-      // window.seznam_cId = 100057253
-      // window.seznam_value = null
-      // const code = await axios.get('https://www.seznam.cz/rs/static/rc.js')
-      // eslint-disable-next-line no-eval
-      // eval(code)
-      window.rc.conversionHit ({ id: 100057253, seznam_value: null, seznam_orderId: null })
+      window.seznam_cId = 100057253
+      window.rc.conversionHit({ id: window.seznam_cId, seznam_value: null, seznam_orderId: null })
     },
+
+    async sendGoogleConversion () {
+      console.log('todo')
+    },
+
     async sendForm () {
       this.$v.$touch()
       if (this.$v.$invalid) {
@@ -73,7 +74,8 @@ export default {
         }).onDismiss(() => {
           this.clearForm()
         })
-        // await this.sendSklikConversion()
+        await this.sendSklikConversion()
+        await this.sendGoogleConversion()
       } catch (err) {
         this.$q.dialog({
           message: 'Nepodařilo se zaslat poptávku...'
