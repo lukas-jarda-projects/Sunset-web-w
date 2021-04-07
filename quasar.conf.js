@@ -7,7 +7,7 @@ module.exports = function (ctx) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
     boot: [
-      'sentry', 'i18n', 'vuelidate', 'bus', 'vue-print-nb'
+      /* 'sentry' */, 'i18n', 'vuelidate', 'bus', 'vue-print-nb'
       // { path: 'axios', server: false }
     ],
 
