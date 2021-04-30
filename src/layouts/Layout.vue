@@ -1,12 +1,28 @@
 <template lang="pug">
-  q-layout(view="lHh Lpr lFf" class="is-gekon")
-    q-header(elevated reveal v-model="headerOpen" class="bg-white")
-      q-toolbar.page-fixed-width
-        img(src="~/assets/logo-jidelnasql.svg" alt="Logo Dorsys" width="150")
+  q-layout(view="lHh Lpr lFf")
+    q-header(elevated v-model="headerOpen" class="bg-white")
+      q-toolbar
+        //- Hlavicka: logo
         q-toolbar-title
-        | JIDELNA
-        // lang-switcher-flags
-    q-page-container.jidelnasql-bg-img
+          .flex.items-center.justify-center.text-primary
+            img(src="~assets/logo-sunset-apartment.svg" height="40px").q-my-md.q-mr-xl
+
+            q-btn.text-body1.rounded-button(
+              unelevated no-caps rounded
+              @click="$router.push({name: 'welcome'})") Úvod
+
+            q-btn.text-body1.rounded-button(
+              unelevated no-caps rounded
+              @click="$router.push({name: 'about'})") O apartmánu
+
+
+              // :class="{active: isLinkCurrent({name: 'contact'})}"
+            q-btn.text-body1.rounded-button(
+              unelevated no-caps rounded
+              @click="$router.push({name: 'contact'})") Kontakt
+
+
+    q-page-container
       transition(name='slide-fade' appear)
         div
           router-view
@@ -18,11 +34,14 @@
 import LangSwitcherFlags from 'components/LangSwitcherFlags'
 import LayoutFooter from './LayoutFooter'
 
+
 // const languages = ['cs', 'sk', 'en']
 
 export default {
   name: 'MainLayout',
   components: { LangSwitcherFlags, LayoutFooter },
+
+
 
   mounted () {
     this.$bus.$layout = this
@@ -36,15 +55,6 @@ export default {
     }
   },
 
-  watch: {
-    lang: {
-      immediate: true,
-      handler (lang) {
-        this.$root.$i18n.locale = lang
-      }
-    }
-  },
-
   data () {
     return {
       headerOpen: true
@@ -55,8 +65,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .layout-header
-    background white
 
   //- page transition
   .slide-fade-enter-active {
@@ -76,8 +84,15 @@ export default {
     transform: translateX(0px);
     opacity: 0;
   }
-</style>
 
-<style lang="stylus">
+  .text-body1
+    font-family: 'RedHatDisplay-med'
+    font-size: 16px
+    letter-spacing: 2px
+
+  // aplikuje se na aktivní menu
+  .active
+    color $secondary !important
+    background-color white !important
 
 </style>

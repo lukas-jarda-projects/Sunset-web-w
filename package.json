@@ -1,11 +1,10 @@
 {
-  "name": "dorsys-jidelna",
+  "name": "sunset-apartment",
   "version": "0.0.1",
-  "description": "Stravovací systém Altisma - JidelnaSQL",
-  "productName": "Jídelna SQL",
-  "cordovaId": "org.cordova.quasar.app",
-  "capacitorId": "",
-  "author": "Jaroslav Povolný <qwanap@gmail.com>",
+  "description": "Sunset Apartment - pobyt u moře",
+  "productName": "Sunset Apartment",
+  "cordovaId": "",
+  "author": "Lukáš Wana <wana@seznam.cz>",
   "private": true,
   "scripts": {
     "serve": "quasar dev --mode ssr",

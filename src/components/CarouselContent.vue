@@ -35,6 +35,7 @@ export default {
     line-height 1.3em
     margin 0
     padding 0
+    text-shadow 0px 0px 5px #000000
 
   h6
     font-family RedHatDisplay-med
@@ -45,6 +46,7 @@ export default {
     letter-spacing .035rem
     margin 0
     padding 0
+    text-shadow 0px 0px 5px #000000
 
   p
     font-family RedHatDisplay-med
@@ -54,6 +56,7 @@ export default {
     letter-spacing .035rem
     margin 15px
     padding 0
+    text-shadow 0px 0px 5px #000000
 
   .is-small
     h1
