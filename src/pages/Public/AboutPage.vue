@@ -109,100 +109,127 @@ export default {
 <template lang="pug">
 q-page.bg-white
 
-  page-section(:fullWidth="true")
-    q-carousel.top-carousel(
-      autoplay swipeable animated v-model="slide"
-      arrows navigation infinite height="500px"
-      transition-next="jump-left" transition-prev="jump-right").no-alt-scroll
-
-      q-carousel-slide(name="1" img-src="~assets/carusel-sunset-apartment-05.jpg")
-        carousel-content
-          template(#title) Luxusní
-          template(#description) apartmán v&nbsp;první řadě
-
-      q-carousel-slide(name="2" img-src="~assets/carusel-sunset-apartment-06.jpg")
-        carousel-content
-          template(#title) S&nbsp;přímým
-          template(#description) výhledem na moře z 1. patra
-
   page-section
     .row.q-mt-xl
-      .col-xs-12.col-sm-1.col-md-2.col-lg-3
-      .col-xs-12.col-sm-9.col-md-7.col-lg-6
-        //-&nbsp;s&nbsp;
-        h1.text-nadpis.text-secondary.q-my-xs
-          | O apartmánu
+
+  page-section
+    h1.text-center O apartmánu
+    .flex.justify-center(:class="{'q-gutter-lg': !$q.screen.lt.sm}")
+
+      jidelna-section-double-card
+        template(#title) Kuchyň
+        template(#icon)
+          img(src="~assets/reseni-01.jpg" alt="Chip")
+        template(#default)
+          div.text-left.ulli
+            | V kuchyni je veškeré potřebné vybavení: mikrovlnná trouba, myčka, digestoř, el.trouba, indukční varná deska, kávovar na kávové kapsle, topinkovač, toustovač, rychlovarná konvice, lednice s mrazákem a potřebné kuchyňské nádobí.
+
+      jidelna-section-double-card
+        template(#title) Obývací místnost
+        template(#icon)
+          img(src="~assets/reseni-01.jpg" alt="Chip")
+        template(#default)
+          div.text-left.ulli
+            | Obývací pokoj je vybavený pohodlnou pohovkou s možností úpravy na jedno lůžko  a smart TV s předplaceným kanálem Netflix či YouTube.
+
+      jidelna-section-double-card
+        template(#title) Ložnice I
+        template(#icon)
+          img(src="~assets/reseni-01.jpg" alt="Chip")
+        template(#default)
+          div.text-left.ulli
+            | První ložnice je vybavena vestavěnou skříní se zrcadlem, manželskou postelí a nočními stolky.
+
+      jidelna-section-double-card
+        template(#title) Ložnice II
+        template(#icon)
+          img(src="~assets/reseni-01.jpg" alt="Chip")
+        template(#default)
+          div.text-left.ulli
+            | Druhá ložnice je vybavena vestavěnou skříní a patrovou postelí až pro tři osoby/děti. Je vhodná jako dětská ložnice.
+
+      jidelna-section-double-card
+        template(#title) Koupelna I
+        template(#icon)
+          img(src="~assets/reseni-01.jpg" alt="Chip")
+        template(#default)
+          div.text-left.ulli
+            | Koupelna je vybavená umyvadlem s galerkou, skříňkou na hygienické potřeby, WC, sprchovým koutem a pračkou.
+
+      jidelna-section-double-card
+        template(#title) Terasa
+        template(#icon)
+          img(src="~assets/reseni-01.jpg" alt="Chip")
+        template(#default)
+          div.text-left.ulli
+            | Terasa nabízí nádherný výhled na moře a překrásný večerní západ slunce. Posezení na terase je pro 6 osob.
+
+      jidelna-section-double-card
+        template(#title) Podkrovní ložnice
+        template(#icon)
+          img(src="~assets/reseni-01.jpg" alt="Chip")
+        template(#default)
+          div.text-left.ulli
+            | Podkrovní ložnice disponuje manželskou postelí pro dvě osoby, šatní skříní a komodou. Má samostatnou koupelnu.
+
+      jidelna-section-double-card
+        template(#title) Koupelna II
+        template(#icon)
+          img(src="~assets/reseni-01.jpg" alt="Chip")
+        template(#default)
+          div.text-left.ulli
+            | Podkrovní koupelna je vybavena WC, umyvadlem, skříňkou a sprchovým koutem.
+
+      jidelna-section-double-card
+        template(#title) Parkovací stání
+        template(#icon)
+          img(src="~assets/reseni-01.jpg" alt="Chip")
+        template(#default)
+          div.text-left.ulli
+            | Parkování pro jedno osobní auto je vyhrazeno přímo u apartmánu označené P1, v případě potřeby je možné parkovat druhé auto na parkovištích v blízkosti apartmánu.
+
+      jidelna-section-double-card
+        template(#title) Koupání před domem
+        template(#icon)
+          img(src="~assets/reseni-01.jpg" alt="Chip")
+        template(#default)
+          div.text-left.ulli
+            | Přímo před apartmánem je možnost nádherného koupání, na skalním útesu před apartmánem je skákací můstek a žebřík do vody.
+
+      jidelna-section-double-card
+        template(#title) Pláže
+        template(#icon)
+          img(src="~assets/reseni-01.jpg" alt="Chip")
+        template(#default)
+          div.text-left.ulli
+            | V dosahu apartmánu jsou dvě oblázkové pláže cca 2 minuty chůze po promenádě a ve městečku i písečná pláž, která je v Chorvatsku ojedinělá. V dojezdové vzdálenosti jsou i další krásné pláže, například v blízkém městečku PAG nebo vyhlášená pláž Zrče cca 40 minut autem.
+
+      jidelna-section-double-card
+        template(#title) Ostatní vybavení
+        template(#icon)
+          img(src="~assets/reseni-01.jpg" alt="Chip")
+        template(#default)
+          div.text-left.ulli
+            | Klimatizace/topení, WiFi zdarma, pračka, vysavač, vestavěný sušák na prádlo, kávovar Dolce Gusto.
+
+      jidelna-section-double-card
+        template(#title) Obchody a služby v okolí
+        template(#icon)
+          img(src="~assets/reseni-01.jpg" alt="Chip")
+        template(#default)
+          div.text-left.ulli
+            | V okolí apartmánu se nachází několik restaurací a kaváren, přímo u domu je pizzerie s večerní živou hudbou. V docházkové vzdálenosti je obchod se smíšeným zbožím, pekárna a cukrárna. Večer jsou kolem promenády trhy a zábavní park pro děti s trampolínou a hrami.  Najdete zde i agenturu pořádající výlety a dobrodružné cesty.
 
 
-        h3.text-nadpis.alt-barva-textu
-          | Kuchyň
-        p.text-body1.alt-barva-textu
-          | V kuchyni je veškeré potřebné vybavení: mikrovlnná trouba, myčka, digestoř, el.trouba, indukční varná deska, kávovar na kávové kapsle, topinkovač, toustovač, rychlovarná konvice, lednice s mrazákem a potřebné kuchyňské nádobí.
-
-        p.text-nadpis.alt-barva-textu
-          | Obývací místnost
-        p.text-body1.alt-barva-textu
-          | Obývací pokoj je vybavený pohodlnou pohovkou s možností úpravy na jedno lůžko  a smart TV s předplaceným kanálem Netflix či YouTube
-
-        p.text-nadpis.alt-barva-textu
-          | Ložnice I
-        p.text-body1.alt-barva-textu
-          | První ložnice je vybavena vestavěnou skříní se zrcadlem, manželskou postelí a nočními stolky
-
-        p.text-nadpis.alt-barva-textu
-          | Ložnice II
-        p.text-body1.alt-barva-textu
-          | Druhá ložnice je vybavena vestavěnou skříní a patrovou postelí až pro tři osoby/děti. Je vhodná jako dětská ložnice
-
-        p.text-nadpis.alt-barva-textu
-          | Koupelna I
-        p.text-body1.alt-barva-textu
-          | Koupelna je vybavená umyvadlem s galerkou, skříňkou na hygienické potřeby, WC, sprchovým koutem a pračkou.
-
-        p.text-nadpis.alt-barva-textu
-          | Terasa
-        p.text-body1.alt-barva-textu
-          | Terasa nabízí nádherný výhled na moře a překrásný večerní západ slunce. Posezení na terase je pro 6 osob
-
-        p.text-nadpis.alt-barva-textu
-          | Podkrovní ložnice
-        p.text-body1.alt-barva-textu
-          | Podkrovní ložnice disponuje manželskou postelí pro dvě osoby, šatní skříní a komodou. Má samostatnou koupelnu.
-
-        p.text-nadpis.alt-barva-textu
-          | Koupelna II
-        p.text-body1.alt-barva-textu
-          | Podkrovní koupelna je vybavena WC, umyvadlem, skříňkou a sprchovým koutem
-
-        p.text-nadpis.alt-barva-textu
-          | Parkovací stání
-        p.text-body1.alt-barva-textu
-          | Parkování pro jedno osobní auto je vyhrazeno přímo u apartmánu označené P1, v případě potřeby je možné parkovat druhé auto na parkovištích v blízkosti apartmánu
-
-        p.text-nadpis.alt-barva-textu
-          | Koupání před domem
-        p.text-body1.alt-barva-textu
-          | Přímo před apartmánem je možnost nádherného koupání, na skalním útesu před apartmánem je skákací můstek a žebřík do vody.
-
-        p.text-nadpis.alt-barva-textu
-          | Pláže
-        p.text-body1.alt-barva-textu
-          | V dosahu apartmánu jsou dvě oblázkové pláže cca 2 minuty chůze po promenádě a ve městečku i písečná pláž, která je v Chorvatsku ojedinělá. V dojezdové vzdálenosti jsou i další krásné pláže, například v blízkém městečku PAG nebo vyhlášená pláž Zrče cca 40 minut autem
-
-        p.text-nadpis.alt-barva-textu
-          | Ostatní vybavení
-        p.text-body1.alt-barva-textu
-          | Klimatizace/topení, WiFi zdarma, pračka, vysavač, vestavěný sušák na prádlo, kávovar Dolce Gusto
-
-        p.text-nadpis.alt-barva-textu
-          | Obchody a služby v okolí
-        p.text-body1.alt-barva-textu
-          | V okolí apartmánu se nachází několik restaurací a kaváren, přímo u domu je pizzerie s večerní živou hudbou. V docházkové vzdálenosti je obchod se smíšeným zbožím, pekárna a cukrárna. Večer jsou kolem promenády trhy a zábavní park pro děti s trampolínou a hrami.  Najdete zde i agenturu pořádající výlety a dobrodružné cesty.
 
 
-        //page-section
-          .row.justify-center.q-mt-md
-            .col-12.text-center
-              jidelna-gallery(:images="imagesJidelna")
 
 </template>
+<style scoped lang="stylus">
+h2
+  margin 40px 0 0 0
+
+.photo-text-section
+  display block
+
+</style>

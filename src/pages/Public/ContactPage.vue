@@ -109,13 +109,6 @@ export default {
 <template lang="pug">
 q-page.bg-white
 
-  page-section(:fullWidth="true")
-    a(href="https://mapy.cz/s/rasofaloze")
-      q-carousel.top-carousel(v-model="slide" height="500px")
-        q-carousel-slide(name="1" img-src="~assets/carusel-sunset-apartment-10.jpg")
-          carousel-content
-            template(#title) Kontakt
-            template(#description) ul. Kralja Tomislava 45 <br> Povljana - ostrov Pag
 
   page-section
     .row.q-mt-xl
@@ -128,7 +121,16 @@ q-page.bg-white
         p ostrov <b> Pag </b>
         p stát <b> Chorvatsko </b>
         p GPS <b> 44.3491100N &nbsp; 15.0980000E </b>
+        br
+        br
 
+  page-section(:fullWidth="true")
+    a(href="https://mapy.cz/s/rasofaloze" target="_blank")
+      q-carousel.top-carousel(v-model="slide" height="500px")
+        q-carousel-slide(name="1" img-src="~assets/carusel-sunset-apartment-10.jpg")
+          carousel-content
+            // template(#title) Kontakt
+            // template(#description) ul. Kralja Tomislava 45 <br> Povljana - ostrov Pag
 
 </template>
 

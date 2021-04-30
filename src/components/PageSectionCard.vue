@@ -21,9 +21,9 @@ export default {
 
 <style scoped lang="stylus">
 
-$gutterSize = 8px
+$gutterSize = 16px
 $cardWidth = (($pageFixWidth - 2 * $gutterSize) / 3)
-$cardHeight = 150px
+$cardHeight = 250px
 $titleHeight = 40px
 $contentHeight = $cardHeight - $titleHeight
 

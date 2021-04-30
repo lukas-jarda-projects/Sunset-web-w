@@ -28,7 +28,7 @@ export default {
   name: 'PageIndex',
 
   meta: {
-    title: 'JidelnaSQL'
+    title: 'Sunset-apartment'
   },
 
   components: {
@@ -86,7 +86,7 @@ export default {
 
   methods: {
     login () {
-      window.location.href = 'https://jidelna-sql.altisima.cz'
+      window.location.href = 'https://sunset-apartment.com'
     },
 
     scrollToObjednat () {
@@ -119,320 +119,127 @@ export default {
 
       q-carousel-slide(name="1" img-src="~assets/carusel-sunset-apartment-01.jpg")
         carousel-content
-          template(#title) Luxusní
-          template(#description) apartmán v&nbsp;první řadě
+          template(#title) Luxusní apartmán
+          // template(#description) apartmán v&nbsp;první řadě
 
       q-carousel-slide(name="2" img-src="~assets/carusel-sunset-apartment-02.jpg")
         carousel-content
-          template(#title) S&nbsp;přímým
-          template(#description) výhledem na moře z 1. patra
+          template(#title) S&nbsp;přímým výhledem na moře
+          // template(#description) výhledem na moře z 1. patra
 
       q-carousel-slide(name="3" img-src="~assets/carusel-sunset-apartment-03.jpg")
         carousel-content
-          template(#title) Krásné
-          template(#description) a křišťálově čisté moře <br> s nádhernými plážemi
+          template(#title) Křišťálově<br>čisté moře
+          // template(#description) a křišťálově čisté moře <br> s nádhernými plážemi
 
       q-carousel-slide(name="4" img-src="~assets/carusel-sunset-apartment-04.jpg")
         carousel-content
-          template(#title) Ostrov Pag
-          template(#description) nejjižnější ostrov z vnitřního pásu <br> Kvarnerského souostroví
+          template(#title) Objevte krásy ostrova Pag
+          // template(#description) nejjižnější ostrov z vnitřního pásu <br> Kvarnerského souostroví
 
 
 
     page-section.section-nadpis.text-center
       .row.justify-center.page-section-ourstory
-        .col-xs-12.col-sm-8.col-md-7.q-px-md.q-mb-xl
-          h2 Náš příběh
-          | JídelnaSQL navazuje na předchozí produkty Jídelna a Kasiopeja, jde o komplexní software na vedení strávníků, evidenci objednávek, plateb a řešení pokladního prodeje. Pro větší gastronomické provozy nabízíme kompletní řešení objednávek výdeje nebo prodeje, s tím, že moduly stravovacího systému lze volně kombinovat.
+        .col-xs-12.col-sm-12.col-md-12(style="margin-bottom: -20px")
+          h2 Luxusní poschoďový apartmán <br>v první řadě s přímým výhledem na moře
+        .col-xs-12.col-sm-8.col-md-6.q-mt-lg
+          p Nově postavený, pohodlně vybavený apartmán o velikosti 4kk pro 4–8 osob s plně vybavenou kuchyní, 3 ložnice, 2 koupelny a balkon s výhledem na otevřené moře. Apartmán je umístěný na skalnatém výběžku ostrova PAG v městečku Povljana, pár minut v docházkové vzdálenosti od pláže.
+          p Krásné a křišťálově čisté moře s nádhernými plážemi, malebné vesničky, kde se zastavil čas, čistá a nedotčená příroda, jedinečné klima a teplé prosluněné počasí s minimem srážek. To je ostrov Pag a jeho letovisko Povljana.
+
 
     page-section
-      h2.text-center Nabízená řešení
-      .flex.justify-center(:class="{'q-gutter-lg': !$q.screen.lt.sm}")
-
-        jidelna-section-double-card
-          template(#title) Evidence strávníků
-          template(#icon)
-            img(src="~assets/reseni-01.jpg" alt="Chip")
-          template(#default)
-            div.text-left.ulli
-              | Základní funkcí je evidence strávníků, přihlášek stravy a plateb.
-              p
-              | Jídelna SQL umožňuje nastavení cen pro kategorie, stravy nebo jednotlivá menu.
-              p
-              | Systém je velmi variabilní a je vhodný pro gastronomické provozy všech velikostí.
-          template(#second)
-            br
-            div Přístup do webového rozhraní aplikace Gekon včetně aktualizací a správy dat
-            div.q-mb-md.alt-cena 4.600 Kč #[small bez DPH ročně]
-            h3 Vyžádejte si kalkulaci řešení přímo pro Vás.
-
-        jidelna-section-double-card
-          template(#title) Identifikační média
-          template(#icon)
-            img(src="~assets/reseni-02.jpg" alt="Chip")
-          template(#default)
-            div.text-left.ulli
-              | V rámci stravovacího provozu jsou k identifikaci strávníků využívány bezkontaktní čipy.
-              p
-              | Ty mohou být v kartě nebo čipovém přívěsku.
-              p
-              | Naše řešení je univerzální, umožňujeme využití i vlastních karet jako jsou karty ISIC nebo městské karty.
-
-          template(#second)
-            br
-            div Program Gekon pro Školní jídelny včetně instalace, nastavení, školení a platby za Licenční podporu
-            div.q-mb-md.alt-cena 800 Kč #[small bez DPH měsíčně]
-            h3 Vyžádejte si kalkulaci řešení přímo pro Vás.
-
-        jidelna-section-double-card
-          template(#title) Internetové objednávky
-          template(#icon)
-            img(src="~assets/reseni-03.jpg" alt="Chip")
-          template(#default)
-            div.text-left.ulli
-              | Nejednodušší a cenově nejpřístupnější způsob zadání objednávek a odhlášek stravy je internetové rozhraní.
-              p
-              | Modul e-jídelníček, který zajišťuje internetové objednávky je optimalizovaný pro pohodlné ovládání na PC, tabletu nebo mobilním telefonu.
-
-          template(#second)
-            br
-            div Gekon pro Závodní jídelnu s jednou provozovnou včetně instalace, nastavení, školení a platby za Licenční podporu
-            div.q-mb-md.alt-cena 1.300 Kč #[small bez DPH měsíčně]
-            h3 Vyžádejte si kalkulaci řešení přímo pro Vás.
-
-        jidelna-section-double-card
-          template(#title) Objednávkové kiosky
-          template(#icon)
-            img(src="~assets/reseni-04.jpg" alt="Chip")
-          template(#default)
-            div.text-left.ulli
-              | Pro objednávky stravy v jídelně využijete objednávkový kiosek TT1703, ten je v provedení antivandal s kvalitním dotykovým displejem krytým sklem.
-              p
-              | Software pro objednávání jídel můžete provozovat i na vlastním hardware.
-          template(#second)
-            br
-            div Gekon pro provoz s dietním stravováním včetně instalace, nastavení, školení a platby za Licenční podporu
-            div.q-mb-md.alt-cena 2.800 Kč #[small bez DPH měsíčně]
-            h3 Vyžádejte si kalkulaci řešení přímo pro Vás.
-
-        jidelna-section-double-card
-          template(#title) Výdej jídel
-          template(#icon)
-            img(src="~assets/reseni-05.jpg" alt="Chip")
-          template(#default)
-            div.text-left.ulli
-              | Pro výdej, signalizaci stavu objednaného jídla, můžete vybírat z několika variant výdejních terminálů.
-              p
-              | Ty jsou vždy vybaveny ovládacím programem Terkom, který zajišťuje rychlou a spolehlivou komunikaci s databází a je téměř bezobslužný.
-
-          template(#second)
-            br
-            div Gekon pro stravovací společnost včetně instalace, nastavení, školení a platby za Licenční podporu
-            div.q-mb-md.alt-cena 1.300 Kč #[small bez DPH měsíčně za provozovnu]
-            h3 Vyžádejte si kalkulaci řešení přímo pro Vás.
-
-        jidelna-section-double-card
-          template(#title) Pokladní prodej
-          template(#icon)
-            img(src="~assets/reseni-06.jpg" alt="Chip")
-          template(#default)
-            div.text-left.ulli
-              | Pokladní prodej doplňkového sortimentu nebo bezobjednávkový provoz stravovacího úseku zajistí modul Pokladna.
-              p
-              | Samozřejmostí je napojení na EET a přehledné kontrolní sestavy.
-          template(#second)
-            br
-            div Gekon pro bufet včetně instalace, nastavení, školení a platby za Licenční podporu
-            div.q-mb-md.alt-cena 1.300 Kč #[small bez DPH měsíčně]
-            h3 Vyžádejte si kalkulaci řešení přímo pro Vás.
-
-    page-section
-      h2 Vlastnosti systému
+      h2 Jak se dostat do Povljany
       .flex.q-gutter-sm(:class="{'justify-center': $q.screen.gt.xs}")
-        page-section-card
-          template(#icon)
-            img(src="~assets/Jidelna-icon.svg" alt="Icona" height="36px")
-          template(#title) Bezpečná databáze
-          template
-            | Využíváme databázi Postresql, ta zajišťuje síťový provoz, připojení terminálů pro výdej nebo objednávku a synchronizaci s e-jídelníčkem.
+        a.invisible-link(href="https://www.google.cz/maps/dir/Praha/Povljana,+Chorvatsko/@46.5479148,6.4374715,6z/data=!4m13!4m12!1m5!1m1!1s0x470b939c0970798b:0x400af0f66164090!2m2!1d14.4378005!2d50.0755381!1m5!1m1!1s0x4762210f43b9d72b:0x400ad50862bc880!2m2!1d15.1128014!2d44.3461794" target="_blank")
+          page-section-card
+            template(#icon)
+              q-icon(name="directions_car" style="font-size: 36px;").text-accent
+              //img(src="~assets/logo-sa-icon.svg" alt="Icona" height="36px")
+            template(#title) Autem
+            template
+              | Cesta autem vám čistého času zabere cca 9 hodin, celá cesta je kromě části v ČR a posledních 50 Km před Pagem po dálnici. Užitečné tipy a rady na cestu si můžete přečíst v našem průvodci, který jsme sepsali na základě vlastních zkušeností.
 
-        page-section-card
-          template(#icon)
-            img(src="~assets/Jidelna-icon.svg" alt="Icona" height="36px")
-          template(#title) Nastavení evidence
-          template
-            | Strávníky můžete třídit podle kategorií, stravovacích zvyklostí, tříd, rozvozových míst nebo podnikových středisek.
+        a.invisible-link(href="https://www.regiojet.cz/chorvatsko/index.html?ref=/vlakem-do-chorvatska" target="_blank")
+          page-section-card
+            template(#icon)
+              q-icon(name="train" style="font-size: 36px;").text-accent
+              //img(src="~assets/logo-sa-icon.svg" alt="Icona" height="36px")
+            template(#title) Vlakem
+            template
+              | Společnost Regiojet spustila prodej vlakových jízdenek na léto 2021. Pohodlně se dostanete přímým spojem z Prahy do města Gracač a odtud pak navazujícím autobusem do Povljany. Jízdenky se dají zakoupit od 1 190 Kč.
 
-        page-section-card
-          template(#icon)
-            img(src="~assets/Jidelna-icon.svg" alt="Icona" height="36px")
-          template(#title) Nastavení cen
-          template
-            | Cena jídla, služeb nebo doplňkového sortimentu je evidovaná v ceníku. Ten umožňuje další nastavení podle potřeb provozu.
-
-        page-section-card
-          template(#icon)
-            img(src="~assets/Jidelna-icon.svg" alt="Icona" height="36px")
-          template(#title) Zadávání jídelníčku
-          template
-            | Jídelníček umožňuje vyhledávání v recepturách, je možné ho ukládat nebo kopírovat. Zobrazuje se včetně alergenů.
-
-        page-section-card
-          template(#icon)
-            img(src="~assets/Jidelna-icon.svg" alt="Icona" height="36px")
-          template(#title) Displej pokladny
-          template
-            | Pokladnu si nastavíte podle vlastních potřeb a zvyklostí. Centrálně můžete spravovat několik pokladen, tlačítka jsou uživatelsky konfigurovatelná.
-
-        page-section-card
-          template(#icon)
-            img(src="~assets/Jidelna-icon.svg" alt="Icona" height="36px")
-          template(#title) Dostupnost objednávek
-          template
-            | Server pro internetové objednávky je dozorován 7 dní v týdnu 24 hodin denně, zákazníkům garantujeme bezvýpadkový provoz.
-
-        page-section-card
-          template(#icon)
-            img(src="~assets/Jidelna-icon.svg" alt="Icona" height="36px")
-          template(#title) Možnosti komunikace
-          template
-            | V e-jídelníčku můžete využívat automatické reporty, kdy je strávník informován o objednávkách a stavu konta nebo poslat zprávu.
-
-        page-section-card
-          template(#icon)
-            img(src="~assets/Jidelna-icon.svg" alt="Icona" height="36px")
-          template(#title) Dostupný servis
-          template
-            | Terminály stravovacího systému jsou napojeny na dohledový server, díky tomu mohou naši servisní pracovníci rychle reagovat na případný výpadek.
-
-        page-section-card
-          template(#icon)
-            img(src="~assets/Jidelna-icon.svg" alt="Icona" height="36px")
-          template(#title) Zálohování dat
-          template
-            | Data jsou každý den automaticky zálohována, umístění zálohy může být na vašem zařízení v rámci sítě nebo na internetovém úložišti.
-
-    //page-section.text-center.q-mt-xl
-      div.alt-bg.q-py-xl
-        h2.alt-reset-m-p Ke stažení
-        p Jídelnu SQL můžete ve variantě LITE používat zdarma. Využijte náš instalátor pro malé provozy.
-        q-btn(rounded no-caps label="Stáhnout zdarma" size="lg" @click="login").q-px-xl.q-mb-lg.gekon-btn
-
+        a.invisible-link(href="https://www.zadar-airport.hr/en/destinations#prg" target="_blank")
+          page-section-card
+            template(#icon)
+              q-icon(name="flight" style="font-size: 36px;").text-accent
+              //img(src="~assets/logo-sa-icon.svg" alt="Icona" height="36px")
+            template(#title) Letecky
+            template
+              | Do Povljany, respektive do Zadaru, se dostanete letecky, letenky se dají koupit od 1000 Kč za osobu jednosměrný let. V Zadaru si můžete na týden půjčit auto v průměru za 3500 Kč/týden, případně si vzít UBER za velmi přijatelnou cenu.
 
     page-section
-      .cenareseni
-        h2.text-center Cena řešení
-        .text-h6.text-center Potřebujete evidovat strávníky, přihlášky a platby za stravu?
-      .flex.justify-center(:class="{'q-gutter-lg': !$q.screen.lt.sm}")
-
-        jidelna-section-price-card
-            h3 verze LITE
-            div.alt-cena 300 Kč
-              p #[small bez DPH/měsíc]
-            div.text-center.ulli
-              br
-              | Evidence 50ti strávníků.
-              p
-              | Plná verze software.
-              p
-              | Podpora našich techniků zdarma.
-              p
-              | Upgrade programu zdarma.
-              p
-              |
-              br
-              q-btn(outline color='primary', icon='check', label='Objednat', @click='scrollToObjednat')
-
-        jidelna-section-price-card
-            h3 verze pro Školy
-            div.alt-cena 1 100 Kč
-              p #[small bez DPH/měsíc]
-            div.text-center.ulli
-              br
-              | Evidence bez omezení.
-              p
-              | Plná verze software.
-              p
-              | Podpora našich techniků zdarma.
-              p
-              | Upgrade programu zdarma.
-              p
-              |
-              br
-              q-btn(outline color='primary', icon='check', label='Objednat', @click='scrollToObjednat')
-
-        jidelna-section-price-card
-            h3 verze pro Komerci
-            div.alt-cena 2 000 Kč
-              p #[small bez DPH/měsíc]
-            div.text-center.ulli
-              br
-              | Napojení na EET.
-              p
-              | Plná verze software.
-              p
-              | Podpora našich techniků zdarma.
-              p
-              | Upgrade programu zdarma.
-              p
-              |
-              br
-              q-btn(outline color='primary', icon='check', label='Objednat' @click="scrollToObjednat")
-
-    page-section
-      h2 Realizovaná řešení
       .row.gekon-btn
         .col.gekon-card-solution
-          h2.gekon-counter-b
-            animated-number(:number="250" :time="1200" :restart="true")
-          p.text-center.gekon-counter-s Instalací
+          h2.gekon-counter-b.text-white
+            animated-number(:number="950" :time="1200" :restart="true") km
+          p.text-center.gekon-counter-s km od Prahy
         .col.gekon-card-solution
-          h2.gekon-counter-b
-            animated-number(:number="108" :time="1200" :restart="true")
-          p.text-center.gekon-counter-s e-Jídelníčků
+          h2.gekon-counter-b.text-white
+            animated-number(:number="582" :time="1200" :restart="true")
+          p.text-center.gekon-counter-s km od Bratislavy
         .col.gekon-card-solution
-          h2.gekon-counter-b
-            animated-number(:number="74" :time="1200" :restart="true")
-          p.text-center.gekon-counter-s Objednávkových kiosků
+          h2.gekon-counter-b.text-white
+            animated-number(:number="48" :time="1200" :restart="true")
+          p.text-center.gekon-counter-s km Zadar letiště
         .col.gekon-card-solution
-          h2.gekon-counter-b
-            animated-number(:number="182" :time="1200" :restart="true")
-          p.text-center.gekon-counter-s Výdejních terminálů
+          h2.gekon-counter-b.text-white
+            animated-number(:number="14" :time="1200" :restart="true")
+          p.text-center.gekon-counter-s km město Pag
+        .col.gekon-card-solution
+          h2.gekon-counter-b.text-white
+            animated-number(:number="0" :time="1200" :restart="true")
+          p.text-center.gekon-counter-s km od moře
 
     page-section
-      h2 Fotky stravovacího systému
-      .q-pa-md
-        .q-gutter-y-md()
-          q-card
-            q-tabs.text-primary(v-model='tab' no-caps class='md-md' active-color='accent' indicator-color='accent')
-              q-tab(name='internetoveobj' label='Internetové objednávky')
-              q-tab(name='jidelnasql' label='JídelnaSQL')
-              q-tab(name='objednavkovyterminal' label='Objednávkový terminál')
-              q-tab(name='vydejniterminal' label='Výdejní terminál')
-              q-tab(name='zolik' label='Tisk stravenek')
-            q-separator
-            q-tab-panels(v-model='tab' animated='')
-              q-tab-panel(name='internetoveobj')
-                jidelna-gallery(:images="imagesInternet")
-              q-tab-panel(name='jidelnasql')
-                jidelna-gallery(:images="imagesJidelna")
-              q-tab-panel(name='objednavkovyterminal')
-                jidelna-gallery(:images="imagesObjednavkovy")
-              q-tab-panel(name='vydejniterminal')
-                jidelna-gallery(:images="imagesVydej")
-              q-tab-panel(name='zolik')
-                jidelna-gallery(:images="imagesZolik")
+      .row
+        .col-xs-12.col-sm-1.col-md-2.col-lg-3
+        .col-xs-12.col-sm-9.col-md-7.col-lg-6
+          //-&nbsp;s&nbsp;
+          h2 Lokalita
+          p
+            | Letovisko Povljana leží doslova v kouzelné přírodní zátoce na jihovýchodním pobřeží ostrova Pag.
+            | Samotný ostov Pag je nejjižnější ostrov z vnitřního pásu Kvarnerského souostroví, který leží na rozhraní mezi oblastí Kvarneru a Severodalmátskými ostrovy.
+          p
+            | Původně zemědělská obec Povljana zažila v poslední době mohutný rozvoj a díky své poloze a výjimečnému množství zeleně v okolí je dnes významným turistickým střediskem.
+            | Vyznavači letní pohody a klidu také jistě ocení, že je městečko Povljana směrem od západu chráněno před silnými větry Bora a Sirocco.
+          p
+            | Z pobřeží letoviska je překrásný výhled na otevřené moře a dlouhé písečné a kamenité pláže s pozvolným vstupem do moře jsou ideální pro klidnou rodinnou dovolenou.
+            | V těsné blízkosti našeho apartmánu je nejen nejznámější místní pláž Dubrovník, ale i zbylé čtyři pláže Mali Dubrovnik, Perilo, Livade a Stará Povljana.
+          p
+            | Zkrátka oblast Povljany je skutečným dovolenkovým rájem s nekonečnou možností koupání v křišťálově čistém moři a celou řadu jiných volnočasových aktivit.
+            | Navíc zde můžete prožít několik dní u blízkého přírodního jezera Segal s léčivým bahnitým sedimentem, což ocení nejen starší ročníky
 
-    page-section.section-nadpis.text-center
-      .row.justify-center.page-section-ourstory
-        .col-xs-12.col-sm-8.col-md-7.q-px-md.q-mb-xl
-          h4.q-mb-md Sledujte nás
-          q-btn(round outline color='primary', icon='eva-facebook', type="a" href="https://www.facebook.com/altisimacz" target="_blank" size="15px")
-          q-btn.q-mx-lg(round outline color='primary' icon='eva-twitter' type="a" href="https://twitter.com/AltisimaSe?ref_src=twsrc%5Etfw" target="_blank" size="15px")
+    page-section
+      .row
+        .col-xs-12.col-sm-1.col-md-2.col-lg-3
+        .col-xs-12.col-sm-9.col-md-7.col-lg-6
+          //-&nbsp;s&nbsp;
+          h2 Užitečné informace
+          p
+            | Patříte mezi ty lidi, kteří všechno ví, všechno znají, všude byli a nic je nepřekvapí? Tak zrovna pro vás tento text určen není. Ale pro vás zbývající jsme připravili a shromáždili na jedno místo všechny důležité informace, které by mohli přispět k prožití vaší klidné dovolené na kouzelném místě, které jsme objevili během našich toulek světem. Přejeme vám pohodové čtení…
+          a(href="").pdf-download Odkaz na PDF soubor – Užitečné rady a tipy
+
 
 </template>
 
 <style scoped lang="stylus">
+.pdf-download
+  font-family RedHatDisplay-med
+  font-size 20px
+  line-height 30px
+  letter-spacing .035rem
+  text-decoration none
 
 .invisible-link
   text-decoration none

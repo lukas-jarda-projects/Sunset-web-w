@@ -1,8 +1,9 @@
 <template lang="pug">
 div
-  .column.justify-center.items-center
+  br
+  .column.justify-center.items-center.q-my-xl
     img(src="~/assets/sun-apartmant-logo2021-01.svg" alt="logo" immediate="true" width="320")
-    .alt-text-caption.text-center.q-mb-xl
+    .alt-text-caption.text-center
       span &copy; 2021 &nbsp; Sunset Apartment
 
 </template>

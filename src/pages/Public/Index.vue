@@ -28,7 +28,7 @@ export default {
   name: 'PageIndex',
 
   meta: {
-    title: 'JidelnaSQL'
+    title: 'Sunset-apartment'
   },
 
   components: {

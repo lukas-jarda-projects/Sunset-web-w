@@ -11,7 +11,7 @@ export default {
 
 <template lang="pug">
 
-  q-card(bordered).page-section-card
+  q-card.page-section-card.no-shadow
     q-card-section
       .page-section-card-icon
         q-avatar(size="135px")
@@ -32,7 +32,7 @@ export default {
 
   $cardWidth = ($pageFixWidth - ($gekonNumberOfCardsPerLine - 1) * $gutterSize) / $gekonNumberOfCardsPerLine
   $jidelnaCardHeight ?= $cardWidth
-  $contentHeight = $jidelnaCardHeight - $iconContainerSize - $gekonTitleContainerSize - $gekonTabsContainerSize
+  $contentHeight = $jidelnaCardHeight - $iconContainerSize - $gekonTitleContainerSize - $gekonTabsContainerSize -100
 
   $avatarWidth = $gekonIconSize + $gekonAvatarMargin
   $avatarHeight = $avatarWidth
