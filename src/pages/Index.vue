@@ -228,7 +228,12 @@ export default {
           h2 Užitečné informace
           p
             | Patříte mezi ty lidi, kteří všechno ví, všechno znají, všude byli a nic je nepřekvapí? Tak zrovna pro vás tento text určen není. Ale pro vás zbývající jsme připravili a shromáždili na jedno místo všechny důležité informace, které by mohli přispět k prožití vaší klidné dovolené na kouzelném místě, které jsme objevili během našich toulek světem. Přejeme vám pohodové čtení…
-          a(href="").pdf-download Odkaz na PDF soubor – Užitečné rady a tipy
+          a(href="https://sunset-apartment.com/download/Uzitecne-rady-a-tipy.pdf")
+            .row.items-center
+              .col-1
+                img(src="~assets/pdf-icon-color.svg" height="36px")
+              .col
+                .pdf-download Stahujte PDF soubor: Užitečné rady a tipy
 
 
 </template>
@@ -239,7 +244,7 @@ export default {
   font-size 20px
   line-height 30px
   letter-spacing .035rem
-  text-decoration none
+  text-decoration none !important
 
 .invisible-link
   text-decoration none

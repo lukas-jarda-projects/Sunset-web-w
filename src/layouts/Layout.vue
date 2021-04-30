@@ -1,44 +1,104 @@
 <template lang="pug">
-  q-layout(view="lHh Lpr lFf")
-    q-header(elevated v-model="headerOpen" class="bg-white")
+q-layout(view="hHh lpR fFf")
+  q-header.bg-white.text-primary(elevated, height-hint="98")
+    q-toolbar
+      q-toolbar-title
+        a(href="welcome" @click="$router.push({name: 'welcome'})")
+          img.logo(src="~assets/logo-sunset-apartment.svg"
+            height="40px").q-mt-md.q-my-sm.q-ml-xl
+
+
+      q-tabs(align="right" active-color='secondary' indicator-color='secondary').q-mr-xl.gt-sm
+        q-route-tab(no-caps to="welcome" label="Úvod" @click="$router.push({name: 'welcome'})").menu-button
+        q-route-tab(no-caps to="about" label="O apartmánu" @click="$router.push({name: 'about'})").menu-button
+        q-route-tab(no-caps to="photo" label="Foto galerie" @click="$router.push({name: 'photo'})").menu-button
+        q-route-tab(no-caps to="contact" label="Kontakt" @click="$router.push({name: 'contact'})").menu-button
+
+      div.q-mr-lg.lt-md
+        q-btn(dense flat round icon="menu" @click="right = !right")
+
+      q-drawer(v-model="right" side="right" bordered)
+
+        q-tabs(vertical align="right")
+          q-list
+            essentiallink(v-for="link in essentialLinks", :key="link.title", v-bind="link")
+          q-route-tab(dense no-caps to="welcome", label="Úvod" @click="$router.push({name: 'welcome'})")
+          q-route-tab(no-caps to="about", label="O apartmánu" @click="$router.push({name: 'about'})")
+          q-route-tab(no-caps to="photo", label="Foto galerie" @click="$router.push({name: 'photo'})")
+          q-route-tab(no-caps to="contact", label="Kontakt" @click="$router.push({name: 'contact'})")
+          q-btn(dense no-caps flat icon="close" @click="right = !right").menufullwidth zavřít
+
+
+
+  q-page-container
+    transition(name='slide-fade' appear)
+      div
+        router-view
+        layout-footer.q-mt-lg
+
+
+
+
+    //-  q-layout(view="lHh Lpr lFf")
+        q-header(elevated v-model="headerOpen" class="bg-white")
+          q-toolbar
+            q-toolbar-title
+              img.logo(src="~assets/logo-sunset-apartment.svg"
+                height="40px").q-my-md.q-mr-xl
+            div.gt-sm
+              q-btn.menu-button(flat no-caps rounded label="Úvod")
+              q-btn.menu-button(flat no-caps rounded color="primary" label="O apartmánu")
+              q-btn.menu-button(flat no-caps rounded color="primary" label="Foto galerie")
+              q-btn.menu-button(flat no-caps rounded color="primary" label="Kontakt")
+
+            div.lt-md
+              q-btn.menu-button(flat no-caps round icon="menu"
+                @click="rightDrawerOpen = !rightDrawerOpen"
+                )
+
+        q-drawer(v-model="rightDrawerOpen"
+          bordered content-class="bg-grey-2")
+          q-list
+            | sd
+            q-item
+              q-item-section(avatar)
+                q-avatar(color='primary', text-color='white', icon='bluetooth')
+              q-item-section Icons only
+
+
       //- Hlavicka: logo
-      .header.shadow-5
-        img.logo(src="~assets/logo-sunset-apartment.svg" height="40px").q-my-md.q-mr-xl
-        input#menu-btn.menu-btn(type='checkbox')
-        label.menu-icon(for='menu-btn')
-          span.navicon
+        .header.shadow-5
+          input#menu-btn.menu-btn(type='checkbox')
+          label.menu-icon(for='menu-btn')
+            span.navicon
 
-        ul.menu#nav
-          li
-            a(href="#welcome" @click="$router.push({name: 'welcome'})") Úvod
-          li
-            a(href="#about" @click="$router.push({name: 'about'})") O apartmánu
-          li
-            a(href="#photo" @click="$router.push({name: 'photo'})") Foto galerie
-          li
-            a(href="#contact" @click="$router.push({name: 'contact'})") Kontakt
+          ul.menu#nav
+            li
+              a(href="#welcome" @click="$router.push({name: 'welcome'})") Úvod
+            li
+              a(href="#about" @click="$router.push({name: 'about'})") O apartmánu
+            li
+              a(href="#photo" @click="$router.push({name: 'photo'})") Foto galerie
+            li
+              a(href="#contact" @click="$router.push({name: 'contact'})") Kontakt
 
-          //*
-            q-btn.text-body1.rounded-button(
-              unelevated no-caps rounded
-              @click="$router.push({name: 'welcome'})") Úvod
+            //*
+              q-btn.text-body1.rounded-button(
+                unelevated no-caps rounded
+                @click="$router.push({name: 'welcome'})") Úvod
 
-            q-btn.text-body1.rounded-button(
-              unelevated no-caps rounded
-              @click="$router.push({name: 'about'})") O apartmánu
-
-
-              // :class="{active: isLinkCurrent({name: 'contact'})}"
-            q-btn.text-body1.rounded-button(
-              unelevated no-caps rounded
-              @click="$router.push({name: 'contact'})") Kontakt
+              q-btn.text-body1.rounded-button(
+                unelevated no-caps rounded
+                @click="$router.push({name: 'about'})") O apartmánu
 
 
-    q-page-container
-      transition(name='slide-fade' appear)
-        div
-          router-view
-          layout-footer.q-mt-lg
+                // :class="{active: isLinkCurrent({name: 'contact'})}"
+              q-btn.text-body1.rounded-button(
+                unelevated no-caps rounded
+                @click="$router.push({name: 'contact'})") Kontakt
+
+
+
 
 </template>
 
@@ -69,7 +129,8 @@ export default {
 
   data () {
     return {
-      headerOpen: true
+      headerOpen: true,
+      right: false
     }
   }
 
@@ -98,118 +159,23 @@ export default {
   }
 
   .text-body1
-    font-family: 'RedHatDisplay-med'
-    font-size: 16px
-    letter-spacing: 2px
+    font-family 'RedHatDisplay-med'
+    font-size 16px
+    letter-spacing 2px
 
   // aplikuje se na aktivní menu
   .active
     color $secondary !important
     background-color white !important
 
-body
-    margin 0
-    font-family Helvetica, sans-serif
-    background-color #f4f4f4
+  .menu-button
+    font-family 'RedHatDisplay-med'
+    color $primary
+    height 80px
 
-a
-    color #000
-
-.header
-  background-color #fff
-  position fixed
-  width 100%
-  z-index 3
-  ul
-    margin 0
-    padding 0
-    list-style none
-    overflow hidden
-    background-color #fff
-  li
-    a
-      display block
-      padding 20px 20px
-      text-decoration none
-      font-family: 'RedHatDisplay-med'
-      font-size: 16px
-      color $primary
-
-  .logo
-    // display block
-    float left
-    margin 10px 0 0 30px
-    //padding 10px 20px
-    text-decoration none
-  .menu
-    clear both
-    max-height 0
-    transition max-height .2s ease-out
-  .menu-icon
-    cursor pointer
-    display inline-block
-    float right
-    padding 28px 20px
-    position relative
-    user-select none
-    .navicon
-      background $primary
-      display block
-      height 3px
-      position relative
-      transition background .2s ease-out
-      width 18px
-      &:before
-        top 5px
-      &:after
-        top -5px
-
-  .menu-btn
-    display none
-    &:checked
-      & ~ .menu
-        max-height 360px
-      & ~ .menu-icon
-        .navicon
-          background transparent
-          &:before
-            transform rotate(-45deg)
-          &:after
-            transform rotate(45deg)
-
-.header li a:hover,
-.header .menu-btn:hover
-  background-color $accent + 40%
-
-.header .menu-icon .navicon:before,
-.header .menu-icon .navicon:after
-  background #333
-  content ''
-  display block
-  height 100%
-  position absolute
-  transition all .2s ease-out
-  width 100%
-
-.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
-.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after
-  top 0
-
-@media (min-width: 770px)
-  .header
-    li
-      float left
-      a
-          padding 20px 30px
-    .menu
-      clear none
-      float right
-      max-height none
-    .menu-icon
-      display none
-
-#nav a:focus, #nav a.active
-  color black
-  background-color $accent + 40%
+  .menufullwidth
+    width 100%
+    padding 10px
+    color $dark +100
 
 </style>

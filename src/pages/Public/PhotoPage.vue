@@ -118,7 +118,7 @@ q-page.bg-white
     .q-pa-md
       .q-gutter-y-md()
         q-card.no-shadow
-          q-tabs.text-primary(v-model='tab' no-caps class='md-md' active-color='accent' indicator-color='accent')
+          q-tabs.text-primary(v-model='tab' no-caps active-color='secondary' indicator-color='secondary')
             q-tab(name='internetoveobj' label='Internetové objednávky')
             q-tab(name='jidelnasql' label='JídelnaSQL')
             q-tab(name='objednavkovyterminal' label='Objednávkový terminál')

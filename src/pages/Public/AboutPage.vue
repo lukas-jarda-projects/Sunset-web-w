@@ -122,7 +122,7 @@ q-page.bg-white
           img(src="~assets/reseni-01.jpg" alt="Chip")
         template(#default)
           div.text-left.ulli
-            | V kuchyni je veškeré potřebné vybavení: mikrovlnná trouba, myčka, digestoř, el.trouba, indukční varná deska, kávovar na kávové kapsle, topinkovač, toustovač, rychlovarná konvice, lednice s mrazákem a potřebné kuchyňské nádobí.
+            | ⛹ V kuchyni je veškeré potřebné vybavení: mikrovlnná trouba, myčka, digestoř, el.trouba, indukční varná deska, kávovar na kávové kapsle, topinkovač, toustovač, rychlovarná konvice, lednice s mrazákem a potřebné kuchyňské nádobí.
 
       jidelna-section-double-card
         template(#title) Obývací místnost

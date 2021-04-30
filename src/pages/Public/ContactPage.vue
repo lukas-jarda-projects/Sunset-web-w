@@ -111,7 +111,7 @@ q-page.bg-white
 
 
   page-section
-    .row.q-mt-xl
+    .row.q-mt-xl.q-mr-xl
       .col-xs-12.col-sm-3.col-md-4.col-lg-5
       .col-xs-12.col-sm-6.col-md-6.col-lg-6
 
@@ -129,8 +129,8 @@ q-page.bg-white
       q-carousel.top-carousel(v-model="slide" height="500px")
         q-carousel-slide(name="1" img-src="~assets/carusel-sunset-apartment-10.jpg")
           carousel-content
-            // template(#title) Kontakt
-            // template(#description) ul. Kralja Tomislava 45 <br> Povljana - ostrov Pag
+            template(#title) <br><br><br>
+            template(#description) ul. Kralja Tomislava 45 <br> Povljana - ostrov Pag
 
 </template>
 
