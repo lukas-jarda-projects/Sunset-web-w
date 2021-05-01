@@ -122,7 +122,7 @@ q-page.bg-white
           img(src="~assets/reseni-01.jpg" alt="Chip")
         template(#default)
           div.text-left.ulli
-            | ⛹ V kuchyni je veškeré potřebné vybavení: mikrovlnná trouba, myčka, digestoř, el.trouba, indukční varná deska, kávovar na kávové kapsle, topinkovač, toustovač, rychlovarná konvice, lednice s mrazákem a potřebné kuchyňské nádobí.
+            | V kuchyni je veškeré potřebné vybavení: mikrovlnná trouba, myčka, digestoř, el.trouba, indukční varná deska, kávovar na kávové kapsle, topinkovač, toustovač, rychlovarná konvice, lednice s mrazákem a potřebné kuchyňské nádobí.
 
       jidelna-section-double-card
         template(#title) Obývací místnost
@@ -131,6 +131,12 @@ q-page.bg-white
         template(#default)
           div.text-left.ulli
             | Obývací pokoj je vybavený pohodlnou pohovkou s možností úpravy na jedno lůžko  a smart TV s předplaceným kanálem Netflix či YouTube.
+            div
+              a(href="https://netflix.com" target="_blank")
+                img(src="https://api.iconify.design/logos-netflix.svg?height=16").q-ma-lg
+              a(href="https://youtube.com" target="_blank")
+                img(src="https://api.iconify.design/logos:youtube.svg?height=16").q-ma-lg
+
 
       jidelna-section-double-card
         template(#title) Ložnice I

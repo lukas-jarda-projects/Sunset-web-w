@@ -50,35 +50,57 @@ export default {
       slideReferences: '1',
       tab: 'internetoveobj',
       imagesInternet: [
-        { src: 'statics/galerie/int-obj/1_objednavka.png', alt: 'Objednávka', thumbnail: null },
-        { src: 'statics/galerie/int-obj/2_prehled.PNG', alt: 'Přehled', thumbnail: null },
-        { src: 'statics/galerie/int-obj/3_finance.png', alt: 'Finance', thumbnail: null },
-        { src: 'statics/galerie/int-obj/4_maily.png', alt: 'Maily', thumbnail: null }
-      ],
-      imagesJidelna: [
-        { src: 'statics/galerie/jid-sql/1_titulni-orbazovka.jpg', alt: 'Titulní obrazovka', thumbnail: null },
-        { src: 'statics/galerie/jid-sql/2_jidelnicek.jpg', alt: 'Jídelníček', thumbnail: null },
-        { src: 'statics/galerie/jid-sql/3_pokladna.jpg', alt: 'Pokladna', thumbnail: null }
-      ],
-      imagesObjednavkovy: [
-        { src: 'statics/galerie/obj-ter/1_TT1703.jpg', alt: 'Terminál', thumbnail: null },
-        { src: 'statics/galerie/obj-ter/2_TT1703.jpg', alt: 'Terminál', thumbnail: null },
-        { src: 'statics/galerie/obj-ter/3_identifikace.jpg', alt: 'Identifikace', thumbnail: null },
-        { src: 'statics/galerie/obj-ter/4_objednavka.jpg', alt: 'Objednávka', thumbnail: null }
-      ],
-      imagesVydej: [
-        { src: 'statics/galerie/vyd-ter/1_TT3503vydej.jpg', alt: 'Terminál výdej', thumbnail: null },
-        { src: 'statics/galerie/vyd-ter/2_identifikace.jpg', alt: 'Identifikace', thumbnail: null },
-        { src: 'statics/galerie/vyd-ter/3_vydej.jpg', alt: 'Výdej', thumbnail: null },
-        { src: 'statics/galerie/vyd-ter/4_TT3511semafor.jpg', alt: 'Semafor na terminálu', thumbnail: null }
-      ],
-      imagesZolik: [
-        { src: 'statics/galerie/zolik/zolik-config.jpg', alt: 'Žolík konfigurace', thumbnail: null },
-        { src: 'statics/galerie/zolik/zolik-menu.jpg', alt: 'Žolík nabídka', thumbnail: null },
-        { src: 'statics/galerie/zolik/zolik-open.jpg', alt: 'Žolík výměna papíru', thumbnail: null },
-        { src: 'statics/galerie/zolik/zolik-print.jpg', alt: 'Žolík tisk', thumbnail: null }
-      ],
-      blogPosts: []
+        // { src: 'statics/galerie/int-obj/3014.jpg', alt: 'Podkroví', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3025.jpg', alt: 'Podkroví', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3024.jpg', alt: 'Podkroví', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3036.jpg', alt: 'Koupelna II', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3061.jpg', alt: 'Podkroví', thumbnail: null },
+        { src: 'statics/galerie/int-obj/105845.jpg', alt: 'Pláž', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3052.jpg', alt: 'Koupelna II', thumbnail: null },
+        // { src: 'statics/galerie/int-obj/3060.jpg', alt: 'Podkroví', thumbnail: null },
+        //  { src: 'statics/galerie/int-obj/3042.jpg', alt: 'Koupelna II', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3083.jpg', alt: 'Ložnice I', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3087.jpg', alt: 'Ložnice I', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3089.jpg', alt: 'Ložnice I', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3094.jpg', alt: 'Ložnice I', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3125.jpg', alt: 'Veranda - retuš klimo', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3126.jpg', alt: 'Veranda', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3131.jpg', alt: 'Ložnice II (dětská)', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3136.jpg', alt: 'Ložnice II (dětská)', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3147.jpg', alt: 'Ložnice II (dětská)', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3154.jpg', alt: 'Obývák', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3157.jpg', alt: 'Obývák', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3159.jpg', alt: 'Obývák', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3180.jpg', alt: 'Předsíň', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3184.jpg', alt: 'Kuchyň', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3193.jpg', alt: 'Koupelna I', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3196.jpg', alt: 'Koupelna I', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3197.jpg', alt: 'Koupelna I', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3199.jpg', alt: 'Koupelna I', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3232.jpg', alt: 'Koupání před domem', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3236.jpg', alt: 'Parking', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3237.jpg', alt: 'Parking', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3239.jpg', alt: 'Parking', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3225.jpg', alt: 'Dům', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3231.jpg', alt: 'Dům', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3213.jpg', alt: 'Ovoce', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3216.jpg', alt: 'Víno', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3241.jpg', alt: 'Most', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3248.jpg', alt: 'Moře', thumbnail: null },
+        { src: 'statics/galerie/int-obj/3151.jpg', alt: 'Interiér', thumbnail: null },
+        { src: 'statics/galerie/int-obj/111304.jpg', alt: 'Skály', thumbnail: null },
+        { src: 'statics/galerie/int-obj/112024.jpg', alt: 'Zátoka', thumbnail: null },
+        { src: 'statics/galerie/int-obj/112047.jpg', alt: 'Skaliska', thumbnail: null },
+        { src: 'statics/galerie/int-obj/112250.jpg', alt: 'Flora', thumbnail: null },
+        { src: 'statics/galerie/int-obj/120512.jpg', alt: 'Pláž', thumbnail: null },
+        { src: 'statics/galerie/int-obj/120755.jpg', alt: 'Palma', thumbnail: null },
+        { src: 'statics/galerie/int-obj/0122.jpg', alt: 'Pohled z dronu', thumbnail: null },
+        { src: 'statics/galerie/int-obj/0123.jpg', alt: 'Pohled z dronu', thumbnail: null },
+        { src: 'statics/galerie/int-obj/0111.jpg', alt: 'Pohled z dronu', thumbnail: null },
+        { src: 'statics/galerie/int-obj/0115.jpg', alt: 'Pohled z dronu', thumbnail: null },
+        { src: 'statics/galerie/int-obj/0125.jpg', alt: 'Pohled z dronu', thumbnail: null }
+
+      ]
     }
   },
 
@@ -116,27 +138,7 @@ q-page.bg-white
   page-section
     h1.text-center Foto galerie
     .q-pa-md
-      .q-gutter-y-md()
-        q-card.no-shadow
-          q-tabs.text-primary(v-model='tab' no-caps active-color='secondary' indicator-color='secondary')
-            q-tab(name='internetoveobj' label='Internetové objednávky')
-            q-tab(name='jidelnasql' label='JídelnaSQL')
-            q-tab(name='objednavkovyterminal' label='Objednávkový terminál')
-            q-tab(name='vydejniterminal' label='Výdejní terminál')
-            q-tab(name='zolik' label='Tisk stravenek')
-          q-separator
-
-          q-tab-panels(v-model='tab' animated='')
-            q-tab-panel(name='internetoveobj')
-              jidelna-gallery(:images="imagesInternet")
-            q-tab-panel(name='jidelnasql')
-              jidelna-gallery(:images="imagesJidelna")
-            q-tab-panel(name='objednavkovyterminal')
-              jidelna-gallery(:images="imagesObjednavkovy")
-            q-tab-panel(name='vydejniterminal')
-              jidelna-gallery(:images="imagesVydej")
-            q-tab-panel(name='zolik')
-              jidelna-gallery(:images="imagesZolik")
+        jidelna-gallery(:images="imagesInternet")
 
 </template>
 

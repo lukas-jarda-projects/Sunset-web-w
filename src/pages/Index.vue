@@ -25,7 +25,7 @@ function formatDate (datum, format) {
 }
 
 export default {
-  name: 'PageIndex',
+  name: 'Index',
 
   meta: {
     title: 'Sunset-apartment'

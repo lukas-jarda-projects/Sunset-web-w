@@ -84,7 +84,7 @@ export default {
 
   methods: {
     login () {
-      window.location.href = 'https://jidelna-sql.altisima.cz'
+      window.location.href = 'https://sunset-apartment.com'
     },
 
     scrollToObjednat () {
@@ -132,9 +132,67 @@ q-page.bg-white
             template(#title) <br><br><br>
             template(#description) ul. Kralja Tomislava 45 <br> Povljana - ostrov Pag
 
+  page-section(:fullWidth="true")
+    .row
+      .col-6
+        img(src="~assets/map-with-poi.png" height="500px")
+      .col-6
+        .numberCircle 1
+        .numberCircle 2
+        .numberCircle 3
+        .numberCircle 4
+        .numberCircle 5
+        .numberCircle 6
+        .numberCircle 7
+        .numberCircle 8
+        .numberCircle 9
+
+    .row.q-mt-xl.q-mr-xl
+      .col-xs-12.col-sm-3.col-md-4.col-lg-5
+      .col-xs-12.col-sm-6.col-md-6.col-lg-6
+    //
+      page-section
+        q-carousel.top-carousel(v-model="slide" height="500px")
+          q-carousel-slide(name="3" img-src="~assets/carusel-sunset-apartment-11.jpg")
+            carousel-content
+              template(#title) <br><br><br>
+              template(#description) ul. Kralja Tomislava 45 <br> Povljana - ostrov Pag
+
 </template>
 
 <style scoped lang="stylus">
+.textCircle
+  font-family RedHatDisplay-reg
+  margin 0 0 0 20px
+/*
+  .numberCircle
+    width 35px
+    height 35px
 
+    padding 10px
+    border-radius 50%
+    text-align center
+    margin 0 0 20px 0
+
+
+
+    */
+$circleSize = 62px
+
+.numberCircle {
+    font-size 32px
+    font-family RedHatDisplay-bld
+    font-color black
+    border 3px solid #ed7d31
+    background-color $accent
+    width: $circleSize
+    height: $circleSize
+
+    box-sizing: initial;
+    text-align: center;
+    border-radius: 50%;
+    line-height: 2em;
+    box-sizing: content-box;
+}
 
 </style>

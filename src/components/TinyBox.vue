@@ -237,16 +237,16 @@ export default {
   }
 
   .tinybox__content {
-    height: 85%;
-    position: relative;
+    height: 100%;
     width: 100%;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .tinybox__content--no-thumbs {
-    height: 100%;
+    height: 105%;
   }
 
   .tinybox__content__image {
@@ -339,11 +339,11 @@ export default {
   }
 
   .prev-enter {
-    transform: translateX(-40px);
+    transform: translateX(-340px);
   }
 
   .next-enter {
-    transform: translateX(40px);
+    transform: translateX(340px);
   }
 
   .next-enter-active,

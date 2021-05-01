@@ -14,7 +14,7 @@ export default {
   q-card.page-section-card.no-shadow
     q-card-section
       .page-section-card-icon
-        q-avatar(size="135px")
+        q-avatar(size="250px")
           slot(name="icon")
 
       .page-section-card-title
@@ -32,7 +32,7 @@ export default {
 
   $cardWidth = ($pageFixWidth - ($gekonNumberOfCardsPerLine - 1) * $gutterSize) / $gekonNumberOfCardsPerLine
   $jidelnaCardHeight ?= $cardWidth
-  $contentHeight = $jidelnaCardHeight - $iconContainerSize - $gekonTitleContainerSize - $gekonTabsContainerSize -100
+  $contentHeight = $jidelnaCardHeight - $iconContainerSize - $gekonTitleContainerSize - $gekonTabsContainerSize - 100
 
   $avatarWidth = $gekonIconSize + $gekonAvatarMargin
   $avatarHeight = $avatarWidth
