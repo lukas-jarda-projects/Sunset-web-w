@@ -25,7 +25,7 @@ function formatDate (datum, format) {
 }
 
 export default {
-  name: 'Index',
+  name: 'IndexPage',
 
   meta: {
     title: 'Sunset-apartment'
@@ -144,8 +144,8 @@ export default {
         .col-xs-12.col-sm-12.col-md-12(style="margin-bottom: -20px")
           h2 Luxusní poschoďový apartmán <br>v první řadě s přímým výhledem na moře
         .col-xs-12.col-sm-8.col-md-6.q-mt-lg
-          p Nově postavený, pohodlně vybavený apartmán o velikosti 4kk pro 4–8 osob s plně vybavenou kuchyní, 3 ložnice, 2 koupelny a balkon s výhledem na otevřené moře. Apartmán je umístěný na skalnatém výběžku ostrova PAG v městečku Povljana, pár minut v docházkové vzdálenosti od pláže.
-          p Krásné a křišťálově čisté moře s nádhernými plážemi, malebné vesničky, kde se zastavil čas, čistá a nedotčená příroda, jedinečné klima a teplé prosluněné počasí s minimem srážek. To je ostrov Pag a jeho letovisko Povljana.
+          p.text-paragraph Nově postavený, pohodlně vybavený apartmán o velikosti 4kk pro 4–8 osob s plně vybavenou kuchyní, 3 ložnice, 2 koupelny a balkon s výhledem na otevřené moře. Apartmán je umístěný na skalnatém výběžku ostrova PAG v městečku Povljana, pár minut v docházkové vzdálenosti od pláže.
+          p.text-paragraph Krásné a křišťálově čisté moře s nádhernými plážemi, malebné vesničky, kde se zastavil čas, čistá a nedotčená příroda, jedinečné klima a teplé prosluněné počasí s minimem srážek. To je ostrov Pag a jeho letovisko Povljana.
 
 
     page-section
@@ -207,16 +207,16 @@ export default {
         .col-xs-12.col-sm-9.col-md-7.col-lg-6
           //-&nbsp;s&nbsp;
           h2 Lokalita
-          p
+          p.text-paragraph
             | Letovisko Povljana leží doslova v kouzelné přírodní zátoce na jihovýchodním pobřeží ostrova Pag.
             | Samotný ostov Pag je nejjižnější ostrov z vnitřního pásu Kvarnerského souostroví, který leží na rozhraní mezi oblastí Kvarneru a Severodalmátskými ostrovy.
-          p
+          p.text-paragraph
             | Původně zemědělská obec Povljana zažila v poslední době mohutný rozvoj a díky své poloze a výjimečnému množství zeleně v okolí je dnes významným turistickým střediskem.
             | Vyznavači letní pohody a klidu také jistě ocení, že je městečko Povljana směrem od západu chráněno před silnými větry Bora a Sirocco.
-          p
+          p.text-paragraph
             | Z pobřeží letoviska je překrásný výhled na otevřené moře a dlouhé písečné a kamenité pláže s pozvolným vstupem do moře jsou ideální pro klidnou rodinnou dovolenou.
             | V těsné blízkosti našeho apartmánu je nejen nejznámější místní pláž Dubrovník, ale i zbylé čtyři pláže Mali Dubrovnik, Perilo, Livade a Stará Povljana.
-          p
+          p.text-paragraph
             | Zkrátka oblast Povljany je skutečným dovolenkovým rájem s nekonečnou možností koupání v křišťálově čistém moři a celou řadu jiných volnočasových aktivit.
             | Navíc zde můžete prožít několik dní u blízkého přírodního jezera Segal s léčivým bahnitým sedimentem, což ocení nejen starší ročníky
 
@@ -226,7 +226,7 @@ export default {
         .col-xs-12.col-sm-9.col-md-7.col-lg-6
           //-&nbsp;s&nbsp;
           h2 Užitečné informace
-          p
+          p.text-paragraph
             | Patříte mezi ty lidi, kteří všechno ví, všechno znají, všude byli a nic je nepřekvapí? Tak zrovna pro vás tento text určen není. Ale pro vás zbývající jsme připravili a shromáždili na jedno místo všechny důležité informace, které by mohli přispět k prožití vaší klidné dovolené na kouzelném místě, které jsme objevili během našich toulek světem. Přejeme vám pohodové čtení…
           a(href="https://sunset-apartment.com/download/Uzitecne-rady-a-tipy.pdf")
             .row.items-center
@@ -239,16 +239,22 @@ export default {
 </template>
 
 <style scoped lang="stylus">
+
 .pdf-download
-  font-family RedHatDisplay-med
+  text-decoration none
+  font-family RedHatDisplay-reg
   font-size 20px
   line-height 30px
   letter-spacing .035rem
-  text-decoration none !important
+  margin 0 0 10px 0
 
 .invisible-link
   text-decoration none
   color inherit
+
+a:hover
+  color $secondary !important
+
 
 .cenareseni
   margin 0px 0px 20px 0px
@@ -269,20 +275,24 @@ export default {
 
 @media screen and (min-width: 601px)
   .gekon-counter-b
+    font-family RedHatDisplay-reg
     margin 42px 0 0 0
     font-size 42px
     // font-size clamp(20px, 4vw, 42px)
   .gekon-counter-s
+    font-family RedHatDisplay-reg
     margin 0 5px 42px 5px
     font-size 16px
     //font-size clamp(10px, 2vw, 16px)
 
 @media screen and (max-width: 600px)
   .gekon-counter-b
+    font-family RedHatDisplay-reg
     margin 22px 0 0 0
     font-size 20px
     // font-size clamp(20px, 4vw, 42px)
   .gekon-counter-s
+    font-family RedHatDisplay-reg
     margin 0 5px 22px 5px
     font-size 10px
     //font-size clamp(10px, 2vw, 16px)
@@ -330,6 +340,10 @@ ul
     padding-left: 1.3em;
     text-indent: -1.3em;
     margin-bottom 13px
+
+.text-paragraph
+  font-size $alt-text-size
+  font-family $alt-text-font
 
 </style>
 

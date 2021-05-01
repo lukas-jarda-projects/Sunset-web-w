@@ -36,9 +36,10 @@ q-layout(view="hHh lpR fFf")
 
 
 
-    div.transition(name='slide-fade' appear)
-      router-view
-      layout-footer.q-mt-lg
+
+  q-page-container.transition(name='slide-fade' appear)
+    router-view
+    layout-footer.q-mt-lg
 
 
 </template>

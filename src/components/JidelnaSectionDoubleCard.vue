@@ -31,8 +31,8 @@ export default {
 <style scoped lang="stylus">
 
   $cardWidth = ($pageFixWidth - ($gekonNumberOfCardsPerLine - 1) * $gutterSize) / $gekonNumberOfCardsPerLine
-  $jidelnaCardHeight ?= $cardWidth
-  $contentHeight = $jidelnaCardHeight - $iconContainerSize - $gekonTitleContainerSize - $gekonTabsContainerSize - 100
+  $jidelnaCardHeight ?= $cardWidth + 20px
+  $contentHeight = $jidelnaCardHeight - $iconContainerSize - $gekonTitleContainerSize - $gekonTabsContainerSize
 
   $avatarWidth = $gekonIconSize + $gekonAvatarMargin
   $avatarHeight = $avatarWidth
@@ -43,13 +43,13 @@ export default {
   .page-section-card
     overflow hidden
     .gt-xs &
-      max-height $jidelnaCardHeight
+      max-height $jidelnaCardHeight + 20px
       min-width $cardWidth
       max-width $cardWidth
 
     margin-left 5px
     margin-right 5px
-    margin-bottom 20px
+    margin-bottom 0px
     min-width auto
     max-width auto
     max-height auto

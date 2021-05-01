@@ -107,60 +107,120 @@ export default {
 </script>
 
 <template lang="pug">
-q-page.bg-white
+  q-page
+    page-section
+      .row.q-mt-xl
+
+    page-section
+      h1.text-center Kontakt
+          //
+            div
+              span.text-paragraph ulice &nbsp;
+              span.text-paragraph-bold Kralja Tomislava 45
+              br
+              br
+
+              span.text-paragraph město &nbsp;
+              span.text-paragraph-bold Povljana
+              br
+              br
+
+              span.text-paragraph ostrov &nbsp;
+              span.text-paragraph-bold Pag
+              br
+              br
+
+              span.text-paragraph stát &nbsp;
+              span.text-paragraph-bold Chorvatsko
+              br
+              br
 
 
-  page-section
-    .row.q-mt-xl.q-mr-xl
-      .col-xs-12.col-sm-3.col-md-4.col-lg-5
-      .col-xs-12.col-sm-6.col-md-6.col-lg-6
+              span.text-paragraph GPS &nbsp;
+              span.text-paragraph-bold 44.3491100N &nbsp; 15.0980000E
+              br
+              br
+              br
+              br
 
-        h1 Kontakt
-        p ulice <b> Kralja Tomislava 45 </b>
-        p město <b> Povljana </b>
-        p ostrov <b> Pag </b>
-        p stát <b> Chorvatsko </b>
-        p GPS <b> 44.3491100N &nbsp; 15.0980000E </b>
-        br
-        br
 
-  page-section(:fullWidth="true")
-    a(href="https://mapy.cz/s/rasofaloze" target="_blank")
-      q-carousel.top-carousel(v-model="slide" height="500px")
-        q-carousel-slide(name="1" img-src="~assets/carusel-sunset-apartment-10.jpg")
-          carousel-content
-            template(#title) <br><br><br>
-            template(#description) ul. Kralja Tomislava 45 <br> Povljana - ostrov Pag
 
-  page-section(:fullWidth="true")
-    .row
-      .col-6
-        img(src="~assets/map-with-poi.png" height="500px")
-      .col-6
-        .numberCircle 1
-        .numberCircle 2
-        .numberCircle 3
-        .numberCircle 4
-        .numberCircle 5
-        .numberCircle 6
-        .numberCircle 7
-        .numberCircle 8
-        .numberCircle 9
 
-    .row.q-mt-xl.q-mr-xl
-      .col-xs-12.col-sm-3.col-md-4.col-lg-5
-      .col-xs-12.col-sm-6.col-md-6.col-lg-6
-    //
-      page-section
-        q-carousel.top-carousel(v-model="slide" height="500px")
-          q-carousel-slide(name="3" img-src="~assets/carusel-sunset-apartment-11.jpg")
-            carousel-content
-              template(#title) <br><br><br>
-              template(#description) ul. Kralja Tomislava 45 <br> Povljana - ostrov Pag
+            page-section(:fullWidth="true")
+              a(href="https://mapy.cz/s/rasofaloze" target="_blank")
+                q-carousel.top-carousel(v-model="slide" height="500px")
+                  q-carousel-slide(name="1" img-src="~assets/carusel-sunset-apartment-10.jpg")
+                    carousel-content
+                      template(#title) <br><br><br>
+                      template(#description) ul. Kralja Tomislava 45 <br> Povljana - ostrov Pag
+
+            page-section(:fullWidth="true")
+              .row
+                .col-lg-7.col-md-12
+                  img(src="~assets/map-with-poi.png" height="500px")
+                .col-lg-4.pad.col-md-12
+                  .row.items-center.q-mt-xl
+                    .col-1
+                      .numberCircle 1
+                    .col.text-left.q-mt-sm
+                      .text &nbsp; apartmán
+
+                  .row.items-center
+                    .col-1
+                      .numberCircle.red 2
+                    .col.text-left.q-mt-sm
+                      .text &nbsp; pláž Dubrovník
+
+                  .row.items-center
+                    .col-1
+                      .numberCircle.red 3
+                    .col.text-left.q-mt-sm
+                      .text &nbsp; pláž Malý Dubrovník
+
+                  .row.items-center
+                    .col-1
+                      .numberCircle.red 4
+                    .col.text-left.q-mt-sm
+                      .text &nbsp; obchod, cukrárna
+
+                  .row.items-center
+                    .col-1
+                      .numberCircle.red 5
+                    .col.text-left.q-mt-sm
+                      .text &nbsp; pošta
+
+                  .row.items-center
+                    .col-1
+                      .numberCircle.red 6
+                    .col.text-left.q-mt-sm
+                      .text &nbsp; lékárna
+
+                  .row.items-center
+                    .col-1
+                      .numberCircle.red 7
+                    .col.text-left.q-mt-sm
+                      .text &nbsp; pekárna
+
+                  .row.items-center
+                    .col-1
+                      .numberCircle.red 8
+                    .col.text-left.q-mt-sm
+                      .text &nbsp; centrum obce
+
+                  .row.items-center
+                    .col-1
+                      .numberCircle.red 9
+                    .col.text-left.q-mt-sm
+                      .text &nbsp; supermarket
+
 
 </template>
 
 <style scoped lang="stylus">
+p
+  font-family RedHatText-reg
+  font-size $alt-text-size
+
 .textCircle
   font-family RedHatDisplay-reg
   margin 0 0 0 20px
@@ -177,22 +237,38 @@ q-page.bg-white
 
 
     */
-$circleSize = 62px
 
-.numberCircle {
-    font-size 32px
-    font-family RedHatDisplay-bld
-    font-color black
-    border 3px solid #ed7d31
-    background-color $accent
-    width: $circleSize
-    height: $circleSize
+$circleSize = 1em
 
-    box-sizing: initial;
-    text-align: center;
-    border-radius: 50%;
-    line-height: 2em;
-    box-sizing: content-box;
-}
+.numberCircle
+  font-size 23px
+  font-family RedHatDisplay-bld
+  color black
+  border 3px solid #ed7d31
+  background $accent
+  width $circleSize
+  height $circleSize
+  box-sizing initial
+  text-align center
+  border-radius 50%
+  line-height 1em
+  box-sizing content-box
+  margin-top 17px
+
+.red
+  background red !important
+
+.text
+  font-size 20px
+  font-family $alt-text-font
+
+.text-paragraph
+  font-size $alt-text-size
+  font-family $alt-text-font
+
+.text-paragraph-bold
+  font-size $alt-text-size
+  font-family RedHatDisplay-med
+
 
 </style>
