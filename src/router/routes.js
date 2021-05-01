@@ -1,17 +1,22 @@
 
 const routes = [
+
   {
-    path: '/:lang?',
+    path: '/',
     props: true,
-    component: () => import('src/layouts/Layout.vue'),
+    component: () => import('layouts/Layout.vue'),
     children: [
-      { name: 'index', path: 'index', component: () => import('pages/Index.vue') },
+      { name: 'index', path: '', component: () => import('pages/Index.vue') },
+
       { name: 'about', path: 'about', component: () => import('pages/Public/AboutPage.vue') },
       { name: 'photo', path: 'photo', component: () => import('pages/Public/PhotoPage.vue') },
       { name: 'contact', path: 'contact', component: () => import('pages/Public/ContactPage.vue') }
     ]
+  },
+  {
+    path: '',
+    redirect: { name: 'index' }
   }
-
 ]
 
 // Always leave this as last one

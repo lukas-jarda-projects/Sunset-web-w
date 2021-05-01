@@ -9,7 +9,7 @@ q-layout(view="hHh lpR fFf")
 
 
       q-tabs(align="right" active-color='secondary' indicator-color='secondary').q-mr-lg.gt-sm
-        q-route-tab(no-caps to="index" label="Úvod"
+        q-route-tab(no-caps to="" label="Úvod"
           @click="$router.push({name: 'index'})").q-px-lg
 
         q-route-tab(no-caps to="about" label="O apartmánu"
@@ -28,7 +28,7 @@ q-layout(view="hHh lpR fFf")
 
         q-tabs(vertical align="right" active-color='secondary' indicator-color='secondary')
           q-list.text-body3.q-mt-xl
-          q-route-tab(dense no-caps to="index", label="Úvod" @click="$router.push({name: 'index'})")
+          q-route-tab(dense no-caps to="", label="Úvod" @click="$router.push({name: 'index'})")
           q-route-tab(no-caps to="about", label="O apartmánu" @click="$router.push({name: 'about'})")
           q-route-tab(no-caps to="photo", label="Foto galerie" @click="$router.push({name: 'photo'})")
           q-route-tab(no-caps to="contact", label="Kontakt" @click="$router.push({name: 'contact'})")
@@ -80,54 +80,54 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 
-  .text-body3
-    font-size 56px !important
-    color $accent
-    text-align center
-
-
-  //- page transition
-  .slide-fade-enter-active {
-    transition: all .5s ease-in;
-  }
-
-  .slide-fade-leave-active {
-    transition: all .2s ease-out;
-  }
-
-  .slide-fade-enter {
-    transform: translateX(0px);
-    opacity: 0;
-  }
-
-  .slide-fade-leave-to {
-    transform: translateX(0px);
-    opacity: 0;
-  }
+.text-body3
+  font-size 56px !important
+  color $accent
+  text-align center
 
 
+//- page transition
+.slide-fade-enter-active {
+  transition: all 3s ease-in;
+}
 
-  // aplikuje se na aktivní menu
-  .active
-    color $secondary !important
-    background-color white !important
+.slide-fade-leave-active {
+  transition: all 3s ease-out;
+}
 
-  .menu-button
-    // font-size 24px !important
-    font-family 'RedHatDisplay-bld'
-    color $primary
-    height 80px
-    padding 0 80px
-    letter-spacing 2px
-    //margin 0 20px
+.slide-fade-enter {
+  transform: translateX(0px);
+  opacity: 0;
+}
 
-  .menufullwidth
-    font-size 24px
-    width 100%
-    padding 10px
-    color $dark +150
+.slide-fade-leave-to {
+  transform: translateX(0px);
+  opacity: 0;
+}
+
+
+
+// aplikuje se na aktivní menu
+.active
+  color $secondary !important
+  background-color white !important
+
+.menu-button
+  // font-size 24px !important
+  font-family 'RedHatDisplay-bld'
+  color $primary
+  height 80px
+  padding 0 80px
+  letter-spacing 2px
+  //margin 0 20px
+
+.menufullwidth
+  font-size 24px
+  width 100%
+  padding 10px
+  color $dark +150
 
 
 
