@@ -1,31 +1,29 @@
 <template lang="pug">
 q-layout(view="hHh lpR fFf")
-  q-header.bg-white.text-primary(elevated, height-hint="98")
+  q-header.bg-white.text-primary(elevated height-hint="98")
     q-toolbar
       q-toolbar-title
         a(href="#" @click="$router.push({name: 'index'})")
           img.logo(src="~assets/logo-sunset-apartment.svg"
             height="40px" style="z-index: 2").q-mt-md.q-my-sm.q-ml-lg
 
-
       q-tabs(align="right" active-color='secondary' indicator-color='secondary').q-mr-lg.gt-sm
         q-route-tab(no-caps to="" label="Úvod"
-          @click="$router.push({name: 'index'})").q-px-lg
+          @click="$router.push({name: 'index'})").q-px-lg.menu-button
 
         q-route-tab(no-caps to="about" label="O apartmánu"
-          @click="$router.push({name: 'about'})").q-px-lg
+          @click="$router.push({name: 'about'})").q-px-lg.menu-button
 
         q-route-tab(no-caps to="photo" label="Fotogalerie"
-          @click="$router.push({name: 'photo'})").q-px-lg
+          @click="$router.push({name: 'photo'})").q-px-lg.menu-button
 
         q-route-tab(no-caps to="contact" label="Kontakt"
-          @click="$router.push({name: 'contact'})").q-px-lg
+          @click="$router.push({name: 'contact'})").q-px-lg.menu-button
 
       div.q-mr-lg.lt-md
         q-btn(dense flat round icon="menu" @click="right = !right")
 
       q-drawer(v-model="right" side="right" bordered)
-
         q-tabs(vertical align="right" active-color='secondary' indicator-color='secondary')
           q-list.text-body3.q-mt-xl
           q-route-tab(dense no-caps to="", label="Úvod" @click="$router.push({name: 'index'})")
@@ -47,8 +45,6 @@ q-layout(view="hHh lpR fFf")
 <script>
 import LangSwitcherFlags from 'components/LangSwitcherFlags'
 import LayoutFooter from './LayoutFooter'
-
-
 // const languages = ['cs', 'sk', 'en']
 
 export default {
@@ -59,7 +55,6 @@ export default {
   mounted () {
     this.$bus.$layout = this
   },
-
 
   props: {
     lang: {
@@ -75,9 +70,8 @@ export default {
       right: false
     }
   }
-
-
 }
+
 </script>
 
 <style lang="stylus">
@@ -115,12 +109,12 @@ export default {
   background-color white !important
 
 .menu-button
-  // font-size 24px !important
-  font-family 'RedHatDisplay-bld'
+  font-size 24px !important
+  font-family 'RedHatDisplay-reg'
   color $primary
   height 80px
-  padding 0 80px
-  letter-spacing 2px
+  padding 0 50px
+  letter-spacing 0.6px
   //margin 0 20px
 
 .menufullwidth

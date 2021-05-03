@@ -115,11 +115,11 @@ export default {
     page-section(:fullWidth="true")
       h1.text-center Kontakt
       .row.items-center
-        .col-lg-7.col-md-12
+        .col-lg-6.col-md-12
           img(src="~assets/kontakt-apartman.jpg" height="300px")
         .col-lg-4.col-md-12.col-xs-12
-          .column.q-my-lg
-            .col-6
+          .column.q-ml-xl
+            .col-6.q-mb-sm
               span.text-paragraph ulice &nbsp;
               span.text-paragraph-bold Kralja Tomislava 45
             .col.q-mb-sm
@@ -136,19 +136,17 @@ export default {
               span.text-paragraph-bold 44.3491100N &nbsp; 15.0980000E
 
     page-section(:fullWidth="true")
-      a(href="https://mapy.cz/s/rasofaloze" target="_blank")
-        q-carousel.top-carousel(v-model="slide" height="500px")
-          q-carousel-slide(name="1" img-src="~assets/carusel-sunset-apartment-10.jpg")
-            carousel-content
-              template(#title) <br><br><br>
-              template(#description) ul. Kralja Tomislava 45 <br> Povljana - ostrov Pag
+      .row.justify-end
+        .col-12.text-right
+          img(src="~assets/mapa-z-letadla.jpg").image-right
+
 
     page-section(:fullWidth="true")
-      .row.q-mt-sm
+      .row
         .col-lg-7.col-md-12
-          img(src="~assets/map-with-poi.png" height="500px")
+          img(src="~assets/map-with-poi.png").image-left
         .col-lg-4.pad.col-md-12
-          .row.items-center.q-mt-xl
+          .row.items-center.q-mt-lg
             .col-1
               .numberCircle 1
             .col.text-left.q-mt-sm.q-ml-sm
@@ -263,6 +261,30 @@ $circleSize = 1em
 
 .col-xs-12
   margin 20px
+
+.col-md
+  .image-right
+    height auto
+    width 100%
+
+
+.image-left
+  height auto
+  width 100%
+
+
+@media screen and (min-width: 1501px)
+  .image-right
+    height auto
+    width 70%
+    align right
+
+
+@media screen and (max-width: 1500px)
+  .image-right
+    height auto
+    width 100%
+    align right
 
 
 </style>
