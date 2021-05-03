@@ -182,24 +182,20 @@ export default {
       .row.gekon-btn
         .col.gekon-card-solution
           h2.gekon-counter-b.text-white
-            animated-number(:number="950" :time="1200" :restart="true") km
+            animated-number(:number="920" :time="1200" :restart="true") km
           p.text-center.gekon-counter-s km od Prahy
         .col.gekon-card-solution
           h2.gekon-counter-b.text-white
-            animated-number(:number="582" :time="1200" :restart="true")
-          p.text-center.gekon-counter-s km od Bratislavy
+            animated-number(:number="790" :time="1200" :restart="true")
+          p.text-center.gekon-counter-s km od Brno
         .col.gekon-card-solution
           h2.gekon-counter-b.text-white
-            animated-number(:number="48" :time="1200" :restart="true")
+            animated-number(:number="55" :time="1200" :restart="true")
           p.text-center.gekon-counter-s km Zadar letiště
         .col.gekon-card-solution
           h2.gekon-counter-b.text-white
             animated-number(:number="14" :time="1200" :restart="true")
           p.text-center.gekon-counter-s km město Pag
-        .col.gekon-card-solution
-          h2.gekon-counter-b.text-white
-            animated-number(:number="0" :time="1200" :restart="true")
-          p.text-center.gekon-counter-s km od moře
 
     page-section
       .row
@@ -218,7 +214,7 @@ export default {
             | V těsné blízkosti našeho apartmánu je nejen nejznámější místní pláž Dubrovník, ale i zbylé čtyři pláže Mali Dubrovnik, Perilo, Livade a Stará Povljana.
           p.text-paragraph
             | Zkrátka oblast Povljany je skutečným dovolenkovým rájem s nekonečnou možností koupání v křišťálově čistém moři a celou řadu jiných volnočasových aktivit.
-            | Navíc zde můžete prožít několik dní u blízkého přírodního jezera Segal s léčivým bahnitým sedimentem, což ocení nejen starší ročníky
+            | Navíc zde můžete prožít několik dní u blízkého přírodního jezera Segal s léčivým bahnitým sedimentem, což ocení nejen starší ročníky.
 
     page-section
       .row
@@ -228,12 +224,18 @@ export default {
           h2 Užitečné informace
           p.text-paragraph
             | Patříte mezi ty lidi, kteří všechno ví, všechno znají, všude byli a nic je nepřekvapí? Tak zrovna pro vás tento text určen není. Ale pro vás zbývající jsme připravili a shromáždili na jedno místo všechny důležité informace, které by mohli přispět k prožití vaší klidné dovolené na kouzelném místě, které jsme objevili během našich toulek světem. Přejeme vám pohodové čtení…
-          a(href="https://sunset-apartment.com/download/Uzitecne-rady-a-tipy.pdf" target="_blank")
+
+    page-section.q-mt-lg
+      .row
+        .col-xs-12.col-sm-1.col-md-2.col-lg-3.q-mr-sm
+        .col-xs-12.col-sm-9.col-md-7.col-lg-6
+          a(href="https://sunset-apartment.com/download/Uzitecne-rady-a-tipy.pdf" target="_blank").invisible-link
             .row.items-center
-              .col-1.q-mr-sm
+              .col-1.q-mr-sm.offset-2
                 img(src="~assets/pdf-icon-color.svg" height="36px")
               .col
-                .pdf-download Stahujte PDF soubor: Užitečné rady a tipy
+                .div Stahujte PDF soubor:
+                .pdf-download Užitečné rady a tipy
 
 
 </template>
@@ -242,11 +244,11 @@ export default {
 
 .pdf-download
   text-decoration none
-  font-family RedHatDisplay-reg
-  font-size 20px
+  font-family RedHatDisplay-med
+  font-size 18px
   line-height 30px
   letter-spacing .035rem
-  margin 0 0 10px 0
+  margin 0 0 5px 0
 
 .invisible-link
   text-decoration none
