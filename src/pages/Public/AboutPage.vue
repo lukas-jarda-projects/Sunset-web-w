@@ -211,20 +211,21 @@ export default {
               | V dosahu apartmánu jsou dvě oblázkové pláže cca 2 minuty chůze po promenádě a ve městečku i písečná pláž, která je v Chorvatsku ojedinělá. V dojezdové vzdálenosti jsou i další krásné pláže, například v blízkém městečku PAG nebo vyhlášená pláž Zrče cca 40 minut autem.
 
         jidelna-section-double-card
-          template(#title) Ostatní vybavení
-          template(#icon)
-            img(src="~assets/apartman/00-ostani.gif" alt="Chip")
-          template(#default)
-            div.text-left.ulli
-              | Klimatizace/topení, WiFi zdarma, pračka, vysavač, vestavěný sušák na prádlo, kávovar Dolce Gusto.
-
-        jidelna-section-double-card
           template(#title) Obchody a služby v okolí
           template(#icon)
             img(src="~assets/apartman/00-obchody-sluzby.jpg" alt="Chip")
           template(#default)
             div.text-left.ulli
               | V okolí apartmánu se nachází několik restaurací a kaváren, přímo u domu je pizzerie s večerní živou hudbou. V docházkové vzdálenosti je obchod se smíšeným zbožím, pekárna a cukrárna. Večer jsou kolem promenády trhy a zábavní park pro děti s trampolínou a hrami.  Najdete zde i agenturu pořádající výlety a dobrodružné cesty.
+
+        jidelna-section-double-card
+          template(#title) Ostatní vybavení
+          template(#icon)
+            img(src="~assets/apartman/00-ostatni-vybaveni.jpg" alt="Chip")
+          template(#default)
+            div.text-left.ulli
+              | Klimatizace/topení, WiFi zdarma, pračka, vysavač, vestavěný sušák na prádlo, kávovar Dolce Gusto.
+
 
 
 

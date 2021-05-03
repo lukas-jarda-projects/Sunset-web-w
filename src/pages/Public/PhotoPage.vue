@@ -136,7 +136,7 @@ export default {
         .col-xs-12.col-sm-9.col-md-7.col-lg-6
 
     page-section
-      h1.text-center Foto galerie
+      h1.text-center Fotogalerie
       .q-pa-md
       //    jidelna-gallery(:images="imagesInternet")
 

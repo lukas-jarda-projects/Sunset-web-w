@@ -230,7 +230,7 @@ export default {
             | Patříte mezi ty lidi, kteří všechno ví, všechno znají, všude byli a nic je nepřekvapí? Tak zrovna pro vás tento text určen není. Ale pro vás zbývající jsme připravili a shromáždili na jedno místo všechny důležité informace, které by mohli přispět k prožití vaší klidné dovolené na kouzelném místě, které jsme objevili během našich toulek světem. Přejeme vám pohodové čtení…
           a(href="https://sunset-apartment.com/download/Uzitecne-rady-a-tipy.pdf" target="_blank")
             .row.items-center
-              .col-1
+              .col-1.q-mr-sm
                 img(src="~assets/pdf-icon-color.svg" height="36px")
               .col
                 .pdf-download Stahujte PDF soubor: Užitečné rady a tipy
