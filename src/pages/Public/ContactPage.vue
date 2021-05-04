@@ -118,20 +118,20 @@ export default {
         .col-lg-6.col-md-12
           img(src="~assets/kontakt-apartman.jpg" height="300px")
         .col-lg-4.col-md-12.col-xs-12
-          .column.q-ml-xl
-            .col-6.q-mb-sm
+          .column.justify-center
+            .col-6.q-mb-sm.text-center
               span.text-paragraph ulice &nbsp;
               span.text-paragraph-bold Kralja Tomislava 45
-            .col.q-mb-sm
+            .col.q-mb-sm.text-center
               span.text-paragraph město &nbsp;
               span.text-paragraph-bold Povljana
-            .col.q-mb-sm
+            .col.q-mb-sm.text-center
               span.text-paragraph ostrov &nbsp;
               span.text-paragraph-bold Pag
-            .col.q-mb-sm
+            .col.q-mb-sm.text-center
               span.text-paragraph stát &nbsp;
               span.text-paragraph-bold Chorvatsko
-            .col.q-mb-sm
+            .col.q-mb-sm.text-center
               span.text-paragraph GPS &nbsp;
               span.text-paragraph-bold 44.3491100N &nbsp; 15.0980000E
 
@@ -254,6 +254,7 @@ $circleSize = 1em
 .text-paragraph
   font-size $alt-text-size
   font-family $alt-text-font
+  marging 0 0 24px 0
 
 .text-paragraph-bold
   font-size $alt-text-size

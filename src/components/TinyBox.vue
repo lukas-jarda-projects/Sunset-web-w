@@ -226,7 +226,7 @@ export default {
 
 <style scoped>
   .tinybox {
-    background-color: rgba(0, 0, 0, .9);
+    background-color: #1a1a1a;
     bottom: 0;
     left: 0;
     position: fixed;
@@ -246,7 +246,7 @@ export default {
   }
 
   .tinybox__content--no-thumbs {
-    height: 105%;
+    height: 100%;
   }
 
   .tinybox__content__image {
@@ -254,7 +254,7 @@ export default {
     cursor: pointer;
     display: inline-block;
     height: auto;
-    max-width: 60%;
+    max-width: 65%;
     position: absolute;
   }
 

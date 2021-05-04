@@ -27,7 +27,7 @@ export default {
   name: 'AboutPage',
 
   meta: {
-    title: 'AboutPage'
+    title: 'Sunset-apartment'
   },
 
   components: {
