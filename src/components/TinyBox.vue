@@ -253,8 +253,8 @@ export default {
     background-color: #222;
     cursor: pointer;
     display: inline-block;
-    max-height: 80%;
-    max-width: 80%;
+    height: auto;
+    max-width: 60%;
     position: absolute;
   }
 
