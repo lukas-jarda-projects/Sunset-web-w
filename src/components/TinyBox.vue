@@ -233,7 +233,7 @@ export default {
     right: 0;
     text-align: center;
     top: 0;
-    z-index: 1000;
+    z-index: 9000;
   }
 
   .tinybox__content {
@@ -253,7 +253,7 @@ export default {
     background-color: #222;
     cursor: pointer;
     display: inline-block;
-    max-height: 90%;
+    max-height: 80%;
     max-width: 80%;
     position: absolute;
   }

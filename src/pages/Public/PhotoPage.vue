@@ -140,7 +140,7 @@ export default {
     page-section
       h1.text-center Fotogalerie
       .q-pa-md
-        //jidelna-gallery(:images="imagesInternet")
+        jidelna-gallery(:images="imagesInternet")
 
 </template>
 
