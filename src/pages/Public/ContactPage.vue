@@ -92,6 +92,9 @@ export default {
           template(v-if="$q.platform.is.desktop")
             img(src="~assets/kontakt-apartman.jpg" height="300px")
 
+          template(v-if="$q.platform.is.mobile")
+            img(src="~assets/kontakt-apartman-xs.jpg" width="100%")
+
         .col-lg-5.col-md-12.col-xs-12
           .column.justify-center
             .col-6.q-mb-sm.text-center
@@ -115,14 +118,27 @@ export default {
     page-section(:fullWidth="true")
       .row.justify-end
         .col-12.text-right
-          img(src="~assets/mapa-z-letadla.jpg").image-right
+          template(v-if="$q.platform.is.desktop")
+            img(src="~assets/mapa-z-letadla.jpg").image-right
 
+          template(v-if="$q.platform.is.mobile")
+            img(src="~assets/mapa-z-letadla-xs.jpg" width="100%")
 
     page-section(:fullWidth="true")
       .row
         .col-lg-6.col-md-12
           a(href="https://mapy.cz/s/rasofaloze" target="_blank")
-            img(src="~assets/map-with-poi.png").image-left
+            template(v-if="$q.platform.is.desktop")
+              img(src="~assets/map-with-poi.png" height="420px")
+
+            template(v-if="$q.platform.is.mobile")
+              img(src="~assets/map-with-poi.png" width="100%")
+
+
+
+
+
+
         .col-lg-4.pad.col-md-12
           .row.items-center.q-mt-lg
             .col-1
