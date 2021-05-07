@@ -186,15 +186,15 @@ export default {
           p.text-center.gekon-counter-s km od Prahy
         .col.gekon-card-solution
           h2.gekon-counter-b.text-white
-            animated-number(:number="790" :time="1200" :restart="true")
+            animated-number(:number="780" :time="1200" :restart="true")
           p.text-center.gekon-counter-s km od Brno
         .col.gekon-card-solution
           h2.gekon-counter-b.text-white
-            animated-number(:number="55" :time="1200" :restart="true")
+            animated-number(:number="50" :time="1200" :restart="true")
           p.text-center.gekon-counter-s km Zadar letiště
         .col.gekon-card-solution
           h2.gekon-counter-b.text-white
-            animated-number(:number="14" :time="1200" :restart="true")
+            animated-number(:number="13" :time="1200" :restart="true")
           p.text-center.gekon-counter-s km město Pag
 
     page-section

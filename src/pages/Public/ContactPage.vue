@@ -114,10 +114,15 @@ export default {
 
     page-section(:fullWidth="true")
       h1.text-center Kontakt
-      .row.items-center
-        .col-lg-6.col-md-12
+
+
+
+      .row.items-center.justify-start
+        .col-lg-6.col-md-12.col-xs-12.text-left.no-padding.no-margin
+
           img(src="~assets/kontakt-apartman.jpg" height="300px")
-        .col-lg-4.col-md-12.col-xs-12
+
+        .col-lg-5.col-md-12.col-xs-12
           .column.justify-center
             .col-6.q-mb-sm.text-center
               span.text-paragraph ulice &nbsp;
@@ -135,6 +140,8 @@ export default {
               span.text-paragraph GPS &nbsp;
               span.text-paragraph-bold 44.3491100N &nbsp; 15.0980000E
 
+
+
     page-section(:fullWidth="true")
       .row.justify-end
         .col-12.text-right
@@ -143,8 +150,9 @@ export default {
 
     page-section(:fullWidth="true")
       .row
-        .col-lg-7.col-md-12
-          img(src="~assets/map-with-poi.png").image-left
+        .col-lg-6.col-md-12
+          a(href="https://mapy.cz/s/rasofaloze" target="_blank")
+            img(src="~assets/map-with-poi.png").image-left
         .col-lg-4.pad.col-md-12
           .row.items-center.q-mt-lg
             .col-1
@@ -204,6 +212,9 @@ export default {
 </template>
 
 <style scoped lang="stylus">
+
+$circleSize = 1em
+
 p
   font-family RedHatText-reg
   font-size $alt-text-size
@@ -211,23 +222,7 @@ p
 .textCircle
   font-family RedHatDisplay-reg
   margin 0 0 0 20px
-/*
-  .numberCircle
-    width 35px
-    height 35px
 
-    padding 10px
-    border-radius 50%
-    text-align center
-    margin 0 0 20px 0
-
-
-
-
-    */
-    //
-
-$circleSize = 1em
 
 .numberCircle
   font-size 23px
