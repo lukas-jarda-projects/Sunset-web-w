@@ -50,37 +50,7 @@ export default {
     return {
       slide: '1',
       slideReferences: '1',
-      tab: 'internetoveobj',
-      imagesInternet: [
-        { src: 'statics/galerie/int-obj/1_objednavka.png', alt: 'Objednávka', thumbnail: null },
-        { src: 'statics/galerie/int-obj/2_prehled.PNG', alt: 'Přehled', thumbnail: null },
-        { src: 'statics/galerie/int-obj/3_finance.png', alt: 'Finance', thumbnail: null },
-        { src: 'statics/galerie/int-obj/4_maily.png', alt: 'Maily', thumbnail: null }
-      ],
-      imagesJidelna: [
-        { src: 'statics/galerie/jid-sql/1_titulni-orbazovka.jpg', alt: 'Titulní obrazovka', thumbnail: null },
-        { src: 'statics/galerie/jid-sql/2_jidelnicek.jpg', alt: 'Jídelníček', thumbnail: null },
-        { src: 'statics/galerie/jid-sql/3_pokladna.jpg', alt: 'Pokladna', thumbnail: null }
-      ],
-      imagesObjednavkovy: [
-        { src: 'statics/galerie/obj-ter/1_TT1703.jpg', alt: 'Terminál', thumbnail: null },
-        { src: 'statics/galerie/obj-ter/2_TT1703.jpg', alt: 'Terminál', thumbnail: null },
-        { src: 'statics/galerie/obj-ter/3_identifikace.jpg', alt: 'Identifikace', thumbnail: null },
-        { src: 'statics/galerie/obj-ter/4_objednavka.jpg', alt: 'Objednávka', thumbnail: null }
-      ],
-      imagesVydej: [
-        { src: 'statics/galerie/vyd-ter/1_TT3503vydej.jpg', alt: 'Terminál výdej', thumbnail: null },
-        { src: 'statics/galerie/vyd-ter/2_identifikace.jpg', alt: 'Identifikace', thumbnail: null },
-        { src: 'statics/galerie/vyd-ter/3_vydej.jpg', alt: 'Výdej', thumbnail: null },
-        { src: 'statics/galerie/vyd-ter/4_TT3511semafor.jpg', alt: 'Semafor na terminálu', thumbnail: null }
-      ],
-      imagesZolik: [
-        { src: 'statics/galerie/zolik/zolik-config.jpg', alt: 'Žolík konfigurace', thumbnail: null },
-        { src: 'statics/galerie/zolik/zolik-menu.jpg', alt: 'Žolík nabídka', thumbnail: null },
-        { src: 'statics/galerie/zolik/zolik-open.jpg', alt: 'Žolík výměna papíru', thumbnail: null },
-        { src: 'statics/galerie/zolik/zolik-print.jpg', alt: 'Žolík tisk', thumbnail: null }
-      ],
-      blogPosts: []
+      tab: 'internetoveobj'
     }
   },
 
@@ -113,7 +83,7 @@ export default {
     page-section(:fullWidth="true")
 
     q-carousel.top-carousel(
-      autoplay swipeable animated v-model="slide"
+      :autoplay="2000" swipeable animated v-model="slide"
       arrows navigation infinite height="500px"
       transition-next="jump-left" transition-prev="jump-right").no-alt-scroll
 
