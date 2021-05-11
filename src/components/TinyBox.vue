@@ -233,7 +233,7 @@ export default {
     right: 0;
     text-align: center;
     top: 0;
-    z-index: 9000;
+    z-index: 2000;
   }
 
   .tinybox__content {

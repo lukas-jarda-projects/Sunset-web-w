@@ -50,6 +50,7 @@ export default {
       slideReferences: '1',
       tab: 'internetoveobj',
       imagesInternet: [
+        { src: 'statics/galerie/_00-planek.jpg', alt: 'Plánek apartmánu', thumbnail: null },
         { src: 'statics/galerie/3159.jpg', alt: 'Obývák', thumbnail: null },
         { src: 'statics/galerie/3154.jpg', alt: 'Obývák', thumbnail: null },
         { src: 'statics/galerie/3157.jpg', alt: 'Obývák', thumbnail: null },
@@ -145,8 +146,8 @@ export default {
 
     page-section
       h1.text-center Fotogalerie
-      .q-pa-md
-        jidelna-gallery(:images="imagesInternet")
+      //.q-pa-md
+      jidelna-gallery(:images="imagesInternet")
 
 </template>
 

@@ -7,8 +7,10 @@ q-layout(view="hHh lpR fFf")
           img.logo(src="~assets/logo-sunset-apartment.svg"
             height="40px" style="z-index: 2").q-mt-md.q-my-sm.q-ml-lg
 
+      // desktop menu
       q-tabs(align="right" active-color='secondary' indicator-color='secondary').q-mr-lg.gt-sm
-        q-route-tab(no-caps to="" label="Úvod"
+
+        q-route-tab(no-caps to="/" label="Úvod"
           @click="$router.push({name: 'index'})").q-px-lg.menu-button
 
         q-route-tab(no-caps to="about" label="O apartmánu"
@@ -23,13 +25,18 @@ q-layout(view="hHh lpR fFf")
       div.q-mr-lg.lt-md
         q-btn(dense flat round icon="menu" @click="right = !right")
 
+
+
+      // mobile menu
       q-drawer(v-model="right" side="right" bordered)
         q-tabs(vertical align="right" active-color='secondary' indicator-color='secondary')
           q-list.text-body3.q-mt-xl
-          q-route-tab(dense no-caps to="", label="Úvod" @click="$router.push({name: 'index'})")
+
+          q-route-tab(no-caps to="/", label="Úvod" @click="$router.push({name: 'index'})")
           q-route-tab(no-caps to="about", label="O apartmánu" @click="$router.push({name: 'about'})")
           q-route-tab(no-caps to="photo", label="Fotogalerie" @click="$router.push({name: 'photo'})")
           q-route-tab(no-caps to="contact", label="Kontakt" @click="$router.push({name: 'contact'})")
+
           q-btn(dense no-caps flat icon="close" @click="right = !right").menufullwidth zavřít
 
 

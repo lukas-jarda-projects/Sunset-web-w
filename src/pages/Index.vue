@@ -83,7 +83,7 @@ export default {
     page-section(:fullWidth="true")
 
     q-carousel.top-carousel(
-      :autoplay="2000" swipeable animated v-model="slide"
+      :autoplay="2250" swipeable animated v-model="slide"
       arrows navigation infinite height="500px"
       transition-next="jump-left" transition-prev="jump-right").no-alt-scroll
 
@@ -153,11 +153,11 @@ export default {
         .col.gekon-card-solution
           h2.gekon-counter-b.text-white
             animated-number(:number="920" :time="1200" :restart="true") km
-          p.text-center.gekon-counter-s km od Prahy
+          p.text-center.gekon-counter-s km Praha
         .col.gekon-card-solution
           h2.gekon-counter-b.text-white
             animated-number(:number="780" :time="1200" :restart="true")
-          p.text-center.gekon-counter-s km od Brno
+          p.text-center.gekon-counter-s km Brno
         .col.gekon-card-solution
           h2.gekon-counter-b.text-white
             animated-number(:number="50" :time="1200" :restart="true")
