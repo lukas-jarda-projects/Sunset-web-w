@@ -27,7 +27,7 @@ export default {
   name: 'ContactPage',
 
   meta: {
-    title: 'ContactPage'
+    title: 'Sunset-apartment'
   },
 
   components: {
