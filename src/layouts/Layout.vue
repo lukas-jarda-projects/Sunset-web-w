@@ -13,13 +13,13 @@ q-layout(view="hHh lpR fFf")
         q-route-tab(no-caps to="/" label="Úvod"
           @click="$router.push({name: 'index'})").q-px-lg.menu-button
 
-        q-route-tab(no-caps to="about" label="O apartmánu"
+        q-route-tab(no-caps to="/about" label="O apartmánu"
           @click="$router.push({name: 'about'})").q-px-lg.menu-button
 
-        q-route-tab(no-caps to="photo" label="Fotogalerie"
+        q-route-tab(no-caps to="/photo" label="Fotogalerie"
           @click="$router.push({name: 'photo'})").q-px-lg.menu-button
 
-        q-route-tab(no-caps to="contact" label="Kontakt"
+        q-route-tab(no-caps to="/contact" label="Kontakt"
           @click="$router.push({name: 'contact'})").q-px-lg.menu-button
 
       div.q-mr-lg.lt-md
@@ -33,9 +33,9 @@ q-layout(view="hHh lpR fFf")
           q-list.text-body3.q-mt-xl
 
           q-route-tab(no-caps to="/", label="Úvod" @click="$router.push({name: 'index'})")
-          q-route-tab(no-caps to="about", label="O apartmánu" @click="$router.push({name: 'about'})")
-          q-route-tab(no-caps to="photo", label="Fotogalerie" @click="$router.push({name: 'photo'})")
-          q-route-tab(no-caps to="contact", label="Kontakt" @click="$router.push({name: 'contact'})")
+          q-route-tab(no-caps to="/about", label="O apartmánu" @click="$router.push({name: 'about'})")
+          q-route-tab(no-caps to="/photo", label="Fotogalerie" @click="$router.push({name: 'photo'})")
+          q-route-tab(no-caps to="/contact", label="Kontakt" @click="$router.push({name: 'contact'})")
 
           q-btn(dense no-caps flat icon="close" @click="right = !right").menufullwidth zavřít
 

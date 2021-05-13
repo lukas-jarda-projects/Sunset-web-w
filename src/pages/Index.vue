@@ -83,7 +83,7 @@ export default {
     page-section(:fullWidth="true")
 
     q-carousel.top-carousel(
-      :autoplay="2250" swipeable animated v-model="slide"
+      :autoplay="2100" swipeable animated v-model="slide"
       arrows navigation infinite height="500px"
       transition-next="jump-left" transition-prev="jump-right").no-alt-scroll
 
