@@ -152,6 +152,4 @@ export default {
 </template>
 
 <style scoped lang="stylus">
-
-
 </style>
