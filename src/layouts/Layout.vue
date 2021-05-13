@@ -10,17 +10,17 @@ q-layout(view="hHh lpR fFf")
       // desktop menu
       q-tabs(align="right" active-color='secondary' indicator-color='secondary').q-mr-lg.gt-sm
 
-        q-route-tab(no-caps to="/" label="Úvod"
-          @click="$router.push({name: 'index'})").q-px-lg.menu-button
+        q-route-tab(no-caps to="/"
+          @click="$router.push({name: 'index'})").q-px-lg.menu-button.menu-text-style Úvod
 
-        q-route-tab(no-caps to="/about" label="O apartmánu"
-          @click="$router.push({name: 'about'})").q-px-lg.menu-button
+        q-route-tab(no-caps to="/about"
+          @click="$router.push({name: 'about'})").q-px-lg.menu-button.menu-text-style O apartmánu
 
-        q-route-tab(no-caps to="/photo" label="Fotogalerie"
-          @click="$router.push({name: 'photo'})").q-px-lg.menu-button
+        q-route-tab(no-caps to="/photo"
+          @click="$router.push({name: 'photo'})").q-px-lg.menu-button.menu-text-style Fotogalerie
 
-        q-route-tab(no-caps to="/contact" label="Kontakt"
-          @click="$router.push({name: 'contact'})").q-px-lg.menu-button
+        q-route-tab(no-caps to="/contact"
+          @click="$router.push({name: 'contact'})").q-px-lg.menu-button.menu-text-style Kontakt
 
       div.q-mr-lg.lt-md
         q-btn(dense flat round icon="menu" @click="right = !right")
@@ -29,13 +29,13 @@ q-layout(view="hHh lpR fFf")
 
       // mobile menu
       q-drawer(v-model="right" side="right" bordered)
-        q-tabs(vertical align="right" active-color='secondary' indicator-color='secondary')
+        q-tabs(vertical align="right" active-color='secondary' indicator-color='secondary' content-class='menu-text-style')
           q-list.text-body3.q-mt-xl
 
-          q-route-tab(no-caps to="/", label="Úvod" @click="$router.push({name: 'index'})")
-          q-route-tab(no-caps to="/about", label="O apartmánu" @click="$router.push({name: 'about'})")
-          q-route-tab(no-caps to="/photo", label="Fotogalerie" @click="$router.push({name: 'photo'})")
-          q-route-tab(no-caps to="/contact", label="Kontakt" @click="$router.push({name: 'contact'})")
+          q-route-tab(no-caps to="/" @click="$router.push({name: 'index'})").menu-text-style Úvod
+          q-route-tab(no-caps to="/about" @click="$router.push({name: 'about'})").menu-text-style O apartmánu
+          q-route-tab(no-caps to="/photo" @click="$router.push({name: 'photo'})").menu-text-style Fotogalerie
+          q-route-tab(no-caps to="/contact" @click="$router.push({name: 'contact'})").menu-text-style Kontakt
 
           q-btn(dense no-caps flat icon="close" @click="right = !right").menufullwidth zavřít
 
@@ -108,29 +108,23 @@ export default {
   opacity: 0;
 }
 
-
+.menu-text-style
+  font-family 'RedHatDisplay-med'
+  font-size 18px !important
 
 // aplikuje se na aktivní menu
-.active
-  color $secondary !important
-  background-color white !important
-
 .menu-button
-  font-size 24px !important
-  font-family 'RedHatDisplay-reg'
   color $primary
   height 80px
   padding 0 50px
   letter-spacing 0.6px
-  //margin 0 20px
 
 .menufullwidth
-  font-size 24px
+  font-size 18px  !important
   width 100%
+  margin-top 10px
   padding 10px
   color $dark +150
-
-
 
 
 </style>
