@@ -48,8 +48,8 @@ export default {
     return {
       slide: '1',
       slideReferences: '1',
-      tab: 'internetoveobj',
-      imagesInternet: [
+      tab: 'poschodi',
+      poschodi: [
         { src: 'statics/galerie/_00-planek.jpg', alt: 'Plánek apartmánu', thumbnail: null },
         { src: 'statics/galerie/3159.jpg', alt: 'Obývák', thumbnail: null },
         { src: 'statics/galerie/3154.jpg', alt: 'Obývák', thumbnail: null },
@@ -70,17 +70,22 @@ export default {
         { src: 'statics/galerie/3131.jpg', alt: 'Ložnice II (dětská)', thumbnail: null },
         { src: 'statics/galerie/3136.jpg', alt: 'Ložnice II (dětská)', thumbnail: null },
         { src: 'statics/galerie/3147.jpg', alt: 'Ložnice II (dětská)', thumbnail: null },
-        { src: 'statics/galerie/3197.jpg', alt: 'Koupelna I', thumbnail: null },
-        { src: 'statics/galerie/3199.jpg', alt: 'Koupelna I', thumbnail: null },
         // { src: 'statics/galerie/3014.jpg', alt: 'Podkroví', thumbnail: null },
+        { src: 'statics/galerie/3197.jpg', alt: 'Koupelna I', thumbnail: null },
+        { src: 'statics/galerie/3199.jpg', alt: 'Koupelna I', thumbnail: null }
+      ],
+
+      podkrovi: [
         { src: 'statics/galerie/3025.jpg', alt: 'Podkroví', thumbnail: null },
         { src: 'statics/galerie/3024.jpg', alt: 'Podkroví', thumbnail: null },
         { src: 'statics/galerie/3061.jpg', alt: 'Podkroví', thumbnail: null },
         // { src: 'statics/galerie/3060.jpg', alt: 'Podkroví', thumbnail: null },
         // { src: 'statics/galerie/3036.jpg', alt: 'Koupelna II', thumbnail: null },
         { src: 'statics/galerie/3052.jpg', alt: 'Koupelna II', thumbnail: null },
-        { src: 'statics/galerie/3042.jpg', alt: 'Koupelna II', thumbnail: null },
+        { src: 'statics/galerie/3042.jpg', alt: 'Koupelna II', thumbnail: null }
+      ],
 
+      okoli: [
         { src: 'statics/galerie/3225.jpg', alt: 'Dům', thumbnail: null },
         { src: 'statics/galerie/3236.jpg', alt: 'Parking', thumbnail: null },
         { src: 'statics/galerie/3237.jpg', alt: 'Parking', thumbnail: null },
@@ -90,7 +95,10 @@ export default {
         { src: 'statics/galerie/111304.jpg', alt: 'Okolí domu', thumbnail: null },
         { src: 'statics/galerie/112024.jpg', alt: 'Okolí domu', thumbnail: null },
         { src: 'statics/galerie/112047.jpg', alt: 'Okolí domu', thumbnail: null },
-        { src: 'statics/galerie/112250.jpg', alt: 'Okolí domu', thumbnail: null },
+        { src: 'statics/galerie/112250.jpg', alt: 'Okolí domu', thumbnail: null }
+      ],
+
+      ostrov: [
         { src: 'statics/galerie/105845.jpg', alt: 'Pláž', thumbnail: null },
         { src: 'statics/galerie/120512.jpg', alt: 'Pláž', thumbnail: null },
         { src: 'statics/galerie/120755.jpg', alt: 'Pláž', thumbnail: null },
@@ -107,8 +115,6 @@ export default {
         { src: 'statics/galerie/_ostrov2Pag000089.jpg', alt: 'Ostrov Pag', thumbnail: null },
         { src: 'statics/galerie/_ostrov3Pag000036.jpg', alt: 'Ostrov Pag', thumbnail: null },
         { src: 'statics/galerie/_ostrov5mesteckoPag000022.jpg', alt: 'Městečko Pag', thumbnail: null }
-
-
       ]
     }
   },
@@ -146,10 +152,27 @@ export default {
 
     page-section
       h1.text-center Fotogalerie
-      //.q-pa-md
-      jidelna-gallery(:images="imagesInternet")
+    page-section
+      q-tabs.text-primary(v-model='tab' no-caps class='md-md' active-color='accent' indicator-color='accent')
+        q-tab(name='poschodi').menu-sm-text-style První patro
+        q-tab(name='podkrovi').menu-sm-text-style Podkroví
+        q-tab(name='okoli').menu-sm-text-style Okolí apartmánu
+        q-tab(name='ostrov').menu-sm-text-style Ostrov Pug
 
+      q-tab-panels(v-model='tab' animated='')
+        q-tab-panel(name='poschodi')
+          jidelna-gallery(:images="poschodi")
+        q-tab-panel(name='podkrovi')
+          jidelna-gallery(:images="podkrovi")
+        q-tab-panel(name='okoli')
+          jidelna-gallery(:images="okoli")
+        q-tab-panel(name='ostrov')
+          jidelna-gallery(:images="ostrov")
 </template>
 
 <style scoped lang="stylus">
+.menu-sm-text-style
+  font-family 'RedHatDisplay-bld'
+  font-size 16px !important
+
 </style>
