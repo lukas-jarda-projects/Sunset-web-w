@@ -94,7 +94,7 @@ export default {
 
       q-carousel-slide(name="2" img-src="~assets/carusel-sunset-apartment-02.jpg")
         carousel-content
-          template(#title) S&nbsp;přímým výhledem na moře
+          template(#title) S&nbsp;přímým výhledem<br>na moře
           // template(#description) výhledem na moře z 1. patra
 
       q-carousel-slide(name="3" img-src="~assets/carusel-sunset-apartment-03.jpg")
