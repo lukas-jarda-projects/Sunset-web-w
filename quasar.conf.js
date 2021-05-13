@@ -19,15 +19,15 @@ module.exports = function (ctx) {
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
       // 'ionicons-v4',
-      'mdi-v4',
+      // 'mdi-v4',
       // 'fontawesome-v5',
       'material-icons',
-      'eva-icons',
+      //'eva-icons',
       // 'themify',
       // 'line-awesome',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
-      'roboto-font' // optional, you are not bound to it
+      // 'roboto-font' // optional, you are not bound to it
       // 'material-icons' // optional, you are not bound to it
     ],
 
