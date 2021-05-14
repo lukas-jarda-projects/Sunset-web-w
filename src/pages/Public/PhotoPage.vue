@@ -65,12 +65,9 @@ export default {
         { src: 'statics/galerie/3089.jpg', alt: 'Ložnice I', thumbnail: null },
         { src: 'statics/galerie/3094.jpg', alt: 'Ložnice I', thumbnail: null },
         { src: 'statics/galerie/3087.jpg', alt: 'Výhled z ložnice I', thumbnail: null },
-        // { src: 'statics/galerie/3193.jpg', alt: 'Koupelna I', thumbnail: null },
-        // { src: 'statics/galerie/3196.jpg', alt: 'Koupelna I', thumbnail: null },
         { src: 'statics/galerie/3131.jpg', alt: 'Ložnice II (dětská)', thumbnail: null },
         { src: 'statics/galerie/3136.jpg', alt: 'Ložnice II (dětská)', thumbnail: null },
         { src: 'statics/galerie/3147.jpg', alt: 'Ložnice II (dětská)', thumbnail: null },
-        // { src: 'statics/galerie/3014.jpg', alt: 'Podkroví', thumbnail: null },
         { src: 'statics/galerie/3197.jpg', alt: 'Koupelna I', thumbnail: null },
         { src: 'statics/galerie/3199.jpg', alt: 'Koupelna I', thumbnail: null }
       ],
@@ -79,8 +76,6 @@ export default {
         { src: 'statics/galerie/3025.jpg', alt: 'Podkroví', thumbnail: null },
         { src: 'statics/galerie/3024.jpg', alt: 'Podkroví', thumbnail: null },
         { src: 'statics/galerie/3061.jpg', alt: 'Podkroví', thumbnail: null },
-        // { src: 'statics/galerie/3060.jpg', alt: 'Podkroví', thumbnail: null },
-        // { src: 'statics/galerie/3036.jpg', alt: 'Koupelna II', thumbnail: null },
         { src: 'statics/galerie/3052.jpg', alt: 'Koupelna II', thumbnail: null },
         { src: 'statics/galerie/3042.jpg', alt: 'Koupelna II', thumbnail: null }
       ],
@@ -96,9 +91,6 @@ export default {
         { src: 'statics/galerie/112024.jpg', alt: 'Okolí domu', thumbnail: null },
         { src: 'statics/galerie/112047.jpg', alt: 'Okolí domu', thumbnail: null },
         { src: 'statics/galerie/112250.jpg', alt: 'Okolí domu', thumbnail: null }
-      ],
-
-      ostrov: [
         { src: 'statics/galerie/105845.jpg', alt: 'Pláž', thumbnail: null },
         { src: 'statics/galerie/120512.jpg', alt: 'Pláž', thumbnail: null },
         { src: 'statics/galerie/120755.jpg', alt: 'Pláž', thumbnail: null },
@@ -106,7 +98,9 @@ export default {
         { src: 'statics/galerie/0123.jpg', alt: 'Pohled na Povljanu', thumbnail: null },
         { src: 'statics/galerie/0111.jpg', alt: 'Pohled na Povljanu', thumbnail: null },
         { src: 'statics/galerie/0115.jpg', alt: 'Pohled na apartmán', thumbnail: null },
-        // { src: 'statics/galerie/0125.jpg', alt: 'Pohled z dronu', thumbnail: null },
+      ],
+
+      ostrov: [
         { src: 'statics/galerie/3241.jpg', alt: 'Most na ostrov Pag', thumbnail: null },
         { src: 'statics/galerie/3248.jpg', alt: 'Ostrov Pag', thumbnail: null },
         { src: 'statics/galerie/000074.jpg', alt: 'Ostrov Pag', thumbnail: null },
@@ -157,7 +151,7 @@ export default {
         q-tab(name='poschodi').menu-sm-text-style První patro
         q-tab(name='podkrovi').menu-sm-text-style Podkroví
         q-tab(name='okoli').menu-sm-text-style Okolí apartmánu
-        q-tab(name='ostrov').menu-sm-text-style Ostrov Pug
+        q-tab(name='ostrov').menu-sm-text-style Ostrov Pag
 
       q-tab-panels(v-model='tab' animated='')
         q-tab-panel(name='poschodi')
