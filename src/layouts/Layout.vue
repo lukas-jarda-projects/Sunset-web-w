@@ -22,8 +22,8 @@ q-layout(view="hHh lpR fFf")
         q-route-tab(no-caps to="/contact"
           @click="$router.push({name: 'contact'})").q-px-lg.menu-button.menu-text-style Kontakt
 
-      div
-        q-btn(flat no-caps icon-right="menu" label="Menu" @click="right = !right" size="lg").menu-button
+      div.lt-md
+        q-btn(flat no-caps icon-right="menu" label="Menu" @click="right = !right" size="lg").menu-button-mobile
 
 
       // mobile menu
@@ -111,12 +111,12 @@ export default {
   font-family 'RedHatDisplay-med'
   font-size 18px !important
 
-// aplikuje se na aktivní menu
 .menu-button
   color $primary
   height 80px
   padding 0 50px
   letter-spacing 0.6px
+
 
 .menufullwidth
   font-size 18px  !important
@@ -125,5 +125,8 @@ export default {
   padding 10px
   color $dark +150
 
-
+.menu-button-mobile
+  padding 0 50px
+  margin 0 -20px
+  height 80px
 </style>
