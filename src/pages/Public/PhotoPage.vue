@@ -90,14 +90,14 @@ export default {
         { src: 'statics/galerie/111304.jpg', alt: 'Okolí domu', thumbnail: null },
         { src: 'statics/galerie/112024.jpg', alt: 'Okolí domu', thumbnail: null },
         { src: 'statics/galerie/112047.jpg', alt: 'Okolí domu', thumbnail: null },
-        { src: 'statics/galerie/112250.jpg', alt: 'Okolí domu', thumbnail: null }
+        { src: 'statics/galerie/112250.jpg', alt: 'Okolí domu', thumbnail: null },
         { src: 'statics/galerie/105845.jpg', alt: 'Pláž', thumbnail: null },
         { src: 'statics/galerie/120512.jpg', alt: 'Pláž', thumbnail: null },
         { src: 'statics/galerie/120755.jpg', alt: 'Pláž', thumbnail: null },
         { src: 'statics/galerie/0122.jpg', alt: 'Pohled na Povljanu', thumbnail: null },
         { src: 'statics/galerie/0123.jpg', alt: 'Pohled na Povljanu', thumbnail: null },
         { src: 'statics/galerie/0111.jpg', alt: 'Pohled na Povljanu', thumbnail: null },
-        { src: 'statics/galerie/0115.jpg', alt: 'Pohled na apartmán', thumbnail: null },
+        { src: 'statics/galerie/0115.jpg', alt: 'Pohled na apartmán', thumbnail: null }
       ],
 
       ostrov: [
