@@ -3,7 +3,11 @@ q-layout(view="hHh lpR fFf")
   q-header.bg-white.text-primary(elevated height-hint="98")
     q-toolbar
       q-toolbar-title
-        a(href="#" @click="$router.push({name: 'index'})")
+        a(href="#" @click="$router.push({name: 'index'})").gt-sm
+          img.logo(src="~assets/logo-sunset-apartment.svg"
+            height="40px" style="z-index: 2").q-mt-md.q-my-sm.q-ml-lg
+
+        a(href="#" @click="$router.push({name: 'index'})").lt-md
           img.logo(src="~assets/logo-sunset-apartment.svg"
             height="40px" style="z-index: 2").q-mt-md.q-my-sm
 
@@ -23,7 +27,7 @@ q-layout(view="hHh lpR fFf")
           @click="$router.push({name: 'contact'})").q-px-lg.menu-button.menu-text-style Kontakt
 
       div.lt-md
-        q-btn(flat no-caps icon-right="menu" label="Menu" @click="right = !right" size="md").menu-button-mobile
+        q-btn(flat no-caps icon-right="menu" label="Menu" @click="right = !right" size="lg").menu-button-mobile
 
 
       // mobile menu
