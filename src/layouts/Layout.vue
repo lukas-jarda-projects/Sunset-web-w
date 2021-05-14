@@ -126,7 +126,7 @@ export default {
   color $dark +150
 
 .menu-button-mobile
-  padding 0 50px
+  padding 0 20px
   margin 0 -20px
   height 80px
 </style>
