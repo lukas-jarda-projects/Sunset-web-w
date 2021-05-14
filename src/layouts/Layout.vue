@@ -5,7 +5,7 @@ q-layout(view="hHh lpR fFf")
       q-toolbar-title
         a(href="#" @click="$router.push({name: 'index'})")
           img.logo(src="~assets/logo-sunset-apartment.svg"
-            height="40px" style="z-index: 2").q-mt-md.q-my-sm.q-ml-lg
+            height="40px" style="z-index: 2").q-mt-md.q-my-sm
 
       // desktop menu
       q-tabs(align="right" active-color='secondary' indicator-color='secondary').q-mr-lg.gt-sm
@@ -23,7 +23,7 @@ q-layout(view="hHh lpR fFf")
           @click="$router.push({name: 'contact'})").q-px-lg.menu-button.menu-text-style Kontakt
 
       div.lt-md
-        q-btn(flat no-caps icon-right="menu" label="Menu" @click="right = !right" size="lg").menu-button-mobile
+        q-btn(flat no-caps icon-right="menu" label="Menu" @click="right = !right" size="md").menu-button-mobile
 
 
       // mobile menu
@@ -129,4 +129,6 @@ export default {
   padding 0 20px
   margin 0 -20px
   height 80px
+
+
 </style>
