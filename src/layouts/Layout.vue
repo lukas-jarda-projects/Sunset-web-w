@@ -23,8 +23,7 @@ q-layout(view="hHh lpR fFf")
           @click="$router.push({name: 'contact'})").q-px-lg.menu-button.menu-text-style Kontakt
 
       div.q-mr-lg.lt-md
-        q-btn(dense flat round icon="menu" @click="right = !right")
-
+        q-btn(flat no-caps icon-right="menu" label="Menu" @click="right = !right" size="lg").menu-button
 
 
       // mobile menu
