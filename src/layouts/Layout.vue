@@ -5,7 +5,7 @@ q-layout(view="hHh lpR fFf")
       q-toolbar-title
         a(href="#" @click="$router.push({name: 'index'})").gt-sm
           img.logo(src="~assets/logo-sunset-apartment.svg"
-            height="40px" style="z-index: 2; margin: 0 40px").q-mt-md.q-my-sm
+            height="40px" style="z-index: 2; margin-left: 40px").q-mt-md.q-my-sm
 
         a(href="#" @click="$router.push({name: 'index'})").lt-md
           img.logo(src="~assets/logo-sunset-apartment.svg"
