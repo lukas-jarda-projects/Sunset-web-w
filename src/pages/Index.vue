@@ -111,7 +111,7 @@ export default {
 
     page-section.section-nadpis.text-center
       .row.justify-center.page-section-ourstory
-        .col-xs-12.col-sm-12.col-md-12(style="margin-bottom: -20px")
+        .col-xs-12.col-sm-12.col-md-12
           h2 Luxusní poschoďový apartmán <br>v první řadě s přímým výhledem na moře
         .col-xs-12.col-sm-8.col-md-6.q-mt-lg
           p.text-paragraph Nově postavený, pohodlně vybavený apartmán o velikosti 4kk pro 4–8 osob s plně vybavenou kuchyní, 3 ložnice, 2 koupelny a balkon s výhledem na otevřené moře. Apartmán je umístěný na skalnatém výběžku ostrova PAG v městečku Povljana, pár minut v docházkové vzdálenosti od pláže.
@@ -119,7 +119,8 @@ export default {
 
 
     page-section
-      h2 Jak se dostat do Povljany
+      div.q-mb-lg
+        h2 Jak se dostat do Povljany
       .flex.q-gutter-sm(:class="{'justify-center': $q.screen.gt.xs}")
         a.invisible-link(href="https://www.google.cz/maps/dir/Praha/Povljana,+Chorvatsko/@46.5479148,6.4374715,6z/data=!4m13!4m12!1m5!1m1!1s0x470b939c0970798b:0x400af0f66164090!2m2!1d14.4378005!2d50.0755381!1m5!1m1!1s0x4762210f43b9d72b:0x400ad50862bc880!2m2!1d15.1128014!2d44.3461794" target="_blank")
           page-section-card
@@ -129,6 +130,8 @@ export default {
             template(#title) Autem
             template
               | Cesta autem vám čistého času zabere cca 9 hodin, celá cesta je kromě části v ČR a posledních 50 Km před Pagem po dálnici. Užitečné tipy a rady na cestu si můžete přečíst v našem průvodci, který jsme sepsali na základě vlastních zkušeností.
+              div.text-secondary
+                | Klikněte, otevře se trasa na mapě >
 
         a.invisible-link(href="https://www.regiojet.cz/chorvatsko/index.html?ref=/vlakem-do-chorvatska" target="_blank")
           page-section-card
@@ -138,6 +141,8 @@ export default {
             template(#title) Vlakem
             template
               | Společnost Regiojet spustila prodej vlakových jízdenek na léto 2021. Pohodlně se dostanete přímým spojem z Prahy do města Gracač a odtud pak navazujícím autobusem do Povljany. Jízdenky se dají zakoupit od 1 190 Kč.
+              div.text-secondary
+                | Klikněte, otevře se nákup jízdenek >
 
         a.invisible-link(href="https://www.zadar-airport.hr/en/destinations#prg" target="_blank")
           page-section-card
@@ -147,6 +152,9 @@ export default {
             template(#title) Letecky
             template
               | Do Povljany, respektive do Zadaru, se dostanete letecky, letenky se dají koupit od 1000 Kč za osobu jednosměrný let. V Zadaru si můžete na týden půjčit auto v průměru za 3500 Kč/týden, případně si vzít UBER za velmi přijatelnou cenu.
+              div.text-secondary
+                | Klikněte, otevře se nákup letenek >
+
 
     page-section
       .row.gekon-btn
@@ -167,43 +175,41 @@ export default {
             animated-number(:number="13" :time="1200" :restart="true")
           p.text-center.gekon-counter-s km město Pag
 
-    page-section
-      .row
-        .col-xs-12.col-sm-1.col-md-2.col-lg-3
-        .col-xs-12.col-sm-9.col-md-7.col-lg-6
-          //-&nbsp;s&nbsp;
+    page-section.section-nadpis.text-center
+      .row.justify-center.page-section-ourstory
+        .col-xs-12.col-sm-12.col-md-12
           h2 Lokalita
-          p.text-paragraph
+        .col-xs-12.col-sm-8.col-md-6.q-mt-lg
+          p.text-paragraph.text-left
             | Letovisko Povljana leží doslova v kouzelné přírodní zátoce na jihovýchodním pobřeží ostrova Pag.
             | Samotný ostov Pag je nejjižnější ostrov z vnitřního pásu Kvarnerského souostroví, který leží na rozhraní mezi oblastí Kvarneru a Severodalmátskými ostrovy.
-          p.text-paragraph
+          p.text-paragraph.text-left
             | Původně zemědělská obec Povljana zažila v poslední době mohutný rozvoj a díky své poloze a výjimečnému množství zeleně v okolí je dnes významným turistickým střediskem.
             | Vyznavači letní pohody a klidu také jistě ocení, že je městečko Povljana směrem od západu chráněno před silnými větry Bora a Sirocco.
-          p.text-paragraph
+          p.text-paragraph.text-left
             | Z pobřeží letoviska je překrásný výhled na otevřené moře a dlouhé písečné a kamenité pláže s pozvolným vstupem do moře jsou ideální pro klidnou rodinnou dovolenou.
             | V těsné blízkosti našeho apartmánu je nejen nejznámější místní pláž Dubrovník, ale i zbylé čtyři pláže Mali Dubrovnik, Perilo, Livade a Stará Povljana.
-          p.text-paragraph
+          p.text-paragraph.text-left
             | Zkrátka oblast Povljany je skutečným dovolenkovým rájem s nekonečnou možností koupání v křišťálově čistém moři a celou řadu jiných volnočasových aktivit.
             | Navíc zde můžete prožít několik dní u blízkého přírodního jezera Segal s léčivým bahnitým sedimentem, což ocení nejen starší ročníky.
 
-    page-section
-      .row
-        .col-xs-12.col-sm-1.col-md-2.col-lg-3
-        .col-xs-12.col-sm-9.col-md-7.col-lg-6
-          //-&nbsp;s&nbsp;
+
+    page-section.section-nadpis.text-center
+      .row.justify-center.page-section-ourstory
+        .col-xs-12.col-sm-12.col-md-12
           h2 Užitečné informace
-          p.text-paragraph
+        .col-xs-12.col-sm-8.col-md-6.q-mt-lg
+           p.text-paragraph.text-left
             | Patříte mezi ty lidi, kteří všechno ví, všechno znají, všude byli a nic je nepřekvapí? Tak zrovna pro vás tento text určen není. Ale pro vás zbývající jsme připravili a shromáždili na jedno místo všechny důležité informace, které by mohli přispět k prožití vaší klidné dovolené na kouzelném místě, které jsme objevili během našich toulek světem. Přejeme vám pohodové čtení…
 
-    page-section.q-mt-lg
-      .row
-        .col-xs-12.col-sm-1.col-md-2.col-lg-3.q-mr-sm
-        .col-xs-12.col-sm-9.col-md-7.col-lg-6
+    page-section.section-nadpis.text-center.q-mt-lg
+      .row.justify-center.page-section-ourstory
+        .col-xs-12.col-sm-12.col-md-12
           a(href="statics/Uzitecne-rady-a-tipy.pdf" target="_blank").invisible-link
-            .row.items-center
-              .col-1.q-mr-sm.offset-2
+            .row.justify-center
+              .col-sm-5.col-xs-4.pdf-download-icon.text-right
                 img(src="~assets/pdf-icon-color.svg" height="36px")
-              .col
+              .col.text-left
                 .div Stahujte PDF soubor:
                 .pdf-download Užitečné rady a tipy
 
@@ -212,13 +218,18 @@ export default {
 
 <style scoped lang="stylus">
 
+.pdf-download-icon
+  margin 6px
+
 .pdf-download
   text-decoration none
   font-family RedHatDisplay-med
   font-size 18px
-  line-height 30px
+  line-height 20px
   letter-spacing .035rem
-  margin 0 0 5px 0
+
+.jaksedostatat-link
+  color orange !importatnt
 
 .invisible-link
   text-decoration none
@@ -285,7 +296,7 @@ a:hover
 
 h2
   text-align center
-  margin 50px 0 20px 0
+  margin 50px 0 0px 0
   padding 0
 
 h3
@@ -298,7 +309,7 @@ h3
 .page-section-ourstory
   font-size $alt-text-size
   text-align center
-  marging 20px
+  marging 20px 0px 0px 0px
 
 ul
   // list-style-image: url('~assets/app-icon.png')

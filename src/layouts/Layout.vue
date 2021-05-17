@@ -3,11 +3,15 @@ q-layout(view="hHh lpR fFf")
   q-header.bg-white.text-primary(elevated height-hint="98")
     q-toolbar
       q-toolbar-title
-        a(href="#" @click="$router.push({name: 'index'})").gt-sm
+        a(href="#" @click="$router.push({name: 'index'})").gt-md
+          img.logo(src="~assets/logo-sunset-apartment.svg"
+            height="40px" style="z-index: 2; margin-left: 125px").q-mt-md.q-my-sm
+
+        //a(href="#" @click="$router.push({name: 'index'})").gt-sm
           img.logo(src="~assets/logo-sunset-apartment.svg"
             height="40px" style="z-index: 2; margin-left: 40px").q-mt-md.q-my-sm
 
-        a(href="#" @click="$router.push({name: 'index'})").lt-md
+        a(href="#" @click="$router.push({name: 'index'})").lt-lg
           img.logo(src="~assets/logo-sunset-apartment.svg"
             height="40px" style="z-index: 2").q-mt-md.q-my-sm
 
