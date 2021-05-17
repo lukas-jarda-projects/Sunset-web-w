@@ -142,7 +142,7 @@ export default {
             template
               | Společnost Regiojet spustila prodej vlakových jízdenek na léto 2021. Pohodlně se dostanete přímým spojem z Prahy do města Gracač a odtud pak navazujícím autobusem do Povljany. Jízdenky se dají zakoupit od 1 190 Kč.
               div.text-secondary
-                | Klikněte, otevře se nákup jízdenek >
+                | Nákup jízdenek >
 
         a.invisible-link(href="https://www.zadar-airport.hr/en/destinations#prg" target="_blank")
           page-section-card
@@ -153,7 +153,7 @@ export default {
             template
               | Do Povljany, respektive do Zadaru, se dostanete letecky, letenky se dají koupit od 1000 Kč za osobu jednosměrný let. V Zadaru si můžete na týden půjčit auto v průměru za 3500 Kč/týden, případně si vzít UBER za velmi přijatelnou cenu.
               div.text-secondary
-                | Klikněte, otevře se nákup letenek >
+                | Nákup letenek >
 
 
     page-section
