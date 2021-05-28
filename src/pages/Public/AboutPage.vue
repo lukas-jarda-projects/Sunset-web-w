@@ -192,7 +192,7 @@ export default {
             img(src="~assets/apartman/3236-parking.jpg" alt="Chip")
           template(#default)
             div.ulli
-              | Parkování pro jedno osobní auto je vyhrazeno přímo u apartmánu označené P1, v případě potřeby je možné parkovat druhé auto na parkovištích v blízkosti apartmánu.
+              | Parkování pro jedno osobní auto je vyhrazeno přímo u apartmánu označené P8, v případě potřeby je možné parkovat druhé auto na parkovištích v blízkosti apartmánu.
 
         jidelna-section-double-card
           template(#title) Koupání před domem

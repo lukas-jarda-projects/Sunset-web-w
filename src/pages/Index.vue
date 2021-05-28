@@ -260,25 +260,22 @@ a:hover
   .gekon-counter-b
     font-family RedHatDisplay-reg
     margin 42px 0 0 0
-    font-size 42px
-    // font-size clamp(20px, 4vw, 42px)
+    font-size 48px
   .gekon-counter-s
-    font-family RedHatDisplay-reg
+    font-family RedHatDisplay-med
     margin 0 5px 42px 5px
-    font-size 16px
-    //font-size clamp(10px, 2vw, 16px)
+    font-size 18px
 
 @media screen and (max-width: 600px)
   .gekon-counter-b
     font-family RedHatDisplay-reg
     margin 22px 0 0 0
     font-size 20px
-    // font-size clamp(20px, 4vw, 42px)
   .gekon-counter-s
     font-family RedHatDisplay-reg
     margin 0 5px 22px 5px
     font-size 10px
-    //font-size clamp(10px, 2vw, 16px)
+
 
 .alt-reset-m-p
   margin 0
