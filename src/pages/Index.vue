@@ -112,9 +112,9 @@ export default {
     page-section.section-nadpis.text-center
       .row.justify-center.page-section-ourstory
         .col-xs-12.col-sm-12.col-md-12
-          h2 Luxusní poschoďový apartmán <br>v první řadě s přímým výhledem na moře
+          h2 Luxusní rodinný poschoďový apartmán <br>v první řadě s přímým výhledem na moře
         .col-xs-12.col-sm-8.col-md-6.q-mt-lg
-          p.text-paragraph Nově postavený, pohodlně vybavený apartmán o velikosti 4kk pro 4–8 osob s plně vybavenou kuchyní, 3 ložnice, 2 koupelny a balkon s výhledem na otevřené moře. Apartmán je umístěný na skalnatém výběžku ostrova PAG v městečku Povljana, pár minut v docházkové vzdálenosti od pláže.
+          p.text-paragraph Nově postavený, pohodlně vybavený apartmán o velikosti 4kk pro 4–7 osob s plně vybavenou kuchyní, 3 ložnice, 2 koupelny a balkon s výhledem na otevřené moře. Apartmán je umístěný na skalnatém výběžku ostrova PAG v městečku Povljana, pár minut v docházkové vzdálenosti od pláže.
           p.text-paragraph Krásné a křišťálově čisté moře s nádhernými plážemi, malebné vesničky, kde se zastavil čas, čistá a nedotčená příroda, jedinečné klima a teplé prosluněné počasí s minimem srážek. To je ostrov Pag a jeho letovisko Povljana.
 
 
