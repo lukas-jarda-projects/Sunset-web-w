@@ -107,8 +107,6 @@ export default {
           template(#title) Objevte krásy ostrova Pag
           // template(#description) nejjižnější ostrov z vnitřního pásu <br> Kvarnerského souostroví
 
-
-
     page-section.section-nadpis.text-center
       .row.justify-center.page-section-ourstory
         .col-xs-12.col-sm-12.col-md-12

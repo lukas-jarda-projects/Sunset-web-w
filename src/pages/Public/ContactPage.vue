@@ -194,6 +194,20 @@ export default {
             .col.text-left.q-mt-sm.q-ml-sm
               .text &nbsp; supermarket
 
+    page-section.text-center
+      h2 Volné termíny
+      template(v-if="$q.platform.is.desktop")
+        iframe(
+          src="https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23F6BF26&ctz=Europe%2FPrague&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&src=c3Vuc2V0MGFwYXJ0bWVudEBnbWFpbC5jb20&src=Y3MuY3plY2gjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23F09300&color=%23C0CA33"
+          style="border-width:0" width="800" height="400" frameborder="0" scrolling="no"
+        )
+
+      template(v-if="$q.platform.is.mobile")
+        iframe(
+          src="https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23F6BF26&ctz=Europe%2FPrague&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&src=c3Vuc2V0MGFwYXJ0bWVudEBnbWFpbC5jb20&src=Y3MuY3plY2gjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23F09300&color=%23C0CA33"
+          style="border-width:0" width="320" height="300" frameborder="0" scrolling="no"
+        )
+
 
 </template>
 
