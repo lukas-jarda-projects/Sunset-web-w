@@ -1,18 +1,90 @@
-<template lang="pug">
+<template>
+  <transition name="fade">
+    <div
+      v-if="open"
+      class="tinybox"
+      @click="close"
+      @wheel.prevent
+      @touchmove.prevent
+    >
+      <div
+        class="tinybox__content"
+        :class="{'tinybox__content--no-thumbs': noThumbs}"
+        @touchstart="swipeStart"
+        @touchmove="swipe"
+      >
+        <transition :name="slide">
+          <img
+            :key="images[index].src || images[index] || ''"
+            :src="images[index].src || images[index] || ''"
+            :alt="images[index].alt || images[index].caption || ''"
+            class="tinybox__content__image"
+            @click.stop="next"
+          >
+        </transition>
+
+        <span
+          v-if="images[index].caption"
+          class="tinybox__content__image__caption"
+          v-text="images[index].caption"
+        />
+          <div class="absolute-bottom q-py-sm text-center text-white gallery-text-alt" v-if="images[index].alt">{{ images[index].alt }}</div>
+
+        <div
+          v-if="prevImage !== index"
+          class="tinybox__content__control tinybox__content__control--prev"
+          @click.stop="prev"
+        />
+        <div
+          v-if="nextImage !== index"
+          class="tinybox__content__control tinybox__content__control--next"
+          @click.stop="next"
+        />
+        <div
+          class="tinybox__content__control tinybox__content__control--close"
+          @click.stop="close"
+        />
+      </div>
+      <div
+        v-if="!noThumbs"
+        ref="thumbs"
+        class="tinybox__thumbs"
+        @touchmove.stop
+        @wheel.stop
+      >
+        <img
+          v-for="(image, idx) in images"
+          :key="idx"
+          ref="thumbItems"
+          :class="{'tinybox__thumbs__item--active': index === idx}"
+          :src="image.thumbnail || image.src || image || ''"
+          :alt="images[index].alt || images[index].caption || ''"
+          class="tinybox__thumbs__item"
+          @click.stop="goto(idx)"
+        >
+      </div>
+    </div>
+  </transition>
+</template>
+
+<!-- <template lang="pug">
   transition(name="fade")
     .tinybox(v-if="open" @click="close" @wheel.prevent="" @touchmove.prevent="")
       .tinybox__content(:class="{'tinybox__content--no-thumbs': noThumbs}" @touchstart="swipeStart" @touchmove="swipe")
         transition(:name="slide")
+
           q-img.tinybox__content__image(:key="images[index].src || images[index] || ''" :src="images[index].src || images[index] || ''" :alt="images[index].alt || ''" native-context-menu="" @click.stop="next")
             .absolute-bottom.text-subtitle1.text-center(v-if="images[index].alt")
               | {{ images[index].alt }}
+
         .tinybox__content__control.tinybox__content__control--prev(v-if="prevImage !== index" @click.stop="prev")
         .tinybox__content__control.tinybox__content__control--next(v-if="nextImage !== index" @click.stop="next")
           .tinybox__content__control.tinybox__content__control--close(@click.stop="close")
           .tinybox__thumbs(v-if="!noThumbs" @touchmove.stop="" @wheel.stop="")
-            q-img.tinybox__thumbs__item(v-for="(image, idx) in images" :key="idx" :class="{'tinybox__thumbs__item--active': index === idx}" :src="image.thumbnail || image.src || image || ''" :alt="image.alt || ''" @click.stop="goto(idx)")
+            q-img.tinybox__thumbs__item(v-for="(image, idx) in images" :key="idx" :class="{'tinybox__thumbs__item--active': index === idx}"
+            :src="image.thumbnail || image.src || image || ''" :alt="image.alt || ''" @click.stop="goto(idx)")
 
-</template>
+</template> -->
 
 <script>
 /**
@@ -225,6 +297,11 @@ export default {
 </script>
 
 <style scoped>
+  .gallery-text-alt {
+    background-color: #1a1a1a;
+    font-size: 1vw;
+  }
+
   .tinybox {
     background-color: #1a1a1a;
     bottom: 0;
