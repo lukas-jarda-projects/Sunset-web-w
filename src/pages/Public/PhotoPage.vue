@@ -139,6 +139,7 @@ export default {
 </script>
 
 <template lang="pug">
+div
   q-page.bg-white
     page-section
       .row.q-mt-xl
