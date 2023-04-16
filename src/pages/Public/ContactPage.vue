@@ -198,15 +198,13 @@ export default {
       h2 Volné termíny
       template(v-if="$q.platform.is.desktop")
         iframe(
-          src="https://calendar.google.com/calendar/embed?src=e44c4b756534985bea861095fc39d86a71263b74ff7fc2dd766ed79aee7b6100%40group.calendar.google.com&ctz=Europe%2FPrague"
+          src="https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FPrague&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&src=c3Vuc2V0MGFwYXJ0bWVudEBnbWFpbC5jb20&src=ZTQ0YzRiNzU2NTM0OTg1YmVhODYxMDk1ZmMzOWQ4NmE3MTI2M2I3NGZmN2ZjMmRkNzY2ZWQ3OWFlZTdiNjEwMEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23D50000&color=%230B8043"
           style="border-width:0" width="800" height="400" frameborder="0" scrolling="no"
         )
-      //- https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FPrague&src=c3Vuc2V0MGFwYXJ0bWVudEBnbWFpbC5jb20&color=%23D50000"
-      //- src="https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23F6BF26&ctz=Europe%2FPrague&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&src=c3Vuc2V0MGFwYXJ0bWVudEBnbWFpbC5jb20&src=Y3MuY3plY2gjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23F09300&color=%23C0CA33"
 
       template(v-if="$q.platform.is.mobile")
         iframe(
-          src="https://calendar.google.com/calendar/embed?src=e44c4b756534985bea861095fc39d86a71263b74ff7fc2dd766ed79aee7b6100%40group.calendar.google.com&ctz=Europe%2FPrague"
+          src="https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FPrague&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&src=c3Vuc2V0MGFwYXJ0bWVudEBnbWFpbC5jb20&src=ZTQ0YzRiNzU2NTM0OTg1YmVhODYxMDk1ZmMzOWQ4NmE3MTI2M2I3NGZmN2ZjMmRkNzY2ZWQ3OWFlZTdiNjEwMEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23D50000&color=%230B8043"
           style="border-width:0" width="320" height="300" frameborder="0" scrolling="no"
         )
 
