@@ -136,6 +136,10 @@ export default {
                   img(src="https://api.iconify.design/logos-netflix.svg?height=16").q-ma-lg
                 a(href="https://youtube.com" target="_blank")
                   img(src="https://api.iconify.design/logos:youtube.svg?height=16").q-ma-lg
+                a(href="https://www.hbomax.com" target="_blank")
+                  img(src="~assets/HBOMaxLogo.svg" height="32").q-mr-lg
+                a(href="https://www.disneyplus.com" target="_blank")
+                  img(src="~assets/DisneyPlusLogo.svg" height="32")
 
 
         jidelna-section-double-card
