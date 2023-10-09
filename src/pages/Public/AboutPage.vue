@@ -130,7 +130,7 @@ export default {
             img(src="~assets/apartman/3159-obyvak.jpg" alt="Chip")
           template(#default)
             div.ulli
-              | Obývací pokoj je vybavený pohodlnou pohovkou a smart TV s předplaceným kanálem Netflix či YouTube.
+              | Obývací pokoj je vybavený pohodlnou pohovkou a smart TV s předplaceným kanálem Netflix, YouTube, HBO Max či Disney plus.
               div
                 a(href="https://netflix.com" target="_blank")
                   img(src="https://api.iconify.design/logos-netflix.svg?height=16").q-ma-lg
