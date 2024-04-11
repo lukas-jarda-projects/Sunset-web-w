@@ -147,11 +147,6 @@ q-page
           template(v-if="$q.platform.is.mobile")
             img(src="~assets/map-with-poi.png" width="100%")
 
-
-
-
-
-
       .col-lg-4.pad.col-md-12
         .row.items-center.q-mt-lg
           .col-1
@@ -220,7 +215,7 @@ q-page
           src="https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FPrague&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&src=c3Vuc2V0MGFwYXJ0bWVudEBnbWFpbC5jb20&src=ZTQ0YzRiNzU2NTM0OTg1YmVhODYxMDk1ZmMzOWQ4NmE3MTI2M2I3NGZmN2ZjMmRkNzY2ZWQ3OWFlZTdiNjEwMEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23D50000&color=%230B8043"
           style="border-width:0" width="320" height="400" frameborder="0" scrolling="no"
         )
-
+    //-test
 
 
 </template>
