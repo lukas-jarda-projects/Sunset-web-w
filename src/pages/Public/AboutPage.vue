@@ -107,128 +107,128 @@ export default {
 </script>
 
 <template lang="pug">
-  q-page
+q-page
 
-    page-section
-      .row.q-mt-xl
+  page-section
+    .row.q-mt-xl
 
-    page-section
-      h1.text-center O apartmánu
-      .flex.justify-center(:class="{'q-gutter-lg': !$q.screen.lt.sm}")
+  page-section
+    h1.text-center O apartmánu
+    .flex.justify-center(:class="{'q-gutter-lg': !$q.screen.lt.sm}")
 
-        jidelna-section-double-card
-          template(#title) Kuchyň
-          template(#icon)
-            img(src="~assets/apartman/3184-kuchyn.jpg" alt="Chip")
-          template(#default)
-            div.ulli
-              | V kuchyni je veškeré potřebné vybavení: mikrovlnná trouba, myčka, digestoř, el.trouba, indukční varná deska, kávovar na kávové kapsle, topinkovač, toustovač, rychlovarná konvice, lednice s mrazákem a potřebné kuchyňské nádobí.
+      jidelna-section-double-card
+        template(#title) Kuchyň
+        template(#icon)
+          img(src="~assets/apartman/3184-kuchyn.jpg" alt="Chip")
+        template(#default)
+          div.ulli
+            | V kuchyni je veškeré potřebné vybavení: mikrovlnná trouba, myčka, digestoř, el.trouba, indukční varná deska, kávovar na kávové kapsle, topinkovač, toustovač, rychlovarná konvice, lednice s mrazákem a potřebné kuchyňské nádobí.
 
-        jidelna-section-double-card
-          template(#title) Obývací místnost
-          template(#icon)
-            img(src="~assets/apartman/3159-obyvak.jpg" alt="Chip")
-          template(#default)
-            div.ulli
-              | Obývací pokoj je vybavený pohodlnou pohovkou a smart TV s předplaceným kanálem Netflix, YouTube, HBO Max či Disney plus.
-              div
-                a(href="https://netflix.com" target="_blank")
-                  img(src="https://api.iconify.design/logos-netflix.svg?height=16").q-ma-lg
-                a(href="https://youtube.com" target="_blank")
-                  img(src="https://api.iconify.design/logos:youtube.svg?height=16").q-ma-lg
-                a(href="https://www.hbomax.com" target="_blank")
-                  img(src="~assets/HBOMaxLogo.svg" height="32").q-mr-lg
-                a(href="https://www.disneyplus.com" target="_blank")
-                  img(src="~assets/DisneyPlusLogo.svg" height="32")
+      jidelna-section-double-card
+        template(#title) Obývací místnost
+        template(#icon)
+          img(src="~assets/apartman/3159-obyvak.jpg" alt="Chip")
+        template(#default)
+          div.ulli
+            | Obývací pokoj je vybavený pohodlnou pohovkou a smart TV s předplaceným kanálem Netflix, YouTube, HBO Max či Disney plus.
+            div
+              a(href="https://netflix.com" target="_blank")
+                img(src="https://api.iconify.design/logos-netflix.svg?height=16").q-ma-lg
+              a(href="https://youtube.com" target="_blank")
+                img(src="https://api.iconify.design/logos:youtube.svg?height=16").q-ma-lg
+              a(href="https://www.hbomax.com" target="_blank")
+                img(src="~assets/HBOMaxLogo.svg" height="32").q-mr-lg
+              a(href="https://www.disneyplus.com" target="_blank")
+                img(src="~assets/DisneyPlusLogo.svg" height="32")
 
 
-        jidelna-section-double-card
-          template(#title) Ložnice I
-          template(#icon)
-            img(src="~assets/apartman/3083-loznice1.jpg" alt="Chip")
-          template(#default)
-            div.ulli
-              | První ložnice je vybavena vestavěnou skříní se zrcadlem, manželskou postelí a nočními stolky.
+      jidelna-section-double-card
+        template(#title) Ložnice I
+        template(#icon)
+          img(src="~assets/apartman/3083-loznice1.jpg" alt="Chip")
+        template(#default)
+          div.ulli
+            | První ložnice je vybavena vestavěnou skříní se zrcadlem, manželskou postelí a nočními stolky.
 
-        jidelna-section-double-card
-          template(#title) Ložnice II
-          template(#icon)
-            img(src="~assets/apartman/3131-loznice2.jpg" alt="Chip")
-          template(#default)
-            div.ulli
-              | Druhá ložnice je vybavena vestavěnou skříní a patrovou postelí až pro tři osoby/děti. Je vhodná jako dětská ložnice.
+      jidelna-section-double-card
+        template(#title) Ložnice II
+        template(#icon)
+          img(src="~assets/apartman/3131-loznice2.jpg" alt="Chip")
+        template(#default)
+          div.ulli
+            | Druhá ložnice je vybavena vestavěnou skříní a patrovou postelí až pro tři osoby/děti. Je vhodná jako dětská ložnice.
 
-        jidelna-section-double-card
-          template(#title) Koupelna I
-          template(#icon)
-            img(src="~assets/apartman/3193-koupelna1.jpg" alt="Chip")
-          template(#default)
-            div.ulli
-              | Koupelna je vybavená umyvadlem s galerkou, skříňkou na hygienické potřeby, WC, sprchovým koutem a pračkou.
+      jidelna-section-double-card
+        template(#title) Koupelna I
+        template(#icon)
+          img(src="~assets/apartman/3193-koupelna1.jpg" alt="Chip")
+        template(#default)
+          div.ulli
+            | Koupelna je vybavená umyvadlem s galerkou, skříňkou na hygienické potřeby, WC, sprchovým koutem a pračkou.
 
-        jidelna-section-double-card
-          template(#title) Terasa
-          template(#icon)
-            img(src="~assets/apartman/3125-terasa.jpg" alt="Chip")
-          template(#default)
-            div.ulli
-              | Terasa nabízí nádherný výhled na moře a překrásný večerní západ slunce. Posezení na terase je pro 6 osob.
+      jidelna-section-double-card
+        template(#title) Terasa
+        template(#icon)
+          img(src="~assets/apartman/3125-terasa.jpg" alt="Chip")
+        template(#default)
+          div.ulli
+            | Terasa nabízí nádherný výhled na moře a překrásný večerní západ slunce. Posezení na terase je pro 6 osob.
 
-        jidelna-section-double-card
-          template(#title) Podkrovní ložnice
-          template(#icon)
-            img(src="~assets/apartman/3024-podkrovi-loznice.jpg" alt="Chip")
-          template(#default)
-            div.ulli
-              | Podkrovní ložnice disponuje manželskou postelí pro dvě osoby, šatní skříní a komodou. Má samostatnou koupelnu.
+      jidelna-section-double-card
+        template(#title) Podkrovní ložnice
+        template(#icon)
+          img(src="~assets/apartman/3024-podkrovi-loznice.jpg" alt="Chip")
+        template(#default)
+          div.ulli
+            | Podkrovní ložnice disponuje manželskou postelí pro dvě osoby, šatní skříní a komodou. Má samostatnou koupelnu.
 
-        jidelna-section-double-card
-          template(#title) Koupelna II
-          template(#icon)
-            img(src="~assets/apartman/3052-podkrovi-koupelna.jpg" alt="Chip")
-          template(#default)
-            div.ulli
-              | Podkrovní koupelna je vybavena WC, umyvadlem, skříňkou a sprchovým koutem.
+      jidelna-section-double-card
+        template(#title) Koupelna II
+        template(#icon)
+          img(src="~assets/apartman/3052-podkrovi-koupelna.jpg" alt="Chip")
+        template(#default)
+          div.ulli
+            | Podkrovní koupelna je vybavena WC, umyvadlem, skříňkou a sprchovým koutem.
 
-        jidelna-section-double-card
-          template(#title) Parkovací stání
-          template(#icon)
-            img(src="~assets/apartman/3236-parking.jpg" alt="Chip")
-          template(#default)
-            div.ulli
-              | Parkování pro jedno osobní auto je vyhrazeno přímo u apartmánu označené P8, v případě potřeby je možné parkovat druhé auto na parkovištích v blízkosti apartmánu.
+      jidelna-section-double-card
+        template(#title) Parkovací stání
+        template(#icon)
+          img(src="~assets/apartman/3236-parking.jpg" alt="Chip")
+        template(#default)
+          div.ulli
+            | Parkování pro jedno osobní auto je vyhrazeno přímo u apartmánu označené P8, v případě potřeby je možné parkovat druhé auto na parkovištích v blízkosti apartmánu.
 
-        jidelna-section-double-card
-          template(#title) Koupání před domem
-          template(#icon)
-            img(src="~assets/apartman/3232-koupani-pred-domem.jpg" alt="Chip")
-          template(#default)
-            div.ulli
-              | Přímo před apartmánem je možnost nádherného koupání, na skalním útesu před apartmánem je skákací můstek a žebřík do vody.
+      jidelna-section-double-card
+        template(#title) Koupání před domem
+        template(#icon)
+          img(src="~assets/apartman/3232-koupani-pred-domem.jpg" alt="Chip")
+        template(#default)
+          div.ulli
+            | Přímo před apartmánem je možnost nádherného koupání, na skalním útesu před apartmánem je skákací můstek a žebřík do vody.
 
-        jidelna-section-double-card
-          template(#title) Pláže
-          template(#icon)
-            img(src="~assets/apartman/105845-plaze.jpg" alt="Chip")
-          template(#default)
-            div.ulli
-              | V dosahu apartmánu jsou dvě oblázkové pláže cca 2 minuty chůze po promenádě a ve městečku i písečná pláž, která je v Chorvatsku ojedinělá. V dojezdové vzdálenosti jsou i další krásné pláže, například v blízkém městečku PAG nebo vyhlášená pláž Zrče cca 40 minut autem.
+      jidelna-section-double-card
+        template(#title) Pláže
+        template(#icon)
+          img(src="~assets/apartman/105845-plaze.jpg" alt="Chip")
+        template(#default)
+          div.ulli
+            | V dosahu apartmánu jsou dvě oblázkové pláže cca 2 minuty chůze po promenádě a ve městečku i písečná pláž, která je v Chorvatsku ojedinělá. V dojezdové vzdálenosti jsou i další krásné pláže, například v blízkém městečku PAG nebo vyhlášená pláž Zrče cca 40 minut autem.
 
-        jidelna-section-double-card
-          template(#title) Obchody a služby v okolí
-          template(#icon)
-            img(src="~assets/apartman/00-obchody-sluzby.jpg" alt="Chip")
-          template(#default)
-            div.ulli
-              | V okolí apartmánu se nachází několik restaurací a kaváren, přímo u domu je pizzerie s večerní živou hudbou. V docházkové vzdálenosti je obchod se smíšeným zbožím, pekárna a cukrárna. Večer jsou kolem promenády trhy a zábavní park pro děti s trampolínou a hrami.  Najdete zde i agenturu pořádající výlety a dobrodružné cesty.
+      jidelna-section-double-card
+        template(#title) Obchody a služby v okolí
+        template(#icon)
+          img(src="~assets/apartman/00-obchody-sluzby.jpg" alt="Chip")
+        template(#default)
+          div.ulli
+            | V okolí apartmánu se nachází několik restaurací a kaváren, přímo u domu je pizzerie s večerní živou hudbou. V docházkové vzdálenosti je obchod se smíšeným zbožím, pekárna a cukrárna. Večer jsou kolem promenády trhy a zábavní park pro děti s trampolínou a hrami.  Najdete zde i agenturu pořádající výlety a dobrodružné cesty.
 
-        jidelna-section-double-card
-          template(#title) Ostatní vybavení
-          template(#icon)
-            img(src="~assets/apartman/00-ostatni-vybaveni.jpg" alt="Chip")
-          template(#default)
-            div.ulli
-              | Klimatizace/topení, WiFi zdarma, pračka, vysavač, vestavěný sušák na prádlo, kávovar Dolce Gusto.
+      jidelna-section-double-card
+        template(#title) Ostatní vybavení
+        template(#icon)
+          img(src="~assets/apartman/00-ostatni-vybaveni.jpg" alt="Chip")
+        template(#default)
+          div.ulli
+            | Klimatizace/topení, WiFi zdarma, pračka, vysavač, vestavěný sušák na prádlo, kávovar Dolce Gusto.
 
 
 

@@ -76,137 +76,150 @@ export default {
 </script>
 
 <template lang="pug">
-  q-page
-    page-section
-      .row.q-mt-xl
+q-page
+  page-section
+    .row.q-mt-xl
 
 
-    page-section(:fullWidth="true")
-      h1.text-center Kontakt
+  page-section(:fullWidth="true")
+    h1.text-center Kontakt
 
 
 
-      .row.items-center.justify-start
-        .col-lg-6.col-md-12.col-xs-12.text-left.no-padding.no-margin
+    .row.items-center.justify-start
+      .col-lg-6.col-md-12.col-xs-12.text-left.no-padding.no-margin
 
-          template(v-if="$q.platform.is.desktop")
-            img(src="~assets/kontakt-apartman.jpg" height="300px")
+        template(v-if="$q.platform.is.desktop")
+          img(src="~assets/kontakt-apartman.jpg" height="300px")
 
-          template(v-if="$q.platform.is.mobile")
-            img(src="~assets/kontakt-apartman-xs.jpg" width="100%")
+        template(v-if="$q.platform.is.mobile")
+          img(src="~assets/kontakt-apartman-xs.jpg" width="100%")
 
-        .col-lg-5.col-md-12.col-xs-12
-          .column.justify-center
-            .col-6.q-mb-sm.text-center
-              span.text-paragraph ulice &nbsp;
-              span.text-paragraph-bold Kralja Tomislava 45
-            .col.q-mb-sm.text-center
-              span.text-paragraph město &nbsp;
+      .col-lg-5.col-md-12.col-xs-12
+        .column.justify-center
+          .row
+            .col-2.text-right.q-pr-lg
+              span.text-paragraph ulice
+            .col
+              span.text-paragraph-bold Put Lanterne 7
+          .row
+            .col-2.text-right.q-pr-lg
+              span.text-paragraph město
+            .col
               span.text-paragraph-bold Povljana
-            .col.q-mb-sm.text-center
-              span.text-paragraph ostrov &nbsp;
+          .row
+            .col-2.text-right.q-pr-lg
+              span.text-paragraph ostrov
+            .col
               span.text-paragraph-bold Pag
-            .col.q-mb-sm.text-center
-              span.text-paragraph stát &nbsp;
+          .row
+            .col-2.text-right.q-pr-lg
+              span.text-paragraph stát
+            .col
               span.text-paragraph-bold Chorvatsko
-            .col.q-mb-sm.text-center
-              span.text-paragraph GPS &nbsp;
+          .row
+            .col-2.text-right.q-pr-lg
+              span.text-paragraph GPS
+            .col
               span.text-paragraph-bold 44.3491100N &nbsp; 15.0980000E
 
 
 
-    page-section(:fullWidth="true")
-      .row.justify-end
-        .col-12.text-right
+
+
+
+  page-section(:fullWidth="true")
+    .row.justify-end
+      .col-12.text-right
+        template(v-if="$q.platform.is.desktop")
+          img(src="~assets/mapa-z-letadla.jpg").image-right
+
+        template(v-if="$q.platform.is.mobile")
+          img(src="~assets/mapa-z-letadla-xs.jpg" width="100%")
+
+  page-section(:fullWidth="true")
+    .row
+      .col-lg-6.col-md-12
+        a(href="https://mapy.cz/s/rasofaloze" target="_blank")
           template(v-if="$q.platform.is.desktop")
-            img(src="~assets/mapa-z-letadla.jpg").image-right
+            img(src="~assets/map-with-poi.png" height="420px")
 
           template(v-if="$q.platform.is.mobile")
-            img(src="~assets/mapa-z-letadla-xs.jpg" width="100%")
-
-    page-section(:fullWidth="true")
-      .row
-        .col-lg-6.col-md-12
-          a(href="https://mapy.cz/s/rasofaloze" target="_blank")
-            template(v-if="$q.platform.is.desktop")
-              img(src="~assets/map-with-poi.png" height="420px")
-
-            template(v-if="$q.platform.is.mobile")
-              img(src="~assets/map-with-poi.png" width="100%")
+            img(src="~assets/map-with-poi.png" width="100%")
 
 
 
 
 
 
-        .col-lg-4.pad.col-md-12
-          .row.items-center.q-mt-lg
-            .col-1
-              .numberCircle 1
-            .col.text-left.q-mt-sm.q-ml-sm
-              .text &nbsp; apartmán
+      .col-lg-4.pad.col-md-12
+        .row.items-center.q-mt-lg
+          .col-1
+            .numberCircle 1
+          .col.text-left.q-mt-sm.q-ml-sm
+            .text &nbsp; apartmán
 
-          .row.items-center
-            .col-1
-              .numberCircle.red 2
-            .col.text-left.q-mt-sm.q-ml-sm
-              .text &nbsp; pláž Dubrovník
+        .row.items-center
+          .col-1
+            .numberCircle.red 2
+          .col.text-left.q-mt-sm.q-ml-sm
+            .text &nbsp; pláž Dubrovník
 
-          .row.items-center
-            .col-1
-              .numberCircle.red 3
-            .col.text-left.q-mt-sm.q-ml-sm
-              .text &nbsp; pláž Malý Dubrovník
+        .row.items-center
+          .col-1
+            .numberCircle.red 3
+          .col.text-left.q-mt-sm.q-ml-sm
+            .text &nbsp; pláž Malý Dubrovník
 
-          .row.items-center
-            .col-1
-              .numberCircle.red 4
-            .col.text-left.q-mt-sm.q-ml-sm
-              .text &nbsp; obchod, cukrárna
+        .row.items-center
+          .col-1
+            .numberCircle.red 4
+          .col.text-left.q-mt-sm.q-ml-sm
+            .text &nbsp; obchod, cukrárna
 
-          .row.items-center
-            .col-1
-              .numberCircle.red 5
-            .col.text-left.q-mt-sm.q-ml-sm
-              .text &nbsp; pošta
+        .row.items-center
+          .col-1
+            .numberCircle.red 5
+          .col.text-left.q-mt-sm.q-ml-sm
+            .text &nbsp; pošta
 
-          .row.items-center
-            .col-1
-              .numberCircle.red 6
-            .col.text-left.q-mt-sm.q-ml-sm
-              .text &nbsp; lékárna
+        .row.items-center
+          .col-1
+            .numberCircle.red 6
+          .col.text-left.q-mt-sm.q-ml-sm
+            .text &nbsp; lékárna
 
-          .row.items-center
-            .col-1
-              .numberCircle.red 7
-            .col.text-left.q-mt-sm.q-ml-sm
-              .text &nbsp; pekárna
+        .row.items-center
+          .col-1
+            .numberCircle.red 7
+          .col.text-left.q-mt-sm.q-ml-sm
+            .text &nbsp; pekárna
 
-          .row.items-center
-            .col-1
-              .numberCircle.red 8
-            .col.text-left.q-mt-sm.q-ml-sm
-              .text &nbsp; centrum obce
+        .row.items-center
+          .col-1
+            .numberCircle.red 8
+          .col.text-left.q-mt-sm.q-ml-sm
+            .text &nbsp; centrum obce
 
-          .row.items-center
-            .col-1
-              .numberCircle.red 9
-            .col.text-left.q-mt-sm.q-ml-sm
-              .text &nbsp; supermarket
+        .row.items-center
+          .col-1
+            .numberCircle.red 9
+          .col.text-left.q-mt-sm.q-ml-sm
+            .text &nbsp; supermarket
 
-    page-section.text-center
-      h2 Volné termíny
-      template(v-if="$q.platform.is.desktop")
-        iframe(
+  page-section.text-center
+    h2 Volné termíny
+    template(v-if="$q.platform.is.desktop")
+      iframe(
+        src="https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FPrague&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&src=c3Vuc2V0MGFwYXJ0bWVudEBnbWFpbC5jb20&src=ZTQ0YzRiNzU2NTM0OTg1YmVhODYxMDk1ZmMzOWQ4NmE3MTI2M2I3NGZmN2ZjMmRkNzY2ZWQ3OWFlZTdiNjEwMEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23D50000&color=%230B8043"
+        style="border-width:0" width="800" height="400" frameborder="0" scrolling="no"
+      )
+
+    template(v-if="$q.platform.is.mobile")
+      iframe(
           src="https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FPrague&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&src=c3Vuc2V0MGFwYXJ0bWVudEBnbWFpbC5jb20&src=ZTQ0YzRiNzU2NTM0OTg1YmVhODYxMDk1ZmMzOWQ4NmE3MTI2M2I3NGZmN2ZjMmRkNzY2ZWQ3OWFlZTdiNjEwMEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23D50000&color=%230B8043"
-          style="border-width:0" width="800" height="400" frameborder="0" scrolling="no"
+          style="border-width:0" width="320" height="400" frameborder="0" scrolling="no"
         )
-
-      template(v-if="$q.platform.is.mobile")
-        iframe(
-            src="https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FPrague&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&src=c3Vuc2V0MGFwYXJ0bWVudEBnbWFpbC5jb20&src=ZTQ0YzRiNzU2NTM0OTg1YmVhODYxMDk1ZmMzOWQ4NmE3MTI2M2I3NGZmN2ZjMmRkNzY2ZWQ3OWFlZTdiNjEwMEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23D50000&color=%230B8043"
-            style="border-width:0" width="320" height="400" frameborder="0" scrolling="no"
-          )
 
 
 
