@@ -149,7 +149,8 @@ div
     page-section
       h1.text-center Fotogalerie
     page-section
-      q-tabs.text-primary(v-model='tab' no-caps class='md-md' active-color='accent' indicator-color='accent')
+      q-tabs.text-primary(v-model='tab' no-caps class='md-md' active-color='accent' indicator-color='accent' vertical)
+
         q-tab(name='poschodi').menu-sm-text-style První patro
         q-tab(name='podkrovi').menu-sm-text-style Podkroví
         q-tab(name='okoli').menu-sm-text-style Okolí apartmánu
@@ -169,6 +170,6 @@ div
 <style scoped lang="stylus">
 .menu-sm-text-style
   font-family 'RedHatDisplay-bld'
-  font-size 16px !important
+  font-size 23px !important
 
 </style>
