@@ -190,7 +190,11 @@ export default {
           p.text-paragraph.text-left
             | Zkrátka oblast Povljany je skutečným dovolenkovým rájem s nekonečnou možností koupání v křišťálově čistém moři a celou řadu jiných volnočasových aktivit.
             | Navíc zde můžete prožít několik dní u blízkého přírodního jezera Segal s léčivým bahnitým sedimentem, což ocení nejen starší ročníky.
-
+          br
+          p.text-paragraph.text-left
+          | Zajímavosti v okolí našeho apartmánu: &nbsp;
+          br
+          a(href="https://dovolena-zadar.cz/" target="_blank" style="font-size: 23px").text-bold dovolena-zadar.cz
 
     page-section.section-nadpis.text-center
       .row.justify-center.page-section-ourstory
@@ -198,12 +202,12 @@ export default {
           h2 Užitečné informace
         .col-xs-12.col-sm-8.col-md-6.q-mt-lg
            p.text-paragraph.text-left
-            | Patříte mezi ty lidi, kteří všechno ví, všechno znají, všude byli a nic je nepřekvapí? Tak zrovna pro vás tento text určen není. Ale pro vás zbývající jsme připravili a shromáždili na jedno místo všechny důležité informace, které by mohli přispět k prožití vaší klidné dovolené na kouzelném místě, které jsme objevili během našich toulek světem. Přejeme vám pohodové čtení…
+            | Chystáte se k nám do apartmánu? Nebo se teprve rozhodujete? Tak či tak jsme pro Vás připravili užiteční informace, kde se dozvíte vše praktické ať už k cestě, k vybavení apartmánu nebo jen další potřebné informace. Věnujte tomu prosím pozornost, může Vám to usnadnit rozhodování, co si sebou na dovolenou zabalit a co naopak není potřeba :-)
 
     page-section.section-nadpis.text-center.q-mt-lg
       .row.justify-center.page-section-ourstory
         .col-xs-12.col-sm-12.col-md-12
-          a(href="statics/Uzitecne-rady-a-tipy.pdf" target="_blank").invisible-link
+          a(href="statics/Důležité_informace_2024.pdf" target="_blank").invisible-link
             .row.justify-center
               .col-sm-5.col-xs-4.pdf-download-icon.text-right
                 img(src="~assets/pdf-icon-color.svg" height="36px")
