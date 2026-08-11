@@ -202,7 +202,7 @@ q-page
           .col.text-left.q-mt-sm.q-ml-sm
             .text &nbsp; supermarket
 
-  page-section.text-center
+  //- page-section.text-center
     h2 Volné termíny
     template(v-if="$q.platform.is.desktop")
       iframe(

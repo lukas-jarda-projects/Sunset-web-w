@@ -149,7 +149,7 @@ export default {
               //img(src="~assets/logo-sa-icon.svg" alt="Icona" height="36px")
             template(#title) Letecky
             template
-              | Do Povljany, respektive do Zadaru, se dostanete letecky, letenky se dají koupit od 1000 Kč za osobu jednosměrný let. V Zadaru si můžete na týden půjčit auto v průměru za 3500 Kč/týden, případně si vzít UBER za velmi přijatelnou cenu.
+              | Do Povljany, respektive do Zadaru, se dostanete letecky, letenky se dají koupit od 1000 Kč za osobu jednosměrný let. V Zadaru si můžete na týden půjčit auto v průměru za 3500 Kč/týden, případně si vzít BOLT za velmi přijatelnou cenu.
               div.text-secondary
                 | Nákup letenek >
 
@@ -196,7 +196,7 @@ export default {
           br
           a(href="https://dovolena-zadar.cz/" target="_blank" style="font-size: 23px").text-bold dovolena-zadar.cz
 
-    page-section.section-nadpis.text-center
+    //- page-section.section-nadpis.text-center
       .row.justify-center.page-section-ourstory
         .col-xs-12.col-sm-12.col-md-12
           h2 Užitečné informace
@@ -204,7 +204,7 @@ export default {
            p.text-paragraph.text-left
             | Chystáte se k nám do apartmánu? Nebo se teprve rozhodujete? Tak či tak jsme pro Vás připravili užiteční informace, kde se dozvíte vše praktické ať už k cestě, k vybavení apartmánu nebo jen další potřebné informace. Věnujte tomu prosím pozornost, může Vám to usnadnit rozhodování, co si sebou na dovolenou zabalit a co naopak není potřeba :-)
 
-    page-section.section-nadpis.text-center.q-mt-lg
+    //- page-section.section-nadpis.text-center.q-mt-lg
       .row.justify-center.page-section-ourstory
         .col-xs-12.col-sm-12.col-md-12
           a(href="statics/Důležité_informace_2024.pdf" target="_blank").invisible-link
