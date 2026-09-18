@@ -120,13 +120,13 @@ q-page
             | Obývací pokoj je vybavený pohodlnou pohovkou a smart TV s předplaceným kanálem Netflix, YouTube, HBO Max či Disney plus.
             div
               a(href="https://netflix.com" target="_blank")
-                img(src="~assets/NetflixLogo.svg" height="32").q-mr-lg
+                img(src="~assets/NetflixLogo.svg" height="15").q-mr-lg.vertical-middle
               a(href="https://youtube.com" target="_blank")
-                img(src="~assets/YoutubeLogo.svg" height="32").q-mr-lg
+                img(src="~assets/YoutubeLogo.svg" height="16").q-mr-lg.vertical-middle
               a(href="https://www.hbomax.com" target="_blank")
-                img(src="~assets/HBOMaxLogo.svg" height="32").q-mr-lg
+                img(src="~assets/HBOMaxLogo.svg" height="32").q-mr-lg.vertical-middle
               a(href="https://www.disneyplus.com" target="_blank")
-                img(src="~assets/DisneyPlusLogo.svg" height="32")
+                img(src="~assets/DisneyPlusLogo.svg" height="32").vertical-middle
 
 
       jidelna-section-double-card
