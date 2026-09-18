@@ -35,3 +35,6 @@ yarn-error.log*
 
 # lokalni npm auth tokeny - nikdy necommitovat
 .npmrc
+
+# Windows / Git Bash crash dumps
+*.stackdump
