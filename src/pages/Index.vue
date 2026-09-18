@@ -7,13 +7,10 @@ import JidelnaGallery from 'components/JidelnaGallery'
 import JidelnaSectionDoubleCard from 'components/JidelnaSectionDoubleCard'
 import JidelnaSectionPriceCard from 'components/JidelnaSectionPriceCard'
 import JidelnaSectionBlogCard from 'components/JidelnaSectionBlogCard'
-import JidelnaFormular from '../components/Formular'
 import PageSection from 'components/PageSection'
 import PageSectionCard from 'components/PageSectionCard'
 import LayoutFooter from 'layouts/LayoutFooter'
-import { scroll, date } from 'quasar'
-
-const { setScrollPosition, getScrollTarget } = scroll
+import { date } from 'quasar'
 
 function formatDate (datum, format) {
   return date.formatDate(datum, format, {
@@ -40,7 +37,6 @@ export default {
     ReferenceCard,
     CarouselContent,
     PageSectionDoubleCard,
-    JidelnaFormular,
     LayoutFooter,
     PageSectionCard,
     PageSection
@@ -57,17 +53,6 @@ export default {
   methods: {
     login () {
       window.location.href = 'https://sunset-apartment.com'
-    },
-
-    scrollToObjednat () {
-      // console.log('objednat clicked')
-      // console.log({ 'this.$refs': this.$refs })
-      const el = this.$refs.formular.$el
-      // console.log({ 'el': el })
-      const target = getScrollTarget(el)
-      const offset = el.offsetTop
-      const duration = 600
-      setScrollPosition(target, offset, duration)
     },
 
     formatDate (datum) {
