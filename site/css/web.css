@@ -1,0 +1,85 @@
+/* Styly statického webu nad CSS Quasaru (app.css, komponenty.css). */
+
+/* Hlavička: na desktopu záložky Quasaru, pod 1024 px vysouvací panel */
+.site-nav .q-tab {
+  text-decoration: none;
+}
+.site-nav .q-tab:hover,
+.site-nav .q-tab--active {
+  color: #f27521;
+}
+.site-nav .nav-close,
+.menu-backdrop {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .site-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3001;
+    display: block;
+    width: 300px;
+    max-width: 85vw;
+    margin: 0 !important;
+    padding-top: 48px;
+    overflow-y: auto;
+    background: #fff;
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 0.3s, visibility 0.3s;
+  }
+  body.menu-open .site-nav {
+    transform: none;
+    visibility: visible;
+  }
+  .site-nav .q-tabs__content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .site-nav .q-tab {
+    height: auto;
+    padding: 14px 24px;
+    justify-content: flex-end;
+  }
+  .site-nav .q-tab__indicator {
+    top: 0;
+    bottom: 0;
+    left: auto;
+    right: 0;
+    width: 2px;
+    height: auto;
+  }
+  .site-nav .nav-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    margin-top: 16px;
+    padding: 12px;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  body.menu-open .menu-backdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3000;
+    background: rgba(0, 0, 0, 0.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav {
+    transition: none;
+  }
+}

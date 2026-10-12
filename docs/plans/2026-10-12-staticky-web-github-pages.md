@@ -666,6 +666,8 @@ Drawer = tentýž `<nav>`, na úzkém displeji ho CSS zobrazí jako vysouvací p
 
 **Krok 6:** Commit `git add site/ && git commit -m "Hlavička, mobilní menu a web.js"`
 
+**Provedeno 2026-10-12:** hlavička přestavěna skriptem nad 4 stránkami (desktopové záložky Quasaru → `<nav id="menu">`, drawer → `div.menu-backdrop`, tlačítko „zavřít“ v panelu). Navíc oprava, kterou plán neměl: SSR dává `q-page-container` natvrdo `padding-top:98px`, Quasar ho za běhu přepočítá na výšku hlavičky (80 px). Bez opravy byl obsah o 18 px níž než v referenci (změřeno na snímku O apartmánu). Ve 4 stránkách přepsáno na `80px`, Kontakt je pak na 1280 px pixelově shodný s referencí a na 400 px se liší jen vyhlazením písma v tlačítku Menu. Menu na 400 px ověřeno v iframe (otevření, Esc, pozadí, „zavřít“, 4 odkazy) a snímkem.
+
 ---
 
 ## Task 4: Úvodní stránka — karusel, počítadla, responzivita

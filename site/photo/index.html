@@ -20,6 +20,7 @@
   <link href="../statics/icons/favicon.ico" rel="icon" type="image/ico"/>
   <link href="../css/app.css" rel="stylesheet"/>
   <link href="../css/komponenty.css" rel="stylesheet"/>
+  <link href="../css/web.css" rel="stylesheet"/>
  </head>
  <body class="desktop no-touch body--light">
   <script>
@@ -35,64 +36,54 @@
     <header class="q-header q-layout__section--marginal bg-white text-primary fixed-top">
      <div class="q-toolbar row no-wrap items-center" role="toolbar">
       <div class="q-toolbar__title ellipsis">
-       <a class="gt-md" href="#">
-        <img class="logo q-mt-md q-my-sm" height="40px" src="../img/logo-sunset-apartment.svg" style="z-index:2;margin-left:125px;"/>
+       <a class="gt-md" href="../">
+        <img alt="Sunset Apartment" class="logo q-mt-md q-my-sm" height="40" src="../img/logo-sunset-apartment.svg" style="z-index:2;margin-left:125px;"/>
        </a>
-       <a class="lt-lg" href="#">
-        <img class="logo q-mt-md q-my-sm" height="40px" src="../img/logo-sunset-apartment.svg" style="z-index:2;"/>
+       <a class="lt-lg" href="../">
+        <img alt="Sunset Apartment" class="logo q-mt-md q-my-sm" height="40" src="../img/logo-sunset-apartment.svg" style="z-index:2;"/>
        </a>
       </div>
-      <div class="q-mr-lg gt-sm q-tabs row no-wrap items-center q-tabs--not-scrollable q-tabs--horizontal q-tabs__arrows--inside" role="tablist">
+      <nav aria-label="Hlavní menu" class="site-nav q-mr-lg q-tabs row no-wrap items-center q-tabs--horizontal" id="menu">
        <!-- -->
        <div class="q-tabs__content row no-wrap items-center self-stretch hide-scrollbar relative-position q-tabs__content--align-right">
-        <a aria-selected="false" class="q-px-lg menu-button menu-text-style q-tab relative-position self-stretch flex flex-center text-center q-tab--inactive q-tab--no-caps q-focusable q-hoverable cursor-pointer q-router-link--active" href="../" role="tab" tabindex="0">
-         <div class="q-focus-helper" tabindex="-1">
-         </div>
+        <a class="q-px-lg menu-button menu-text-style q-tab relative-position self-stretch flex flex-center text-center q-tab--no-caps cursor-pointer q-tab--inactive" href="../">
          <div class="q-tab__content self-stretch flex-center relative-position q-anchor--skip non-selectable column">
           Úvod
          </div>
          <div class="q-tab__indicator absolute-bottom text-secondary">
          </div>
         </a>
-        <a aria-selected="false" class="q-px-lg menu-button menu-text-style q-tab relative-position self-stretch flex flex-center text-center q-tab--inactive q-tab--no-caps q-focusable q-hoverable cursor-pointer" href="../about/" role="tab" tabindex="0">
-         <div class="q-focus-helper" tabindex="-1">
-         </div>
+        <a class="q-px-lg menu-button menu-text-style q-tab relative-position self-stretch flex flex-center text-center q-tab--no-caps cursor-pointer q-tab--inactive" href="../about/">
          <div class="q-tab__content self-stretch flex-center relative-position q-anchor--skip non-selectable column">
           O apartmánu
          </div>
          <div class="q-tab__indicator absolute-bottom text-secondary">
          </div>
         </a>
-        <a aria-selected="false" class="q-px-lg menu-button menu-text-style q-tab relative-position self-stretch flex flex-center text-center q-tab--inactive q-tab--no-caps q-focusable q-hoverable cursor-pointer q-router-link--exact-active q-router-link--active" href="../photo/" role="tab" tabindex="0">
-         <div class="q-focus-helper" tabindex="-1">
-         </div>
+        <a aria-current="page" class="q-px-lg menu-button menu-text-style q-tab relative-position self-stretch flex flex-center text-center q-tab--no-caps cursor-pointer q-tab--active text-secondary" href="../photo/">
          <div class="q-tab__content self-stretch flex-center relative-position q-anchor--skip non-selectable column">
           Fotogalerie
          </div>
          <div class="q-tab__indicator absolute-bottom text-secondary">
          </div>
         </a>
-        <a aria-selected="false" class="q-px-lg menu-button menu-text-style q-tab relative-position self-stretch flex flex-center text-center q-tab--inactive q-tab--no-caps q-focusable q-hoverable cursor-pointer" href="../contact/" role="tab" tabindex="0">
-         <div class="q-focus-helper" tabindex="-1">
-         </div>
+        <a class="q-px-lg menu-button menu-text-style q-tab relative-position self-stretch flex flex-center text-center q-tab--no-caps cursor-pointer q-tab--inactive" href="../contact/">
          <div class="q-tab__content self-stretch flex-center relative-position q-anchor--skip non-selectable column">
           Kontakt
          </div>
          <div class="q-tab__indicator absolute-bottom text-secondary">
          </div>
         </a>
+        <button class="js-menu nav-close menu-text-style" type="button">
+         <i aria-hidden="true" class="q-icon notranslate material-icons">
+          close
+         </i>
+         zavřít
+        </button>
        </div>
-       <i aria-hidden="true" class="q-icon notranslate material-icons q-tabs__arrow q-tabs__arrow--start absolute q-tab__icon" role="presentation">
-        chevron_left
-       </i>
-       <i aria-hidden="true" class="q-icon notranslate material-icons q-tabs__arrow q-tabs__arrow--end absolute q-tab__icon q-tabs__arrow--faded" role="presentation">
-        chevron_right
-       </i>
-      </div>
+      </nav>
       <div class="lt-md">
-       <button class="q-btn q-btn-item non-selectable no-outline menu-button-mobile q-btn--flat q-btn--rectangle q-btn--actionable q-focusable q-hoverable q-btn--no-uppercase q-btn--wrap" style="font-size:20px;" tabindex="0" type="button">
-        <span class="q-focus-helper">
-        </span>
+       <button aria-controls="menu" aria-label="Menu" class="q-btn q-btn-item non-selectable no-outline menu-button-mobile q-btn--flat q-btn--rectangle q-btn--actionable q-focusable q-hoverable q-btn--no-uppercase q-btn--wrap js-menu" style="font-size:20px;" tabindex="0" type="button">
         <span class="q-btn__wrapper col row q-anchor--skip">
          <span class="q-btn__content text-center col items-center q-anchor--skip justify-center row">
           <span class="block">
@@ -105,83 +96,14 @@
         </span>
        </button>
       </div>
-      <div class="q-drawer-container">
-       <div aria-hidden="true" class="q-drawer__opener fixed-right">
-       </div>
-       <div aria-hidden="true" class="fullscreen q-drawer__backdrop hidden">
-       </div>
-       <aside class="q-drawer q-drawer--right q-drawer--bordered q-layout--prevent-focus fixed q-drawer--on-top q-drawer--mobile q-drawer--top-padding" style="width:300px;">
-        <div class="q-drawer__content fit scroll">
-         <div class="q-tabs row no-wrap items-center q-tabs--not-scrollable q-tabs--vertical q-tabs__arrows--inside" role="tablist">
-          <!-- -->
-          <div class="q-tabs__content row no-wrap items-center self-stretch hide-scrollbar relative-position q-tabs__content--align-right menu-text-style">
-           <div class="text-body3 q-mt-xl q-list">
-           </div>
-           <a aria-selected="false" class="menu-text-style q-tab relative-position self-stretch flex flex-center text-center q-tab--inactive q-tab--no-caps q-focusable q-hoverable cursor-pointer q-router-link--active" href="../" role="tab" tabindex="0">
-            <div class="q-focus-helper" tabindex="-1">
-            </div>
-            <div class="q-tab__content self-stretch flex-center relative-position q-anchor--skip non-selectable column">
-             Úvod
-            </div>
-            <div class="q-tab__indicator absolute-right text-secondary">
-            </div>
-           </a>
-           <a aria-selected="false" class="menu-text-style q-tab relative-position self-stretch flex flex-center text-center q-tab--inactive q-tab--no-caps q-focusable q-hoverable cursor-pointer" href="../about/" role="tab" tabindex="0">
-            <div class="q-focus-helper" tabindex="-1">
-            </div>
-            <div class="q-tab__content self-stretch flex-center relative-position q-anchor--skip non-selectable column">
-             O apartmánu
-            </div>
-            <div class="q-tab__indicator absolute-right text-secondary">
-            </div>
-           </a>
-           <a aria-selected="false" class="menu-text-style q-tab relative-position self-stretch flex flex-center text-center q-tab--inactive q-tab--no-caps q-focusable q-hoverable cursor-pointer q-router-link--exact-active q-router-link--active" href="../photo/" role="tab" tabindex="0">
-            <div class="q-focus-helper" tabindex="-1">
-            </div>
-            <div class="q-tab__content self-stretch flex-center relative-position q-anchor--skip non-selectable column">
-             Fotogalerie
-            </div>
-            <div class="q-tab__indicator absolute-right text-secondary">
-            </div>
-           </a>
-           <a aria-selected="false" class="menu-text-style q-tab relative-position self-stretch flex flex-center text-center q-tab--inactive q-tab--no-caps q-focusable q-hoverable cursor-pointer" href="../contact/" role="tab" tabindex="0">
-            <div class="q-focus-helper" tabindex="-1">
-            </div>
-            <div class="q-tab__content self-stretch flex-center relative-position q-anchor--skip non-selectable column">
-             Kontakt
-            </div>
-            <div class="q-tab__indicator absolute-right text-secondary">
-            </div>
-           </a>
-           <button class="q-btn q-btn-item non-selectable no-outline menufullwidth q-btn--flat q-btn--rectangle q-btn--actionable q-focusable q-hoverable q-btn--no-uppercase q-btn--wrap q-btn--dense" tabindex="0" type="button">
-            <span class="q-focus-helper">
-            </span>
-            <span class="q-btn__wrapper col row q-anchor--skip">
-             <span class="q-btn__content text-center col items-center q-anchor--skip justify-center row">
-              <i aria-hidden="true" class="q-icon notranslate material-icons" role="img">
-               close
-              </i>
-              zavřít
-             </span>
-            </span>
-           </button>
-          </div>
-          <i aria-hidden="true" class="q-icon notranslate material-icons q-tabs__arrow q-tabs__arrow--start absolute q-tab__icon" role="presentation">
-           keyboard_arrow_up
-          </i>
-          <i aria-hidden="true" class="q-icon notranslate material-icons q-tabs__arrow q-tabs__arrow--end absolute q-tab__icon q-tabs__arrow--faded" role="presentation">
-           keyboard_arrow_down
-          </i>
-         </div>
-        </div>
-       </aside>
+      <div aria-hidden="true" class="menu-backdrop js-menu">
       </div>
      </div>
      <div class="q-layout__shadow absolute-full overflow-hidden no-pointer-events">
      </div>
      <!-- -->
     </header>
-    <div appear="" class="q-page-container transition" name="slide-fade" style="padding-top:98px;">
+    <div appear="" class="q-page-container transition" name="slide-fade" style="padding-top:80px;">
      <div data-v-3ed152a8="">
       <main class="q-page bg-white" data-v-3ed152a8="" style="min-height:calc(100vh - 98px);">
        <div class="page-section page-fixed-width" data-v-3ed152a8="">
@@ -547,5 +469,7 @@
     </div>
    </div>
   </div>
+  <script defer src="../js/web.js">
+  </script>
  </body>
 </html>
