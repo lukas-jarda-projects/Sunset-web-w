@@ -161,6 +161,105 @@
   }
 }
 
+/* Fotogalerie: svislé záložky nad mřížkou (jako q-tabs vertical v PhotoPage.vue) */
+.gallery-tabs [role="tablist"] {
+  display: flex;
+  flex-direction: column;
+}
+.gallery-tabs [role="tab"] {
+  height: 48px;
+  padding: 0 16px;
+  border: 0;
+  background: none;
+  color: #306ab0;
+  font-family: RedHatDisplay-bld, sans-serif;
+  font-size: 23px;
+  cursor: pointer;
+}
+.gallery-tabs [role="tab"][aria-selected="true"] {
+  color: #ffad14;
+  box-shadow: inset -2px 0 0 #ffad14;
+}
+.gallery-tabs [role="tabpanel"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: -8px 16px 16px -8px;
+}
+.gallery-tabs [role="tabpanel"][hidden] {
+  display: none;
+}
+.gallery-item {
+  position: relative;
+  display: block;
+  margin: 24px 0 0 24px;
+}
+.gek-screenshots {
+  display: block;
+  width: 300px;
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.18);
+}
+.gallery-caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1.4em;
+  background: rgba(0, 0, 0, 0.47);
+  color: #fff;
+  font-family: RedHatDisplay-reg, sans-serif;
+  font-size: 16px;
+  line-height: 1.4em;
+  text-align: center;
+}
+
+/* Lightbox (náhrada TinyBox.vue) */
+.lightbox {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.9);
+}
+.lightbox[hidden] {
+  display: none;
+}
+.lightbox img {
+  max-width: 95vw;
+  max-height: 90vh;
+}
+.lightbox button {
+  position: absolute;
+  border: 0;
+  background: none;
+  color: #fff;
+  font-size: 48px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 16px;
+}
+.lb-close {
+  top: 8px;
+  right: 8px;
+}
+.lb-prev {
+  left: 8px;
+}
+.lb-next {
+  right: 8px;
+}
+body.lightbox-open {
+  overflow: hidden;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .site-nav,
   .js-carousel .slide {

@@ -771,7 +771,8 @@ for i, (klic, nazev) in enumerate(ZALOZKY):
         cil.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(KOREN / "src" / src, cil)
         a = html.escape(alt)
-        print(f'    <a href="../{src}"><img src="../{src}" alt="{a}" loading="lazy" class="gek-screenshots"></a>')
+        print(f'    <a href="../{src}" class="gallery-item"><img src="../{src}" alt="{a}" loading="lazy" class="gek-screenshots">'
+              f'<span class="gallery-caption" aria-hidden="true">{a}</span></a>')
         celkem += 1
     print("  </div>")
 print("</div>")
@@ -806,6 +807,15 @@ Náhledy jsou plné fotky jako dnes (`thumbnail: null`). `loading="lazy"` je na�
 git add tools/galerie_z_vue.py site/
 git commit -m "Fotogalerie: záložky a lightbox bez Vue"
 ```
+
+**Provedeno 2026-10-12, odchylky od plánu:**
+- Rozvržení podle skutečného SSR, ne podle kroku 4: záložky jsou **pod sebou nad mřížkou** přes celou šířku sekce (1100 px), ne ve dvou sloupcích. Aktivní záložka má barvu accent `#ffad14` a 2px pruh vpravo. Rozměry byly naměřené v SSR v okně 1252 px (`getBoundingClientRect`). Statická verze má stejné pozice prvních 8 náhledů, záložek i nadpisu na pixel.
+- Referenční snímek `.reference/photo-*.png` zachytil fotky ještě při načítání (spinnery `q-img`), na vzhled galerie se nedá použít. Headless Chrome na načtení fotek nečeká ani s `--virtual-time-budget`, ani s `--timeout`, proto se měřilo v Chrome.
+- Generátor vypisuje i popisek náhledu (`span.gallery-caption`, jako `.absolute-bottom` v `JidelnaGallery.vue`). Kód v kroku 1 je srovnaný s `tools/galerie_z_vue.py`.
+- Lightbox nemá popisek pod fotkou, který měl `TinyBox.vue` (`gallery-text-alt`). Doplnit ho jde později, pokud bude chybět.
+- Stejný artefakt 98 px jako v Tasku 3: `main` má `min-height:calc(100vh - 98px)`, opraveno na `80px` ve 4 stránkách.
+
+Chování ověřeno v Chrome: přepínání záložek, otevření, šipky, ←/→, smyčka v obou směrech, swipe, Esc, klik mimo fotku.
 
 ---
 
