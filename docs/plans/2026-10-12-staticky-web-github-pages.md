@@ -929,6 +929,9 @@ Původní Quasar projekt je v historii gitu (poslední commit před převodem je
 
 **Krok 5:** `python tools/kontrola.py` → OK. Commit `git commit -m "Odstranění Quasar projektu, web je jen v site/"`
 
+**Provedeno 2026-10-12 (krok 1):** `tabindex="-1"` byl jen na kořeni `q-layout` (4 stránky), odstraněn. `tabindex="0"` zůstal na tlačítkách Menu a šipkách karuselu (jsou ovládací). Prázdné divy `q-tab__indicator` (podtržení aktivní záložky), `menu-backdrop` (JS menu) a `q-layout__shadow` (stín hlavičky) mají funkci, zůstaly. **Prázdné obalové sekce NEJSOU mrtvé** a zůstaly: `page-section` s prázdným `row q-mt-xl` na O apartmánu, Kontaktu a Galerii a prázdná `page-section` před karuselem dávají horní odsazení obsahu. Po jejich odstranění se obsah na 1280 px posunul asi o 50 px nahoru (změřeno snímky před a po). Po samotném odstranění `tabindex` jsou snímky všech 4 stránek na 1280 i 400 px shodné se stavem před úpravou, až na šum snímání. Šum je měřený dvěma běhy stejného obsahu: písmo v iframe galerie na 400 px, počítadla na úvodní stránce.
+- **Past snímkování:** headless Chrome se sdíleným `--user-data-dir` vrací HTML z cache (`http.server` posílá `Last-Modified`, prohlížeč si odvodí čerstvost). Snímky „po úpravě“ pak ukazují starý stav a porovnání vyjde falešně shodné. Každý běh snímků proto potřebuje vlastní čerstvý profil.
+
 ---
 
 ## Task 9: Vizuální porovnání se SSR z master
