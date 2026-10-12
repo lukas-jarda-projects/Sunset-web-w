@@ -93,7 +93,7 @@ def main():
     if not SITE.is_dir():
         print(f"CHYBA: chybí složka {SITE}")
         return 1
-    chyby, menu, pocet_odkazu = [], {}, 0
+    chyby, menu, pocet_odkazu, popisy = [], {}, 0, {}
     for rel in STRANKY:
         f = SITE / rel
         if not f.is_file():
@@ -109,6 +109,10 @@ def main():
             chyby.append(f"{rel}: prázdný <title>")
         if not je_404 and not s.description:
             chyby.append(f"{rel}: chybí <meta name=description>")
+        elif not je_404 and s.description in popisy:
+            chyby.append(f"{rel}: stejná meta description jako {popisy[s.description]}")
+        elif not je_404:
+            popisy[s.description] = rel
         if s.base:
             chyby.append(f"{rel}: <base> mění význam relativních odkazů, odstranit")
         if s.bez_alt:

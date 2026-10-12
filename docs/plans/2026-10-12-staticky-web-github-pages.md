@@ -10,9 +10,19 @@
 
 **Stav:** Plán napsán a zkontrolován 2026-10-12. Provádění začalo týž den:
 - ~~Task 0~~ hotový (`35d5835`): `.gitignore`, venv s `beautifulsoup4` 4.15.0, referenční snímky v `.reference/` (8 souborů, 1280 a 400 px z místního SSR). Build SSR z `master` je v `dist/ssr/`, starý `dist/` z 11. 8. v `C:/work/archive/Sunset-dist-2026-08-11/`.
-- ~~Task 1~~ hotový (`feed25e`), ~~Task 2~~ hotový (`6457fcc`): 31× staženo, kontrola přesně 10 očekávaných chyb. Pak oprava `<base>` (Pozor 4 v Tasku 2).
+- ~~Task 1~~ hotový (`feed25e`), ~~Task 2~~ hotový (`6457fcc`): 31× staženo, kontrola přesně 10 očekávaných chyb. Pak oprava `<base>` (`5e6a6f1`, Pozor 4 v Tasku 2).
+- ~~Task 3~~ (`37ea2a7`), ~~Task 4~~ (`27d6ca5`), ~~Task 5~~ (`05fdb8f`), ~~Task 6~~ (`7cf6195`), ~~Task 7~~ (`09e7961`), popisy stránek schválené uživatelem (commit níž). Odchylky od plánu jsou u každého tasku v odstavci „Provedeno 2026-10-12“.
+- `tools/kontrola.py` končí **`OK: 0 chyb, 210 odkazů, web 18.7 MB`**. Navíc proti původnímu plánu hlídá `<base>` a stejnou `meta description` na víc stránkách (obojí ověřeno mutačně).
+- **Další na řadě: Task 8** (úklid markupu, tag `quasar-posledni`, smazání Quasar projektu), pak Task 9.
 
-Server na portu 3123 po skončení session neběží. Další session ho spustí znovu (`PORT=3123 node dist/ssr/index.js`).
+Server na portu 3123 (místní SSR) po skončení session neběží. Pro Task 8 už není potřeba, Task 9 porovnává s `.reference/`. Spustit jen při potřebě měřit SSR: `PORT=3123 node dist/ssr/index.js`. Musí to být před smazáním `node_modules/` a `dist/` v Tasku 8.
+
+**Poznatky z provádění (2026-10-12):**
+- Port 8000 je na tomto stroji obsazený (odpovídá 200). Náhled běžel na 8772: `python -m http.server -d site 8772`.
+- Snímky: headless Chrome (`--headless=new --screenshot`). Mobil se snímkuje přes `<iframe width="400">` v okně širokém 600 px, protože `--window-size=400` vykreslí stránku asi na 500 px. Argument `index=/` přepíše Git Bash na cestu Windows (převod cest MSYS), takže Chrome dostane špatnou adresu. Spouštět s `MSYS_NO_PATHCONV=1`.
+- Headless nečeká na načtení fotek `q-img` (ani s `--virtual-time-budget`, ani s `--timeout`) a `.reference/photo-*.png` zachytil spinnery. Galerii jsem proto měřil v Chrome přes `getBoundingClientRect`.
+- V Chrome přes rozšíření nešly snímky obrazovky („renderer frozen“) a `resize_window` nezměnil `innerWidth`. Mobil se proto testoval v iframe 400 px na stejném originu. V tabu na pozadí se CSS přechody zpožďují a `requestAnimationFrame` neběží.
+- Porovnání se SSR v Chrome dělej v iframe pevné šířky na obou originech (SSR na 3123, statická verze na 8772), protože okno rozšíření mění šířku.
 
 Nanečisto ve scratchpadu (mimo repo) ověřeno:
 - `kontrola.py`, `prevod_z_ssr.py` (proti místnímu SSR z `master`) a `galerie_z_vue.py` proběhnou s výstupem popsaným v Tasku 2,
@@ -220,7 +230,7 @@ def main():
     if not SITE.is_dir():
         print(f"CHYBA: chybí složka {SITE}")
         return 1
-    chyby, menu, pocet_odkazu = [], {}, 0
+    chyby, menu, pocet_odkazu, popisy = [], {}, 0, {}
     for rel in STRANKY:
         f = SITE / rel
         if not f.is_file():
@@ -236,6 +246,10 @@ def main():
             chyby.append(f"{rel}: prázdný <title>")
         if not je_404 and not s.description:
             chyby.append(f"{rel}: chybí <meta name=description>")
+        elif not je_404 and s.description in popisy:
+            chyby.append(f"{rel}: stejná meta description jako {popisy[s.description]}")
+        elif not je_404:
+            popisy[s.description] = rel
         if s.base:
             chyby.append(f"{rel}: <base> mění význam relativních odkazů, odstranit")
         if s.bez_alt:
@@ -698,6 +712,8 @@ CSS: `.top-carousel` výška 500 px (`Index.vue:72`), `.slide` absolutně přes 
 
 **Krok 4:** Obecnou `meta description` („Sunset Apartment - pobyt u moře“, stejná na všech stránkách) nahradit popisem stránky, např. `Apartmán Sunset v Povljaně na ostrově Pag – ubytování u moře, …`. Text navrhne prováděcí session z úvodního odstavce stránky a uživatel ho schválí. Doplnit `alt` obrázkům, které ho nemají (kontrola je vypíše).
 
+~~Krok 4~~ **hotový 2026-10-12 pro všechny 4 stránky najednou**: uživatel schválil texty Úvod, O apartmánu, Fotogalerie a Kontakt beze změny. Kontrola nově hlásí stejný popis na víc stránkách. Mutačně ověřeno: před zápisem hlásila 3 chyby, po zápisu 0.
+
 **Krok 5:** `python tools/kontrola.py`. U `index.html` nesmí zůstat chyba.
 
 **Krok 6 (mutační ověření kontroly):** dočasně přejmenovat `site/img/carusel-sunset-apartment-02.jpg` a spustit kontrolu → musí hlásit `míří na neexistující`. Pak soubor vrátit a kontrolu spustit znovu → bez chyby u `index.html`.
@@ -862,7 +878,7 @@ Sitemap: https://sunset-apartment.com/sitemap.xml
 
 **Krok 7:** Commit `git add site/ && git commit -m "Kontakt, 404, robots, sitemap"`
 
-**Provedeno 2026-10-12:** kontrola **`OK: 0 chyb, 210 odkazů, web 18.7 MB`**. Popis stránek (`meta description`) je zatím pořád obecný na všech 4 stránkách: čeká na schválení textů uživatelem (Task 4 krok 4) a kontrola jeho jedinečnost nehlídá.
+**Provedeno 2026-10-12:** kontrola **`OK: 0 chyb, 210 odkazů, web 18.7 MB`**. Popisy stránek (`meta description`) doplněné hned potom, viz Task 4 krok 4.
 - `404.html` má `sad.svg` vložené přímo v HTML: absolutní `/img/…` by v náhledu pod `/Sunset-web-w/` nenašlo obrázek. `python -m http.server` vlastní 404 stránky neservíruje, takže se ověřovala přímo na `/404.html`.
 - Na referenčním snímku 1280 px je text seznamu míst (1 apartmán, 2 pláž…) o ~10 px víc vpravo než ve statické verzi. V reálném Chrome jsou ale SSR i statická verze při šířce 1280 px shodné: řádek `left 100, width 1135`, text `left 203` (měřeno v iframe 1280 px na obou originech). Rozdíl tedy vzniká jen v headless snímku SSR. Na 400 px je ve statické verzi číslo těsně u textu: zkontrolovat na skutečném telefonu v Tasku 9.
 
@@ -917,7 +933,7 @@ Původní Quasar projekt je v historii gitu (poslední commit před převodem je
 
 ## Task 9: Vizuální porovnání se SSR z master
 
-**Krok 1:** Nejdřív ověřit, že port je volný: `curl -m 2 -s -o /dev/null -w "%{http_code}" http://localhost:8000/` musí skončit chybou spojení (`000`). Vždy s `-m`: bez časového limitu `curl` na port, kde něco naslouchá a neodpovídá, visí donekonečna (stalo se v kontrole plánu na portu 8771). Pak `python -m http.server -d site 8000` na pozadí. Nasnímat 4 stránky na 1280 a 400 px stejně jako v Tasku 0. Porovnat se snímky v `.reference/` vedle sebe.
+**Krok 1:** Nejdřív ověřit, že port je volný: `curl -m 2 -s -o /dev/null -w "%{http_code}" http://localhost:8000/` musí skončit chybou spojení (`000`). Na tomto stroji je 8000 obsazený (2026-10-12), proto použij např. 8772. Vždy s `-m`: bez časového limitu `curl` na port, kde něco naslouchá a neodpovídá, visí donekonečna (stalo se v kontrole plánu na portu 8771). Pak `python -m http.server -d site 8000` na pozadí. Nasnímat 4 stránky na 1280 a 400 px stejně jako v Tasku 0. Porovnat se snímky v `.reference/` vedle sebe.
 
 **Krok 2:** Rozdíly sepsat. Přijatelné jsou:
 - prolínání karuselu místo `jump-left`,
