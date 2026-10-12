@@ -16,7 +16,7 @@
 - ~~Task 8~~ hotový (`0090d78` úklid markupu + tag `quasar-posledni`, smazání Quasar projektu v commitu níž). Repo obsahuje jen `site/`, `tools/`, `docs/`, README a `.gitignore`.
 - ~~Task 9~~ hotový (commit „Vizuální doladění podle SSR z master“): opravena chybějící mezera v seznamu míst na Kontaktu. Ověření na skutečném telefonu se přesunulo do Tasku 11, krok 10.
 - ~~Task 10~~ hotový (`a637b53`): workflow, kontrola na runneru Ubuntu prošla, deploy čeká na zapnutí Pages.
-- Task 11: kroky 1–7 proběhly ostře (výsledky tam). **Další na řadě: krok 8, force push.** Uživatel ho odsouhlasil 2026-10-12 večer s tím, že proběhne v nové session. Předtím zopakovat kroky 6–7 na čerstvém klonu.
+- Task 11: kroky 1–9 hotové 2026-10-12 večer (výsledky tam). Repo na GitHubu bylo smazáno a znovu založeno z vyčištěné historie, protože GitHub po force pushi vydával staré commity podle hashe. **Další na řadě: krok 10, zveřejnění a zapnutí Pages.**
 
 Místní SSR už spustit nejde: `node_modules/` a `dist/` jsou od Tasku 8 smazané. Task 9 porovnává s `.reference/`. Kdyby bylo SSR někdy potřeba, je třeba checkout tagu `quasar-posledni` a nový build.
 
@@ -1087,6 +1087,13 @@ Očekávané: `overeni.sh` vypíše dvakrát `0` a kontrola `OK: 0 chyb`, proto�
 - **Krok 8 uživatel odsouhlasil 2026-10-12 večer** (provede se v další session).
 - **Před krokem 8 kroky 6–7 zopakovat:** `Sunset-cisteni` smazat a vyčistit znovu z aktuálního `master`. Commity, které vznikly po `aca86c0` (tento zápis a předávka), v něm totiž nejsou a force push by je zahodil. Po opakování musí znovu vyjít 0 a 0, kontrola OK a shodný strom HEAD.
 
+**Provedeno 2026-10-12 večer (kroky 6–9 znovu a ostře):**
+- Kroky 6–7 zopakovány na čerstvém klonu `45017f9`: filter-repo exit 0, `overeni.sh` 0 a 0, kontrola OK, strom HEAD `76c9676` shodný. 148 commitů, pack 89,33 MiB. Nová záloha `C:/work/archive/Sunset-web-w-lokalni-45017f9.bundle` (verify OK), protože mirror a první bundle končí na `aca86c0`.
+- Krok 8: force push spustil uživatel přes `!` (auto režim ho blokuje jako „Git Destructive“). `master` `45017f9` → `3ca9b62`, tag `quasar-posledni` `0090d78` → `2b22dba`.
+- **Nález po force pushi:** GitHub dál vydával staré commity podle hashe (`gh api repos/…/commits/aca86c0` vrátil commit). Jejich hashe byly vidět v seznamu běhů Actions, takže po zveřejnění by šla otevřít celá stará historie. Navíc repo mělo aktivní **webhook na interní Jenkins Altisimy** (push a PR, poslední odpověď 500).
+- **Rozhodnutí uživatele:** repo smazat a založit znovu, webhook tím zmizí. Uživatel přidal tokenu scope `delete_repo` (`gh auth refresh -s delete_repo`) a smazal repo (`gh repo delete`). Pak `gh repo create lukas-jarda-projects/Sunset-web-w --private --disable-wiki` a push `master` + tagu. Ověřeno: staré hashe vrací „No commit found“, `3ca9b62` existuje, 0 webhooků. `jasir` je admin organizace, takže ho nebylo potřeba přidávat. Ztratila se jen historie běhů Actions (samé `failure`) a datum založení repa (2021).
+- Krok 9: složku `Sunset-apartment.com` nešlo přejmenovat, protože je pracovním adresářem běžící session („Device or resource busy“). Místo přejmenování se proto prohodily adresáře `.git`. Pracovní stromy byly shodné. Výsledek: `Sunset-apartment.com` = vyčištěné repo s `.reference/` a `tools/.venv/`, `Sunset-apartment.com-stare` = staré repo s **odebraným remote**, aby se stará historie nedala omylem pushnout zpět.
+
 **Krok 8: force push.** filter-repo odstranil remote `origin`, nastavit ho znovu:
 
 ```
@@ -1170,7 +1177,7 @@ curl -sI https://sunset-apartment.com/neexistuje   # 404 s vlastní stránkou
 
 ## Task 14: Vypnutí starého serveru (za ~týden)
 
-**Krok 1:** Po týdnu bez problémů řekne uživatel Robertovi (šéf Altisimy), aby zastavil a zakázal `sunset-apartment.com.service` a smazal složku webu na serveru (cesta je v historii v `package.json`, skript `deploy:prod`).
+**Krok 1:** Po týdnu bez problémů řekne uživatel Robertovi (šéf Altisimy), aby zastavil a zakázal `sunset-apartment.com.service` a smazal složku webu na serveru (cesta je v historii v `package.json`, skript `deploy:prod`). Navíc ať smaže job webu v Jenkinsu Altisimy: webhook z GitHubu zmizel se smazáním repa 2026-10-12, ale job na jejich straně nejspíš zůstal.
 
 **Krok 2:** Vrátit TTL na 3600. Smazat `C:/work/projects/Sunset-apartment.com-stare`. Zálohy v `C:/work/archive/` ponechat.
 
