@@ -1203,7 +1203,7 @@ Další kroky:
 
 Pozor:
 - Auto režim blokuje force push, mazání repa i změnu viditelnosti. Takové příkazy dávej uživateli k spuštění přes ! a vždy na JEDEN řádek (zalomený příkaz se rozpadne).
-- Token gh má od této session scope delete_repo. Uživateli bylo doporučeno ho odebrat: gh auth refresh -h github.com -r delete_repo. Ověř přes gh auth status, a pokud tam scope pořád je, připomeň to.
+- Token gh má od této session scope delete_repo. Uživatel ho VĚDOMĚ ponechal: stejný postup (vyčištění historie a nové založení repa) čeká projekt chatavpekle.cz. Neodebírat a nepřipomínat; odebrat (gh auth refresh -h github.com -r delete_repo) až po dokončení chatavpekle.cz.
 - Do plánu ani commitů nepiš interní hostitele Altisimy. Vzory jsou v C:/work/archive/sunset-cisteni-historie/overeni.sh (mimo repo). Před commitem plánu je projdi grepem.
 - Rozhodnuto uživatelem: DNS u Váš Hosting spravuje uživatel. Starý server a job v Jenkinsu Altisimy vypne Robert, uživatel mu to řekne (Task 14).
 - Snímky headless Chromem: čerstvý --user-data-dir pro každý běh, mobil přes iframe 400 px, MSYS_NO_PATHCONV=1. Port 8000 je obsazený, náhled jde na 8772.
