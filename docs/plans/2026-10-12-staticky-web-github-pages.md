@@ -1191,15 +1191,20 @@ curl -sI https://sunset-apartment.com/neexistuje   # 404 s vlastní stránkou
 
 ```
 Pokračuj v projektu C:\work\projects\Sunset-apartment.com podle plánu docs/plans/2026-10-12-staticky-web-github-pages.md (převod Quasar SSR webu na statické HTML na GitHub Pages, varianta B).
-Skills: superpowers:executing-plans (plán má tasky s kontrolními body), superpowers:verification-before-completion (tools/kontrola.py musí skončit „OK: 0 chyb“).
+Skills: superpowers:executing-plans (plán má tasky s kontrolními body), superpowers:verification-before-completion (ověření DNS a curl v Tasku 13 mají přesné očekávané výstupy).
 
-Stav (2026-10-12 večer): Tasky 0–10 hotové a pushnuté. Repo obsahuje jen site/, tools/, docs/, README, .gitignore a .github/workflows/pages.yml. Quasar projekt je v historii pod tagem quasar-posledni (0090d78). python tools/kontrola.py = „OK: 0 chyb, 210 odkazů, web 18.7 MB“, stejně na runneru Ubuntu ve workflow. Workflow zatím selhává na configure-pages, protože Pages nejsou zapnuté (očekávané). Odchylky od plánu jsou u každého tasku v odstavci „Provedeno 2026-10-12“.
+Stav (2026-10-12 večer): Tasky 0–11 hotové, z Tasku 11 chybí jen test na telefonu. Repo lukas-jarda-projects/Sunset-web-w je VEŘEJNÉ s vyčištěnou historií. Na GitHubu bylo smazáno a založeno znovu, protože po force pushi GitHub dál vydával staré commity podle hashe (podrobnosti u Tasku 11, „Provedeno“ u kroku 8). Pages běží z GitHub Actions, náhled je https://lukas-jarda-projects.github.io/Sunset-web-w/ (4 stránky 200, 404 vlastní, 84 interních odkazů bez chyby). python tools/kontrola.py = „OK: 0 chyb, 210 odkazů, web 18.7 MB“.
+Pracovní kopie C:\work\projects\Sunset-apartment.com je vyčištěné repo. Staré repo je v C:\work\projects\Sunset-apartment.com-stare BEZ remote (aby se stará historie nedala pushnout zpět), smazat až v Tasku 14. Zálohy staré historie: C:/work/archive/Sunset-web-w-pred-cistenim.git (mirror do aca86c0) a C:/work/archive/Sunset-web-w-lokalni-45017f9.bundle.
 
-Task 11: kroky 1–7 proběhly ostře. Zálohy jsou v C:/work/archive/Sunset-web-w-pred-cistenim.git (mirror) a C:/work/archive/Sunset-web-w-lokalni.bundle. Čištění dalo 144 commitů, overeni.sh 0 a 0, kontrolu OK a strom HEAD shodný s originálem. Výsledky jsou v plánu u Tasku 11.
-Další krok: Task 11 krok 8 (force push, nevratné). Uživatel ho ODSOUHLASIL 2026-10-12 večer, znovu se neptej. Předtím smaž C:/work/projects/Sunset-cisteni a zopakuj kroky 6–7 na čerstvém klonu aktuálního master: klon vznikl z aca86c0, takže pozdější commity (zápis do plánu, tato předávka) v něm chybí. Musí znovu vyjít 0 a 0, kontrola OK a shodný strom HEAD (git rev-parse HEAD^{tree} v obou repech). Pak kroky 8–10. V kroku 10 na skutečném telefonu ověř menu, swipe karuselu a swipe v lightboxu (zbylo z Tasku 9).
+Další kroky:
+1. Zeptej se uživatele na výsledek testu na skutečném telefonu (menu, swipe karuselu, swipe v lightboxu galerie). Zatím NEOVĚŘENO. Výsledek zapiš do Tasku 11, krok 10.
+2. Task 12: přidání domény v organizaci dělá uživatel v UI GitHubu, TXT záznam u Váš Hosting taky on. Ty ověříš nslookupem podle plánu.
+3. Task 13 (přepnutí DNS): předem se zeptej, kdy to uživateli vyhovuje (HTTPS může do hodiny hlásit chybu certifikátu). IP adresy GitHubu ověř v aktuální dokumentaci.
 
-Rozhodnuto uživatelem: Jardovy e-maily v historii → qwanap@gmail.com (jméno zůstane); DNS u Váš Hosting spravuje uživatel; starý server vypne Robert (šéf Altisimy), uživatel mu to řekne.
-Vstupy čištění jsou v C:/work/archive/sunset-cisteni-historie/ (mimo repo, NEPŘESOUVAT do repa).
-Před Taskem 13 (přepnutí DNS) se zeptej, kdy to uživateli vyhovuje (HTTPS může do hodiny hlásit chybu certifikátu).
-Snímky headless Chromem: každý běh s čerstvým --user-data-dir (sdílený profil vrací HTML z cache), mobil přes iframe 400 px, MSYS_NO_PATHCONV=1. Port 8000 je obsazený, náhled jde na 8772 (předem ověř curl -m 2).
+Pozor:
+- Auto režim blokuje force push, mazání repa i změnu viditelnosti. Takové příkazy dávej uživateli k spuštění přes ! a vždy na JEDEN řádek (zalomený příkaz se rozpadne).
+- Token gh má od této session scope delete_repo. Uživateli bylo doporučeno ho odebrat: gh auth refresh -h github.com -r delete_repo. Ověř přes gh auth status, a pokud tam scope pořád je, připomeň to.
+- Do plánu ani commitů nepiš interní hostitele Altisimy. Vzory jsou v C:/work/archive/sunset-cisteni-historie/overeni.sh (mimo repo). Před commitem plánu je projdi grepem.
+- Rozhodnuto uživatelem: DNS u Váš Hosting spravuje uživatel. Starý server a job v Jenkinsu Altisimy vypne Robert, uživatel mu to řekne (Task 14).
+- Snímky headless Chromem: čerstvý --user-data-dir pro každý běh, mobil přes iframe 400 px, MSYS_NO_PATHCONV=1. Port 8000 je obsazený, náhled jde na 8772.
 ```
