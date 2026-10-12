@@ -15,7 +15,8 @@
 - `tools/kontrola.py` končí **`OK: 0 chyb, 210 odkazů, web 18.7 MB`**. Navíc proti původnímu plánu hlídá `<base>` a stejnou `meta description` na víc stránkách (obojí ověřeno mutačně).
 - ~~Task 8~~ hotový (`0090d78` úklid markupu + tag `quasar-posledni`, smazání Quasar projektu v commitu níž). Repo obsahuje jen `site/`, `tools/`, `docs/`, README a `.gitignore`.
 - ~~Task 9~~ hotový (commit „Vizuální doladění podle SSR z master“): opravena chybějící mezera v seznamu míst na Kontaktu. Ověření na skutečném telefonu se přesunulo do Tasku 11, krok 10.
-- **Další na řadě: Task 10** (workflow), pak Task 11 (nevratný, před force pushem se zeptat uživatele).
+- ~~Task 10~~ hotový (`a637b53`): workflow, kontrola na runneru Ubuntu prošla, deploy čeká na zapnutí Pages.
+- **Další na řadě: Task 11** (nevratný: kroky 1–7 jsou lokální, před krokem 8, force push, se zeptat uživatele).
 
 Místní SSR už spustit nejde: `node_modules/` a `dist/` jsou od Tasku 8 smazané. Task 9 porovnává s `.reference/`. Kdyby bylo SSR někdy potřeba, je třeba checkout tagu `quasar-posledni` a nový build.
 
@@ -1005,12 +1006,14 @@ jobs:
 
 Workflow nic nebuildí: spustí kontrolu (Python je na runneru předinstalovaný) a nahraje `site/`. Akce GitHubu běží interně na Node, to je ale infrastruktura GitHubu, ne závislost webu.
 
-**Krok 2:** Commit. Push je v pořádku, repo je do Tasku 11 soukromé a commity z Tasků 0–10 vyčištění historie stejně přepíše. Workflow ale do zapnutí Pages (Task 11, krok 10) selže na kroku `deploy-pages`. To se očekává a není to chyba.
+**Krok 2:** Commit. Push je v pořádku, repo je do Tasku 11 soukromé a commity z Tasků 0–10 vyčištění historie stejně přepíše. Workflow ale do zapnutí Pages (Task 11, krok 10) selže na kroku ~~`deploy-pages`~~ `configure-pages` (`Get Pages site failed … Not Found`). To se očekává a není to chyba.
 
 ```
 git add .github/workflows/pages.yml
 git commit -m "Nasazení na GitHub Pages"
 ```
+
+**Provedeno 2026-10-12:** `pages.yml` beze změny proti plánu, commit `a637b53`, pushnuto. Běh `38287832071`: checkout a **„Kontrola webu“ na Ubuntu prošly** (`OK: 0 chyb, 210 odkazů, web 18.7 MB`), `configure-pages` selhal na nezapnutých Pages (očekávané), zbytek přeskočen. Před pushem ověřeno, že Linux nebude mít problém s velikostí písmen: všech 203 relativních odkazů v HTML a CSS sedí přesně na názvy na disku a názvy v gitu sedí s diskem 97/97. Repo má `core.ignorecase=true`, takže tyhle rozdíly by Windows neukázal.
 
 ---
 
