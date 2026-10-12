@@ -862,6 +862,10 @@ Sitemap: https://sunset-apartment.com/sitemap.xml
 
 **Krok 7:** Commit `git add site/ && git commit -m "Kontakt, 404, robots, sitemap"`
 
+**Provedeno 2026-10-12:** kontrola **`OK: 0 chyb, 210 odkazů, web 18.7 MB`**. Popis stránek (`meta description`) je zatím pořád obecný na všech 4 stránkách: čeká na schválení textů uživatelem (Task 4 krok 4) a kontrola jeho jedinečnost nehlídá.
+- `404.html` má `sad.svg` vložené přímo v HTML: absolutní `/img/…` by v náhledu pod `/Sunset-web-w/` nenašlo obrázek. `python -m http.server` vlastní 404 stránky neservíruje, takže se ověřovala přímo na `/404.html`.
+- Na referenčním snímku 1280 px je text seznamu míst (1 apartmán, 2 pláž…) o ~10 px víc vpravo než ve statické verzi. V reálném Chrome jsou ale SSR i statická verze při šířce 1280 px shodné: řádek `left 100, width 1135`, text `left 203` (měřeno v iframe 1280 px na obou originech). Rozdíl tedy vzniká jen v headless snímku SSR. Na 400 px je ve statické verzi číslo těsně u textu: zkontrolovat na skutečném telefonu v Tasku 9.
+
 ---
 
 ## Task 8: Úklid markupu a odstranění Quasar stacku z repa

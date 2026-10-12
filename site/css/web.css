@@ -216,6 +216,14 @@
   text-align: center;
 }
 
+/* ContactPage.vue: na mobilu obrázky na celou šířku (dřív $q.platform.is.mobile, teď šířka pod 600 px) */
+@media (max-width: 599px) {
+  img.kontakt-obr {
+    width: 100%;
+    height: auto;
+  }
+}
+
 /* Lightbox (náhrada TinyBox.vue) */
 .lightbox {
   position: fixed;
