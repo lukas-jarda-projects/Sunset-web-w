@@ -284,11 +284,45 @@
     var b = prsty.values().next().value
     gesto = priblizeno() ? { typ: 'posun', px: b.x, py: b.y, x0: zoom.x, y0: zoom.y } : null
   }
+  // Diagnostika gest na skutečném telefonu: stránka s ?ladeni vypíše v detailu, co dostává
+  function pripravLadeni () {
+    if (!/[?&]ladeni\b/.test(location.search)) return
+    var panel = document.createElement('pre')
+    panel.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:5000;margin:0;padding:6px;' +
+      'max-height:40vh;overflow:hidden;background:rgba(0,0,0,0.75);color:#7f7;font:11px/1.3 monospace;pointer-events:none;white-space:pre-wrap'
+    box.appendChild(panel)
+    var radky = []
+    var pohyby = 0
+    function zapis (t) {
+      radky.push(t)
+      if (radky.length > 12) radky.shift()
+      vypis()
+    }
+    function vypis () {
+      panel.textContent = 'verze zoom-3 | ' + navigator.userAgent.replace(/^.*?\(/, '(').slice(0, 90) +
+        '\nzoom ' + zoom.s.toFixed(2) + ' prsty ' + prsty.size + ' gesto ' + (gesto ? gesto.typ : '-') + ' pohybů ' + pohyby +
+        ' | touch-action ' + getComputedStyle(box).touchAction + '\n' + radky.join('\n')
+    }
+    function cil (e) { return e.target === obr ? 'img' : e.target === box ? 'pozadí' : e.target.className || e.target.tagName }
+    ;['pointerdown', 'pointerup', 'pointercancel'].forEach(function (t) {
+      box.addEventListener(t, function (e) { zapis(t + ' #' + e.pointerId + ' ' + e.pointerType + ' na ' + cil(e)) }, true)
+    })
+    box.addEventListener('pointermove', function () { pohyby++; vypis() }, true)
+    ;['touchstart', 'touchend', 'touchcancel'].forEach(function (t) {
+      box.addEventListener(t, function (e) { zapis(t + ' prstů ' + e.touches.length) }, { capture: true, passive: true })
+    })
+    ;['gesturestart', 'gesturechange'].forEach(function (t) {
+      box.addEventListener(t, function (e) { zapis(t + ' scale ' + (e.scale || 0).toFixed(2)) }, true)
+    })
+    vypis()
+  }
   function pripravZoom () {
+    pripravLadeni()
     obr.draggable = false
     box.addEventListener('pointerdown', function (e) {
       posledniTyp = e.pointerType
-      if (e.target.closest('button') || (e.pointerType === 'mouse' && e.button !== 0)) return
+      // Prst na šipce se do pinche počítá (šipky leží přes okraje fotky na šířku), myš na tlačítku ne
+      if (e.pointerType === 'mouse' && (e.button !== 0 || e.target.closest('button'))) return
       prsty.set(e.pointerId, { x: e.clientX, y: e.clientY })
       tahl = false
       if (prsty.size === 2) {

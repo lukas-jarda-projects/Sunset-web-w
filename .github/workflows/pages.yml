@@ -24,6 +24,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Kontrola webu
         run: python3 tools/kontrola.py
+      # web.css a web.js dostanou ?v=<commit>, ať prohlížeč po nasazení nevezme starou verzi z cache
+      - name: Verze CSS a JS
+        run: find site -name '*.html' -exec sed -i -E "s#(web\.(css|js))\"#\1?v=${GITHUB_SHA::7}\"#g" {} +
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
