@@ -13,9 +13,10 @@
 - ~~Task 1~~ hotový (`feed25e`), ~~Task 2~~ hotový (`6457fcc`): 31× staženo, kontrola přesně 10 očekávaných chyb. Pak oprava `<base>` (`5e6a6f1`, Pozor 4 v Tasku 2).
 - ~~Task 3~~ (`37ea2a7`), ~~Task 4~~ (`27d6ca5`), ~~Task 5~~ (`05fdb8f`), ~~Task 6~~ (`7cf6195`), ~~Task 7~~ (`09e7961`), popisy stránek schválené uživatelem (commit níž). Odchylky od plánu jsou u každého tasku v odstavci „Provedeno 2026-10-12“.
 - `tools/kontrola.py` končí **`OK: 0 chyb, 210 odkazů, web 18.7 MB`**. Navíc proti původnímu plánu hlídá `<base>` a stejnou `meta description` na víc stránkách (obojí ověřeno mutačně).
-- **Další na řadě: Task 8** (úklid markupu, tag `quasar-posledni`, smazání Quasar projektu), pak Task 9.
+- ~~Task 8~~ hotový (`0090d78` úklid markupu + tag `quasar-posledni`, smazání Quasar projektu v commitu níž). Repo obsahuje jen `site/`, `tools/`, `docs/`, README a `.gitignore`.
+- **Další na řadě: Task 9** (zbývá ověření na skutečném telefonu), pak Task 10.
 
-Server na portu 3123 (místní SSR) po skončení session neběží. Pro Task 8 už není potřeba, Task 9 porovnává s `.reference/`. Spustit jen při potřebě měřit SSR: `PORT=3123 node dist/ssr/index.js`. Musí to být před smazáním `node_modules/` a `dist/` v Tasku 8.
+Místní SSR už spustit nejde: `node_modules/` a `dist/` jsou od Tasku 8 smazané. Task 9 porovnává s `.reference/`. Kdyby bylo SSR někdy potřeba, je třeba checkout tagu `quasar-posledni` a nový build.
 
 **Poznatky z provádění (2026-10-12):**
 - Port 8000 je na tomto stroji obsazený (odpovídá 200). Náhled běžel na 8772: `python -m http.server -d site 8772`.
@@ -932,6 +933,10 @@ Původní Quasar projekt je v historii gitu (poslední commit před převodem je
 **Provedeno 2026-10-12 (krok 1):** `tabindex="-1"` byl jen na kořeni `q-layout` (4 stránky), odstraněn. `tabindex="0"` zůstal na tlačítkách Menu a šipkách karuselu (jsou ovládací). Prázdné divy `q-tab__indicator` (podtržení aktivní záložky), `menu-backdrop` (JS menu) a `q-layout__shadow` (stín hlavičky) mají funkci, zůstaly. **Prázdné obalové sekce NEJSOU mrtvé** a zůstaly: `page-section` s prázdným `row q-mt-xl` na O apartmánu, Kontaktu a Galerii a prázdná `page-section` před karuselem dávají horní odsazení obsahu. Po jejich odstranění se obsah na 1280 px posunul asi o 50 px nahoru (změřeno snímky před a po). Po samotném odstranění `tabindex` jsou snímky všech 4 stránek na 1280 i 400 px shodné se stavem před úpravou, až na šum snímání. Šum je měřený dvěma běhy stejného obsahu: písmo v iframe galerie na 400 px, počítadla na úvodní stránce.
 - **Past snímkování:** headless Chrome se sdíleným `--user-data-dir` vrací HTML z cache (`http.server` posílá `Last-Modified`, prohlížeč si odvodí čerstvost). Snímky „po úpravě“ pak ukazují starý stav a porovnání vyjde falešně shodné. Každý běh snímků proto potřebuje vlastní čerstvý profil.
 
+**Provedeno 2026-10-12 (kroky 1b–5):** úklid markupu commitnut (`0090d78`) a označen tagem `quasar-posledni`. `git rm` podle kroku 2 prošel beze změny příkazu, v gitu zůstalo `.gitignore docs README.md site tools`. Před smazáním netrackovaných složek: `podminky` v `site/` = 0, kontrola OK. Smazány `node_modules/` (585 MB), `dist/` (31 MB), `.quasar/` a `.vscode/` (jen zástupný `settings.json` pluginu CodeGPT). Kontrola po smazání znovu OK. Odchylky od plánu:
+- `tools/prevod_z_ssr.py` a `tools/galerie_z_vue.py` zůstaly v repu jako záznam převodu. Čtou z `dist/` a `src/`, takže bez checkoutu tagu `quasar-posledni` už nejdou spustit. README to u nich uvádí jednou odrážkou navíc.
+- V Tasku 11 opraven příkaz soupisu cest jen v historii: srovnává se s tagem, ne s HEAD (viz tam).
+
 ---
 
 ## Task 9: Vizuální porovnání se SSR z master
@@ -1036,7 +1041,7 @@ Ověřit `git -C C:/work/archive/Sunset-web-w-pred-cistenim.git log --oneline | 
 - `nahrady.txt`: interní hostitelé a cesty serveru, port SSH a e-maily Jardy (→ `qwanap@gmail.com`).
 - `mailmap.txt`: autoři commitů Jardy → `Jaroslav Povolný <qwanap@gmail.com>`.
 
-Před ostrým během znovu projít soupis cest, které jsou jen v historii: `git log --all --format= --name-only | sort -u` porovnat (`comm -23`) s `git ls-files | sort`. Zkontrolovat, jestli od 2026-10-12 nic nepřibylo. Nové soubory s citlivým obsahem doplnit do souborů v archivu, ne do plánu.
+Před ostrým během znovu projít soupis cest, které jsou jen v historii: `git -c core.quotepath=off log --all --format= --name-only | grep -v '^$' | sort -u` porovnat (`comm -23`) s `git -c core.quotepath=off ls-tree -r --name-only quasar-posledni | sort`. **Ne s `git ls-files`:** po Tasku 8 je celý Quasar projekt jen v historii a srovnání s HEAD dá 442 cest místo 182. Proti tagu vyšlo po Tasku 8 přesně 182 (změřeno 2026-10-12), tedy nic nového. Zkontrolovat, jestli od té doby nic nepřibylo. Nové soubory s citlivým obsahem doplnit do souborů v archivu, ne do plánu.
 
 **Krok 6: spustit na čerstvém klonu.** Dvě pasti, obě ověřené nanečisto:
 - klon z lokální cesty musí mít `--no-local`, jinak ho filter-repo odmítne jako „not a fresh clone“;
