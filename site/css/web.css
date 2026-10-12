@@ -149,6 +149,18 @@
   }
 }
 
+/* AboutPage.vue:104: mezery mezi kartami místností až od 600 px (q-gutter-lg z app.css) */
+@media (min-width: 600px) {
+  .karty-mistnosti {
+    margin-left: -24px;
+    margin-top: -24px;
+  }
+  .karty-mistnosti > * {
+    margin-left: 24px;
+    margin-top: 24px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .site-nav,
   .js-carousel .slide {

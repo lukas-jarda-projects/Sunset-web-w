@@ -724,6 +724,12 @@ CSS: `.top-carousel` výška 500 px (`Index.vue:72`), `.slide` absolutně přes 
 
 **Krok 4:** Commit `git commit -am "Stránka O apartmánu"`
 
+**Provedeno 2026-10-12, dvě odchylky od plánu:**
+- Přepínač `AboutPage.vue:104` neobaluje loga služeb, ale **karty místností** (Kuchyň, Obývací místnost, Ložnice…). Třída se proto jmenuje `karty-mistnosti`, ne `loga-sluzeb`.
+- `prettify` v převodu vložil do `<a>` kolem log služeb mezery a zalomení. Mezi logy se pak kreslily podtržené mezery a loga se posunula (rozdíl na snímku 1280 px). 4 odkazy jsou teď spojené na jeden řádek bez mezer. Stejná past hrozí u každého řádkového prvku, který `prettify` rozloží na víc řádků. Na ostatních stránkách se zatím neprojevila: Úvod i Kontakt jsou s referencí shodné.
+
+Výsledek: O apartmánu je na 1280 i 400 px pixelově shodná s referencí (na 400 px porovnáno od y = 60, protože hlavička se liší vyhlazením písma v tlačítku Menu).
+
 ---
 
 ## Task 6: Fotogalerie se záložkami a lightboxem
