@@ -19,7 +19,8 @@ Server na portu 3123 se po session ukončil, další session ho spustí znovu (`
 Nanečisto ve scratchpadu (mimo repo) ověřeno:
 - `kontrola.py`, `prevod_z_ssr.py` (proti místnímu SSR z `master`) a `galerie_z_vue.py` proběhnou s výstupem popsaným v Tasku 2,
 - kontrola chytí smazanou fotku i chybějící obrázek v `srcset`,
-- čištění historie z Tasku 11 dá 0 citlivých řetězců.
+- úvodní stránka po převodu (se sloučenými CSS chunky a třídami `gt-*`) vypadá na 1280 px stejně jako SSR z `master`: písma, nadpisy, karty dopravy ve 3 sloupcích (snímek headless Chromem; hlavička a karusel se řeší až v Tascích 3–4),
+- čištění historie se vstupy z `C:/work/archive/sunset-cisteni-historie/` dá 0 citlivých řetězců a 0 cizích cest.
 
 `web.js` a `pages.yml` jsou ověřené **jen syntakticky** (`node --check`, `yaml.safe_load`), v prohlížeči a na GitHubu zatím neběžely.
 
@@ -955,9 +956,10 @@ git commit -m "Nasazení na GitHub Pages"
 
 **Předpoklad:** e-maily rozhodnuty (sekce „Rozhodnuto“, bod 1). **Nevratné na GitHubu** — force push přepíše všechny hashe.
 
-**Ověřeno nanečisto 2026-10-12** na klonu tehdejšího `master` (166 commitů) ve scratchpadu. Seznamy níže daly:
-- 125 commitů (prázdné filter-repo vynechá), pack 101,6 → 88,6 MiB,
-- 0 výskytů citlivých řetězců, 0 cizích cest,
+**Ověřeno nanečisto 2026-10-12** na klonu tehdejšího `master` (168 commitů, včetně dvou commitů s plánem: `762968f` a `f40cae9`) ve scratchpadu. Soubory z archivu daly:
+- 127 commitů (prázdné filter-repo vynechá), pack ~101,6 → 88,6 MiB,
+- `overeni.sh`: 0 citlivých řetězců (předtím 125) a 0 cizích cest (předtím 130),
+- současná verze plánu prošla filtrem beze změny (`cmp`),
 - v HEAD ubylo jen `lib/` (55), `.ijfw/`, `ads`, `install.log`, `Upravy Webu Sunset.txt`, `src/boot/sentry.js`, zámek `.odt` a nepoužívaný `src/assets/dorsys-ornament.svg` (CSS webu ho neobsahuje).
 
 Při ostrém běhu budou čísla jiná, protože přibudou commity z Tasků 0–10.
@@ -1112,6 +1114,6 @@ Stav: plán zkontrolovaný, z Tasku 0 hotový jen build SSR z master (dist/ssr/)
 Zdroj převodu je místní SSR z master, NE živý web: živý web běží ze staršího buildu a nemá lokální loga Netflix/YouTube.
 Textové úpravy (Bolt, odstranění sekcí) a loga jsou v master HOTOVÉ, nic z toho neupravuj.
 Rozhodnuto uživatelem: Jardovy e-maily v historii → qwanap@gmail.com (jméno zůstane); DNS u Váš Hosting spravuje uživatel; starý server vypne Robert (šéf Altisimy), uživatel mu to řekne.
-Task 11 (force push, zveřejnění repa) je nevratný: nejdřív obě zálohy z kroku 1 a ověření z kroku 7, před krokem 8 se uživatele zeptej.
+Task 11 (force push, zveřejnění repa) je nevratný: vstupy čištění jsou v C:/work/archive/sunset-cisteni-historie/ (mimo repo, NEPŘESOUVAT do repa), nejdřív obě zálohy z kroku 1 a ověření z kroku 7 (overeni.sh = 0 a 0), před krokem 8 se uživatele zeptej.
 Před Taskem 13 (přepnutí DNS) se zeptej, kdy to uživateli vyhovuje (HTTPS může do hodiny hlásit chybu certifikátu).
 ```
