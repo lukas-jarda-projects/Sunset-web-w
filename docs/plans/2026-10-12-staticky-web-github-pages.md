@@ -8,13 +8,11 @@
 
 **Technologie:** HTML, CSS, vanilla JS (ES2017, bez knihoven). Pomocné nástroje jen v Pythonu 3: `tools/kontrola.py` je čistá stdlib, převodní skript potřebuje `beautifulsoup4` v lokálním venv. Node se použije jen jednou, v Tasku 0 na build SSR z `master` jako zdroj převodu. Web ani nástroje ho nepotřebují.
 
-**Stav:** Plán napsán a zkontrolován 2026-10-12, Tasky 1–14 nezačaly.
+**Stav:** Plán napsán a zkontrolován 2026-10-12. Provádění začalo týž den:
+- ~~Task 0~~ hotový (`35d5835`): `.gitignore`, venv s `beautifulsoup4` 4.15.0, referenční snímky v `.reference/` (8 souborů, 1280 a 400 px z místního SSR). Build SSR z `master` je v `dist/ssr/`, starý `dist/` z 11. 8. v `C:/work/archive/Sunset-dist-2026-08-11/`.
+- ~~Task 1~~ hotový (`feed25e`), ~~Task 2~~ hotový (`6457fcc`): 31× staženo, kontrola přesně 10 očekávaných chyb. Pak oprava `<base>` (Pozor 4 v Tasku 2).
 
-Z Tasku 0 už proběhlo:
-- krok 3 build SSR z `master` (`dist/ssr/`, `Build succeeded`),
-- starý `dist/` z 11. 8. je přesunutý do `C:/work/archive/Sunset-dist-2026-08-11/`.
-
-Server na portu 3123 se po session ukončil, další session ho spustí znovu (`PORT=3123 node dist/ssr/index.js`). `.gitignore` a venv z kroků 1–2 nejsou hotové.
+Server na portu 3123 po skončení session neběží. Další session ho spustí znovu (`PORT=3123 node dist/ssr/index.js`).
 
 Nanečisto ve scratchpadu (mimo repo) ověřeno:
 - `kontrola.py`, `prevod_z_ssr.py` (proti místnímu SSR z `master`) a `galerie_z_vue.py` proběhnou s výstupem popsaným v Tasku 2,
@@ -155,13 +153,15 @@ class Sber(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.odkazy, self.skripty, self.nav = [], [], []
         self.lang, self.title, self.description = None, "", None
-        self.bez_alt, self.fotek = 0, 0
+        self.bez_alt, self.fotek, self.base = 0, 0, False
         self._v_title, self._v_nav = False, 0
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         if tag == "html":
             self.lang = a.get("lang")
+        if tag == "base":
+            self.base = True
         if tag == "title":
             self._v_title = True
         if tag == "meta" and a.get("name") == "description":
@@ -236,6 +236,8 @@ def main():
             chyby.append(f"{rel}: prázdný <title>")
         if not je_404 and not s.description:
             chyby.append(f"{rel}: chybí <meta name=description>")
+        if s.base:
+            chyby.append(f"{rel}: <base> mění význam relativních odkazů, odstranit")
         if s.bez_alt:
             chyby.append(f"{rel}: {s.bez_alt}x <img> bez alt")
         for tag, url in s.odkazy:
@@ -414,6 +416,9 @@ def main():
         with urlopen(ZDROJ + cesta) as r:
             soup = BeautifulSoup(r.read().decode("utf-8"), "html.parser")
         soup.html["lang"] = "cs"
+        # SSR dává <base href="/">; s relativními odkazy by v podsložce (náhled Pages) vše rozbil
+        for b in soup.find_all("base"):
+            b.decompose()
         for s in soup.find_all("script"):
             if (s.get("src") or "").startswith("/js/") or "__INITIAL_STATE__" in (s.string or ""):
                 s.decompose()
@@ -453,6 +458,8 @@ Pozor 1: SSR HTML odkazuje jen na `app.css`. **Scoped styly komponent** (např. 
 Pozor 2: `App.vue:13` dává kořeni `#q-app` třídy `gt-xs`, `gt-sm`, `gt-md`, `gt-lg` podle šířky okna. CSS komponent na ně navazuje rozvržení (např. `.gt-xs .page-section-card`: karty Autem / Vlakem / Letecky ve 3 sloupcích). Server šířku nezná, takže SSR je vykreslí jako na mobilu. Převod proto vloží hned za `<div id="q-app">` krátký skript, který třídy nastaví před vykreslením zbytku stránky, a `web.js` je přepočítá při změně velikosti okna (Task 3). Chytilo to až vizuální porovnání v kontrole plánu: karty byly pod sebou.
 
 Pozor 3: zkompilované CSS Quasaru odkazuje na písma **relativně** (`url(../fonts/RedHatText-Regular.e828eaa6.woff)`), ne absolutně. Proto má CSS soubor vlastní převod `prevod_css_souboru`, který cestu nejdřív vztáhne ke kořeni webu. První verze plánu to neměla a písma se nestáhla; chytila to až kontrola.
+
+Pozor 4: SSR dává do `<head>` `<base href="/">` a převod z něj udělal `<base href="../">`. Na kořeni domény to vycházelo náhodou správně, ale v náhledu pod `/Sunset-web-w/` by se všechny odkazy podstránek přepočítaly od `/` a rozbily. Převod proto `<base>` odstraní a kontrola ho hlásí jako chybu. Chytilo to až čtení HTML při Tasku 3 (2026-10-12), nanečisto ověření v podsložce neproběhlo.
 
 **Krok 2:** Spustit:
 

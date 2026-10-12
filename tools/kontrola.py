@@ -26,13 +26,15 @@ class Sber(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.odkazy, self.skripty, self.nav = [], [], []
         self.lang, self.title, self.description = None, "", None
-        self.bez_alt, self.fotek = 0, 0
+        self.bez_alt, self.fotek, self.base = 0, 0, False
         self._v_title, self._v_nav = False, 0
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         if tag == "html":
             self.lang = a.get("lang")
+        if tag == "base":
+            self.base = True
         if tag == "title":
             self._v_title = True
         if tag == "meta" and a.get("name") == "description":
@@ -107,6 +109,8 @@ def main():
             chyby.append(f"{rel}: prázdný <title>")
         if not je_404 and not s.description:
             chyby.append(f"{rel}: chybí <meta name=description>")
+        if s.base:
+            chyby.append(f"{rel}: <base> mění význam relativních odkazů, odstranit")
         if s.bez_alt:
             chyby.append(f"{rel}: {s.bez_alt}x <img> bez alt")
         for tag, url in s.odkazy:

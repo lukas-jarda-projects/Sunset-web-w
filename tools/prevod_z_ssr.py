@@ -95,6 +95,9 @@ def main():
         with urlopen(ZDROJ + cesta) as r:
             soup = BeautifulSoup(r.read().decode("utf-8"), "html.parser")
         soup.html["lang"] = "cs"
+        # SSR dává <base href="/">; s relativními odkazy by v podsložce (náhled Pages) vše rozbil
+        for b in soup.find_all("base"):
+            b.decompose()
         for s in soup.find_all("script"):
             if (s.get("src") or "").startswith("/js/") or "__INITIAL_STATE__" in (s.string or ""):
                 s.decompose()
