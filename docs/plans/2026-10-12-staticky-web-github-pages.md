@@ -16,9 +16,9 @@
 - ~~Task 8~~ hotový (`0090d78` úklid markupu + tag `quasar-posledni`, smazání Quasar projektu v commitu níž). Repo obsahuje jen `site/`, `tools/`, `docs/`, README a `.gitignore`.
 - ~~Task 9~~ hotový (commit „Vizuální doladění podle SSR z master“): opravena chybějící mezera v seznamu míst na Kontaktu. Ověření na skutečném telefonu se přesunulo do Tasku 11, krok 10.
 - ~~Task 10~~ hotový (`a637b53`): workflow, kontrola na runneru Ubuntu prošla, deploy čeká na zapnutí Pages.
-- Task 11: kroky 1–10 hotové 2026-10-12 večer (výsledky tam). Repo na GitHubu bylo smazáno a znovu založeno z vyčištěné historie, protože GitHub po force pushi vydával staré commity podle hashe. Repo je veřejné a náhled běží na `https://lukas-jarda-projects.github.io/Sunset-web-w/`. Neověřené na skutečném telefonu zůstává mobilní menu, swipe karuselu a animace galerie.
+- Task 11: kroky 1–10 hotové 2026-10-12 večer (výsledky tam). Repo na GitHubu bylo smazáno a znovu založeno z vyčištěné historie, protože GitHub po force pushi vydával staré commity podle hashe. Repo je veřejné a náhled běží na `https://lukas-jarda-projects.github.io/Sunset-web-w/`. ~~Neověřené na skutečném telefonu zůstává mobilní menu, swipe karuselu a animace galerie.~~ Uživatel 2026-10-13 na telefonu potvrdil: menu, swipe i galerie fungují.
 - ~~Task 12~~ hotový 2026-10-12 v noci: doména ověřena v organizaci.
-- ~~Task 13~~ hotový 2026-10-13 kolem 00:20: **web běží na `https://sunset-apartment.com/`**, `www` přesměrovává, HTTPS vynucené. Výsledky jsou v „Provedeno“ u Tasku 13. Search Console a GA (krok 6) čekají na uživatele.
+- ~~Task 13~~ hotový 2026-10-13 kolem 00:20: **web běží na `https://sunset-apartment.com/`**, `www` přesměrovává, HTTPS vynucené. Výsledky jsou v „Provedeno“ u Tasku 13. Krok 6 (Search Console a GA) se nedělá, uživatel 2026-10-13: „nepotřebuju“.
 - Task 14 (vypnutí starého serveru) nejdřív 2026-10-20.
 - Mimo plán, na přání uživatele 2026-10-12 v noci: animace menu a galerie (commit „Animace menu a galerie“, podrobnosti v sekci „Úprava: animace menu a galerie“ před Taskem 12). Uživatel na telefonu potvrdil swipe a pinch zoom v detailu.
 
@@ -964,7 +964,7 @@ Nepřijatelné je chybějící obsah, rozbitá mřížka nebo jiné písmo. Meze
 - Úvodní stránka 1280 px (19 %): jen jiný snímek karuselu a počítadla uprostřed animace. Levá šipka karuselu na referenci chybí jen zdánlivě: zdroj má `infinite`, takže v Quasaru existuje, a na referenci splývá se světlým pískem v obrázku. Na 400 px shodná až na počítadla.
 - Galerie (29 % a 42 %): reference zachytila místo fotek spinnery (známé z Tasku 0), rozvržení sedí (3 sloupce na 1280, 1 na 400, popisky). Ve snímku galerie na 400 px občas chybí nadpis, záložky a ikona menu. Je to časování snímku, ne chyba stránky: s `--virtual-time-budget=12000` se písma vykreslí, a ve dvou bězích stejného obsahu se snímek liší stejně.
 - Kontakt 400 px (30 %): rozdíl tvoří jen obrázky. Reference je ze SSR s desktopovým user-agentem, takže má desktopové obrázky ořezané na 400 px. Statická verze má pod 600 px záměrně mobilní varianty `-xs` (Task 7, krok 1).
-- **Zbývá:** ověření na skutečném telefonu (menu, swipe karuselu a galerie). Nejjednodušší je to udělat, až bude web na veřejné adrese, na náhledu `lukas-jarda-projects.github.io/Sunset-web-w/` v Tasku 11, krok 10. Seznam míst na Kontaktu už telefon nepotřebuje, mezeru opravila změna výše.
+- ~~**Zbývá:** ověření na skutečném telefonu (menu, swipe karuselu a galerie).~~ Uživatel potvrdil 2026-10-13, viz Stav. Nejjednodušší je to udělat, až bude web na veřejné adrese, na náhledu `lukas-jarda-projects.github.io/Sunset-web-w/` v Tasku 11, krok 10. Seznam míst na Kontaktu už telefon nepotřebuje, mezeru opravila změna výše.
 
 ---
 
@@ -1214,7 +1214,8 @@ curl -sI https://sunset-apartment.com/neexistuje   # 404 s vlastní stránkou
 - Krok 4: **certifikát se 20 minut vůbec nezačal vydávat** (`https_certificate: null`, `/pages/health` prázdné). Doménu jsem ukládal ve chvíli, kdy Google DNS ještě vracel starou IP. Pomohlo ji smazat a uložit znovu (`-F cname=null`, pak znovu `-f cname=…`): do 20 s byl certifikát `approved` pro apex i `www`, platný do 2027-01-10. Pak `-F https_enforced=true`.
 - Krok 5, výsledky 2026-10-13 kolem 00:20: `nslookup` na 8.8.8.8 dává 4× `185.199.10x.153` a 4× AAAA. `https://sunset-apartment.com/` = 200, `server: GitHub.com`. `https://www.` → 301 na `https://sunset-apartment.com/`. `/about` → 301 na `/about/`. `http://` (apex i www) → 301 na https. `/neexistuje` = 404 s titulkem „Stránka nenalezena – Sunset Apartment“. `/about/`, `/photo/`, `/contact/` a `sitemap.xml` = 200. Stránky odkazovaly na `web.css?v=43f23be` a `web.js?v=43f23be`. Po deployi commitu `7df7fe8` (běh prošel) mají `?v=7df7fe8` a doména, certifikát i `https_enforced` zůstaly nastavené. Prohlídka všech 4 stránek a 404 skriptem (`href`, `src`, `srcset`): **84 interních odkazů, 0 chyb**, stejně jako na náhledu. Úvodní stránka v Chrome vypadá správně. Starý náhled na `github.io/Sunset-web-w/` teď přesměruje na doménu.
   - Neplatné měření: první `curl -sI` na `/neexistuje`, `/photo/` a `/contact/` nevrátil nic (příčinu jsem nezjišťoval). Opakování přes GET (`curl -s -o /dev/null -w '%{http_code}'`) vrátilo hodnoty výše.
-- Krok 6 neproveden: přístup do Search Console a GA má uživatel.
+- ~~Krok 6 neproveden: přístup do Search Console a GA má uživatel.~~ Krok 6 zrušen: uživatel 2026-10-13 Search Console ani GA nepotřebuje. Předpoklad kroku byl stejně mylný: statický web žádný kód GA nemá (`grep` na `gtag`/`googletagmanager` v `site/` = 0). V `src/index.template.html` na `master` byl snippet GA (i s chybou `id==`) i retargeting Seznamu uvnitř HTML komentáře `<!-- … -->` (ověřeno `git show 0cde872^:src/index.template.html`), takže ho SSR nevykreslil a převod neměl co převzít. Povolený host `www.googletagmanager.com` v `tools/kontrola.py` je tedy jen nevyužitá výjimka.
+- Kontrola 2026-10-13 dopoledne (`curl`, `gh api`): apex 200, `www` a `http` 301 na https apex, `/about` 301 na `/about/`, `/photo/`, `/contact/` a `sitemap.xml` 200, `/neexistuje` 404. Certifikát `approved` do 2027-01-10, `https_enforced: true`, poslední dva běhy Pages `success`.
 
 ---
 
@@ -1234,19 +1235,20 @@ curl -sI https://sunset-apartment.com/neexistuje   # 404 s vlastní stránkou
 Pokračuj v projektu C:\work\projects\Sunset-apartment.com podle plánu docs/plans/2026-10-12-staticky-web-github-pages.md (statický web na GitHub Pages, varianta B).
 Skills: superpowers:executing-plans (zbývá Task 14 s kroky a kontrolním bodem).
 
-Stav (2026-10-13 kolem 00:20): Tasky 0–13 hotové. Web běží na https://sunset-apartment.com/ z GitHub Pages (repo lukas-jarda-projects/Sunset-web-w, veřejné). www i http přesměrovávají na https apex, certifikát pro apex i www je approved (platnost do 2027-01-10), HTTPS vynucené. Na živé doméně 84 interních odkazů bez chyby, 404 vlastní. Doména je ověřená v organizaci (TXT _github-pages-challenge-lukas-jarda-projects musí v DNS zůstat). DNS u Váš Hosting: 4× A a 4× AAAA GitHubu, www CNAME lukas-jarda-projects.github.io, vše TTL 300. Wildcard *.sunset-apartment.com smazán (rozhodl uživatel), pošta beze změny. Výsledky jsou v „Provedeno“ u Tasků 12 a 13.
+Stav (2026-10-13): Tasky 0–13 hotové a ověřené. Web běží na https://sunset-apartment.com/ z GitHub Pages (repo lukas-jarda-projects/Sunset-web-w, veřejné). Kontrola 13. 10. dopoledne: apex 200, www i http 301 na https apex, 404 vlastní, certifikát approved do 2027-01-10, HTTPS vynucené. Na telefonu uživatel potvrdil, že fungují menu, swipe karuselu i galerie. Search Console a GA uživatel nechce (krok 6 Tasku 13 zrušen). Web stejně žádný kód GA nemá, protože v master byl zakomentovaný. DNS u Váš Hosting: 4× A a 4× AAAA GitHubu, www CNAME lukas-jarda-projects.github.io, vše s TTL 300. TXT _github-pages-challenge-lukas-jarda-projects musí zůstat.
 
-Další kroky:
-1. Krok 6 Tasku 13 dělá uživatel: Search Console (odeslat sitemap.xml, pokud je doména přidaná) a GA Realtime. Zeptej se na výsledek a zapiš ho.
-2. Na skutečném telefonu zůstává neověřené mobilní menu, swipe karuselu a animace galerie (Task 11, krok 10). Doptej se.
-3. Task 14 nejdřív 2026-10-20: uživatel řekne Robertovi, ať vypne službu a job v Jenkinsu. Pak TTL A, AAAA a www z 300 zpět na 1800 (původní hodnota, ne 3600) a smazat C:\work\projects\Sunset-apartment.com-stare.
+Další krok — Task 14, nejdřív 2026-10-20:
+1. Zeptej se uživatele, jestli web týden běžel bez problémů a jestli už Robertovi řekl, ať vypne sunset-apartment.com.service, smaže složku webu a job v Jenkinsu.
+2. Až to potvrdí: v administraci Váš Hosting vrať TTL A, AAAA a www z 300 na 1800 (původní hodnota, ne 3600). Smaž C:\work\projects\Sunset-apartment.com-stare. Zálohy v C:/work/archive/ nech.
+3. Plán označ jako dokončený (Stav: hash posledního commitu a datum převodu 2026-10-13) a aktualizuj paměť sunset-apartment-github-pages.md.
 
 Pozor:
-- Rollback do té doby: A zpět na 185.175.84.157, smazat AAAA, www CNAME zpět na sunset-apartment.com. Starý server běží až do Tasku 14.
-- Když GitHub nevydá certifikát (https_certificate null), smaž a znovu ulož custom doménu: gh api -X PUT repos/lukas-jarda-projects/Sunset-web-w/pages -F cname=null a pak -f cname=sunset-apartment.com. Tak to vyřešilo převod 13. 10.
-- Smazání záznamu v administraci Váš Hosting potvrzuje vlastní panel vpravo („Ano, smazat“), ne dialog prohlížeče. Typ záznamu je vlastní rozbalovací seznam: po přidání záznamu se vrátí na A a první klik na něj se často nechytí.
-- Auto režim blokuje force push, mazání repa i změnu viditelnosti. Takové příkazy dávej uživateli k spuštění přes ! a vždy na JEDEN řádek.
+- Rollback do Tasku 14: A zpět na 185.175.84.157, smazat AAAA, www CNAME zpět na sunset-apartment.com. Starý server běží, dokud ho Robert nevypne.
+- Když GitHub nevydá certifikát (https_certificate null), smaž custom doménu a ulož ji znovu: gh api -X PUT repos/lukas-jarda-projects/Sunset-web-w/pages -F cname=null, pak -f cname=sunset-apartment.com.
+- Smazání záznamu v administraci Váš Hosting se potvrzuje ve vlastním panelu vpravo („Ano, smazat“), ne v dialogu prohlížeče. Typ záznamu je vlastní rozbalovací seznam a první klik se často nechytí.
+- Auto režim blokuje force push, mazání repa i změnu viditelnosti. Takové příkazy dávej uživateli ke spuštění přes ! a vždy na JEDEN řádek.
 - Token gh má scope delete_repo VĚDOMĚ (čeká ho projekt chatavpekle.cz). Neodebírat a nepřipomínat.
 - Do plánu ani commitů nepiš interní hostitele Altisimy. Vzory jsou v C:/work/archive/sunset-cisteni-historie/overeni.sh. Před commitem plánu je projdi grepem.
-- Workflow přidává k web.css a web.js ?v=<commit>. Nová stránka, která je načítá, musí mít odkaz končící přesně web.css" nebo web.js".
+- Workflow přidává k web.css a web.js ?v=<commit>. Nová stránka, která je načítá, musí mít odkaz končící přesně na web.css" nebo web.js".
+- V site/ se občas objeví bash.exe.stackdump (pád Git Bashe). .gitignore ho chytá, stačí ho smazat.
 ```
