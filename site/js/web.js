@@ -20,10 +20,13 @@
     if (e.key === 'Escape') document.body.classList.remove('menu-open')
   })
 
-  // Swipe: zavolá vlevo()/vpravo() po vodorovném tahu prstem > 40 px
-  function swipe (el, vlevo, vpravo) {
+  // Swipe: zavolá vlevo()/vpravo() po vodorovném tahu jedním prstem > 40 px;
+  // druhý prst gesto zruší, smi() (volitelné) ho může zakázat úplně
+  function swipe (el, vlevo, vpravo, smi) {
     var x = null
-    el.addEventListener('touchstart', function (e) { x = e.touches[0].clientX }, { passive: true })
+    el.addEventListener('touchstart', function (e) {
+      x = e.touches.length === 1 && (!smi || smi()) ? e.touches[0].clientX : null
+    }, { passive: true })
     el.addEventListener('touchend', function (e) {
       if (x === null) return
       var dx = e.changedTouches[0].clientX - x
@@ -206,6 +209,7 @@
   }
   function zavri () {
     if (box.hidden) return
+    zrusZoom(false)
     var maly = nahled()
     // Náhled mimo obraz posuň do pohledu (pod lightboxem to není vidět), ať má fotka kam doletět
     if (umiVT && !viditelny(maly)) maly.scrollIntoView({ block: 'center' })
@@ -226,8 +230,121 @@
       bezi = false
     })
   }
+  // Zoom v detailu: pinch dvěma prsty, posun jedním prstem nebo myší, dvojí ťuknutí / dvojklik,
+  // kolečko myši. Transformace translate + scale s počátkem vlevo nahoře (CSS transform-origin: 0 0).
+  var zoom = { s: 1, x: 0, y: 0 }
+  var MAX_ZOOM = 4
+  var prsty = new Map()
+  var gesto = null
+  var tahl = false
+  var posledniTuk = null
+  var posledniTyp = ''
+  function priblizeno () { return zoom.s > 1.01 }
+  // Omezí posun, aby fotka neujela z obrazu (menší než okno = na středu), a vykreslí ji
+  function vykresli (plynule) {
+    var lx = obr.offsetLeft
+    var ly = obr.offsetTop
+    var w = obr.offsetWidth * zoom.s
+    var h = obr.offsetHeight * zoom.s
+    var W = box.clientWidth
+    var H = box.clientHeight
+    zoom.x = w <= W ? (W - w) / 2 - lx : Math.min(-lx, Math.max(W - w - lx, zoom.x))
+    zoom.y = h <= H ? (H - h) / 2 - ly : Math.min(-ly, Math.max(H - h - ly, zoom.y))
+    obr.style.transition = plynule && !klid ? 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1)' : ''
+    obr.style.transform = priblizeno() ? 'translate(' + zoom.x + 'px, ' + zoom.y + 'px) scale(' + zoom.s + ')' : ''
+    obr.classList.toggle('priblizeno', priblizeno())
+  }
+  // Nové měřítko s; bod obrazovky (px, py) zůstane na stejném místě fotky
+  function priblizNa (s, px, py, plynule) {
+    var qx = (px - obr.offsetLeft - zoom.x) / zoom.s
+    var qy = (py - obr.offsetTop - zoom.y) / zoom.s
+    zoom.s = Math.max(1, Math.min(MAX_ZOOM, s))
+    if (!priblizeno()) zoom.s = 1
+    zoom.x = px - obr.offsetLeft - zoom.s * qx
+    zoom.y = py - obr.offsetTop - zoom.s * qy
+    vykresli(plynule)
+  }
+  function zrusZoom (plynule) {
+    zoom.s = 1
+    zoom.x = 0
+    zoom.y = 0
+    gesto = null
+    prsty.clear()
+    if (obr) vykresli(plynule)
+  }
+  function prepniZoom (px, py) {
+    if (priblizeno()) zrusZoom(true)
+    else priblizNa(2.5, px, py, true)
+  }
+  function dvaPrsty () {
+    var b = Array.from(prsty.values())
+    return { x: (b[0].x + b[1].x) / 2, y: (b[0].y + b[1].y) / 2, d: Math.hypot(b[0].x - b[1].x, b[0].y - b[1].y) || 1 }
+  }
+  function zacniPosun () {
+    var b = prsty.values().next().value
+    gesto = priblizeno() ? { typ: 'posun', px: b.x, py: b.y, x0: zoom.x, y0: zoom.y } : null
+  }
+  function pripravZoom () {
+    obr.draggable = false
+    box.addEventListener('pointerdown', function (e) {
+      posledniTyp = e.pointerType
+      if (e.target.closest('button') || (e.pointerType === 'mouse' && e.button !== 0)) return
+      prsty.set(e.pointerId, { x: e.clientX, y: e.clientY })
+      tahl = false
+      if (prsty.size === 2) {
+        var m = dvaPrsty()
+        gesto = { typ: 'pinch', d0: m.d, s0: zoom.s,
+          qx: (m.x - obr.offsetLeft - zoom.x) / zoom.s, qy: (m.y - obr.offsetTop - zoom.y) / zoom.s }
+      } else if (prsty.size === 1) zacniPosun()
+      if (gesto && e.pointerType === 'mouse') e.preventDefault()
+    })
+    box.addEventListener('pointermove', function (e) {
+      if (!prsty.has(e.pointerId)) return
+      prsty.set(e.pointerId, { x: e.clientX, y: e.clientY })
+      if (!gesto) return
+      tahl = true
+      if (gesto.typ === 'pinch' && prsty.size >= 2) {
+        var m = dvaPrsty()
+        zoom.s = Math.max(1, Math.min(MAX_ZOOM, gesto.s0 * m.d / gesto.d0))
+        zoom.x = m.x - obr.offsetLeft - zoom.s * gesto.qx
+        zoom.y = m.y - obr.offsetTop - zoom.s * gesto.qy
+      } else if (gesto.typ === 'posun') {
+        zoom.x = gesto.x0 + e.clientX - gesto.px
+        zoom.y = gesto.y0 + e.clientY - gesto.py
+      }
+      vykresli(false)
+    })
+    function konec (e) {
+      if (!prsty.has(e.pointerId)) return
+      var bod = prsty.get(e.pointerId)
+      prsty.delete(e.pointerId)
+      if (prsty.size === 1) zacniPosun()
+      else gesto = null
+      if (prsty.size === 0 && !priblizeno() && zoom.s !== 1) zrusZoom(true)
+      // Dvojí ťuknutí prstem (dvojklik myši řeší dblclick)
+      if (e.type === 'pointerup' && e.pointerType !== 'mouse' && !tahl && prsty.size === 0 && e.target === obr) {
+        var ted = Date.now()
+        if (posledniTuk && ted - posledniTuk.t < 300 && Math.hypot(bod.x - posledniTuk.x, bod.y - posledniTuk.y) < 30) {
+          posledniTuk = null
+          prepniZoom(bod.x, bod.y)
+        } else posledniTuk = { t: ted, x: bod.x, y: bod.y }
+      }
+    }
+    box.addEventListener('pointerup', konec)
+    box.addEventListener('pointercancel', konec)
+    obr.addEventListener('dblclick', function (e) {
+      if (posledniTyp === 'mouse') prepniZoom(e.clientX, e.clientY)
+    })
+    box.addEventListener('wheel', function (e) {
+      if (box.hidden) return
+      e.preventDefault()
+      priblizNa(zoom.s * Math.exp(-e.deltaY * 0.002), e.clientX, e.clientY, false)
+    }, { passive: false })
+    window.addEventListener('resize', function () { if (!box.hidden && priblizeno()) vykresli(false) })
+  }
   function ukazFoto (n) {
     if (bezi || box.hidden) return
+    zrusZoom(false)
     var smer = n > poloha ? 1 : -1
     if (klid || !obr.animate) { nastav(n); return }
     bezi = true
@@ -259,8 +376,10 @@
     box.querySelector('.lb-close').addEventListener('click', zavri)
     box.querySelector('.lb-prev').addEventListener('click', function () { ukazFoto(poloha - 1) })
     box.querySelector('.lb-next').addEventListener('click', function () { ukazFoto(poloha + 1) })
-    box.addEventListener('click', function (e) { if (e.target === box) zavri() })
-    swipe(box, function () { ukazFoto(poloha + 1) }, function () { ukazFoto(poloha - 1) })
+    // Klik na tmavé pozadí zavře, ale ne konec tažení přiblížené fotky
+    box.addEventListener('click', function (e) { if (e.target === box && !tahl) zavri() })
+    swipe(box, function () { ukazFoto(poloha + 1) }, function () { ukazFoto(poloha - 1) }, function () { return !priblizeno() })
+    pripravZoom()
     document.addEventListener('keydown', function (e) {
       if (box.hidden) return
       if (e.key === 'Escape') zavri()
