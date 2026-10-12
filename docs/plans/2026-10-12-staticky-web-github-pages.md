@@ -14,7 +14,8 @@
 - ~~Task 3~~ (`37ea2a7`), ~~Task 4~~ (`27d6ca5`), ~~Task 5~~ (`05fdb8f`), ~~Task 6~~ (`7cf6195`), ~~Task 7~~ (`09e7961`), popisy stránek schválené uživatelem (commit níž). Odchylky od plánu jsou u každého tasku v odstavci „Provedeno 2026-10-12“.
 - `tools/kontrola.py` končí **`OK: 0 chyb, 210 odkazů, web 18.7 MB`**. Navíc proti původnímu plánu hlídá `<base>` a stejnou `meta description` na víc stránkách (obojí ověřeno mutačně).
 - ~~Task 8~~ hotový (`0090d78` úklid markupu + tag `quasar-posledni`, smazání Quasar projektu v commitu níž). Repo obsahuje jen `site/`, `tools/`, `docs/`, README a `.gitignore`.
-- **Další na řadě: Task 9** (zbývá ověření na skutečném telefonu), pak Task 10.
+- ~~Task 9~~ hotový (commit „Vizuální doladění podle SSR z master“): opravena chybějící mezera v seznamu míst na Kontaktu. Ověření na skutečném telefonu se přesunulo do Tasku 11, krok 10.
+- **Další na řadě: Task 10** (workflow), pak Task 11 (nevratný, před force pushem se zeptat uživatele).
 
 Místní SSR už spustit nejde: `node_modules/` a `dist/` jsou od Tasku 8 smazané. Task 9 porovnává s `.reference/`. Kdyby bylo SSR někdy potřeba, je třeba checkout tagu `quasar-posledni` a nový build.
 
@@ -881,7 +882,7 @@ Sitemap: https://sunset-apartment.com/sitemap.xml
 
 **Provedeno 2026-10-12:** kontrola **`OK: 0 chyb, 210 odkazů, web 18.7 MB`**. Popisy stránek (`meta description`) doplněné hned potom, viz Task 4 krok 4.
 - `404.html` má `sad.svg` vložené přímo v HTML: absolutní `/img/…` by v náhledu pod `/Sunset-web-w/` nenašlo obrázek. `python -m http.server` vlastní 404 stránky neservíruje, takže se ověřovala přímo na `/404.html`.
-- Na referenčním snímku 1280 px je text seznamu míst (1 apartmán, 2 pláž…) o ~10 px víc vpravo než ve statické verzi. V reálném Chrome jsou ale SSR i statická verze při šířce 1280 px shodné: řádek `left 100, width 1135`, text `left 203` (měřeno v iframe 1280 px na obou originech). Rozdíl tedy vzniká jen v headless snímku SSR. Na 400 px je ve statické verzi číslo těsně u textu: zkontrolovat na skutečném telefonu v Tasku 9.
+- ~~Na referenčním snímku 1280 px je text seznamu míst (1 apartmán, 2 pláž…) o ~10 px víc vpravo než ve statické verzi. V reálném Chrome jsou ale SSR i statická verze při šířce 1280 px shodné: řádek `left 100, width 1135`, text `left 203` (měřeno v iframe 1280 px na obou originech). Rozdíl tedy vzniká jen v headless snímku SSR. Na 400 px je ve statické verzi číslo těsně u textu: zkontrolovat na skutečném telefonu v Tasku 9.~~ **Závěr byl chybný, opraveno v Tasku 9.** Rozdíl byl skutečný: zdroj má `.text &nbsp; apartmán` a převod (`prettify`, ořez mezer přes `str.strip()`, který bere i U+00A0) úvodní `&nbsp;` u všech 9 položek odstranil. Měření `left 203` mířilo na `div`, ne na první znak textu, proto rozdíl neukázalo.
 
 ---
 
@@ -950,6 +951,14 @@ Původní Quasar projekt je v historii gitu (poslední commit před převodem je
 Nepřijatelné je chybějící obsah, rozbitá mřížka nebo jiné písmo. Mezery z `prettify` opravit ručně spojením řádků v daném místě. Detail písma ověřovat zvětšeným výřezem, ne zmenšeným celostránkovým snímkem.
 
 **Krok 3:** Opravit, kontrola OK, commit `git commit -am "Vizuální doladění podle SSR z master"`. Server ukončit.
+
+**Provedeno 2026-10-12:** snímky 4 stránek na 1280 a 400 px porovnány s `.reference/` po pixelech (práh 24 z 255, v překryvu výšek). Každý běh snímků měl čerstvý profil Chrome, viz past v Tasku 8.
+- **Nalezeno a opraveno:** na Kontaktu chyběla `&nbsp;` mezi číslem a názvem místa (9 položek, převod ji ořízl, viz Task 7). Doplněno `&nbsp; ` před text. Kontakt na 1280 px je pak **pixelově shodný** s referencí (předtím 0,3 % rozdílných pixelů), na 400 px je mezera stejná jako v referenci. Totéž ořezání postihlo ve zdroji ještě koncovou `&nbsp;` za „Zajímavosti v okolí našeho apartmánu:“ na úvodní stránce. Stojí ale před `<br>`, takže je neviditelná, a zůstala neopravená. Jiné okrajové `&nbsp;` zdroj nemá (`git grep "&nbsp;" quasar-posledni -- src/pages src/components src/layouts`), vnitřní (`S&nbsp;přímým`, GPS, patička) převod zachoval.
+- O apartmánu: shodná na 1280 i 400 px (0,0 %).
+- Úvodní stránka 1280 px (19 %): jen jiný snímek karuselu a počítadla uprostřed animace. Levá šipka karuselu na referenci chybí jen zdánlivě: zdroj má `infinite`, takže v Quasaru existuje, a na referenci splývá se světlým pískem v obrázku. Na 400 px shodná až na počítadla.
+- Galerie (29 % a 42 %): reference zachytila místo fotek spinnery (známé z Tasku 0), rozvržení sedí (3 sloupce na 1280, 1 na 400, popisky). Ve snímku galerie na 400 px občas chybí nadpis, záložky a ikona menu. Je to časování snímku, ne chyba stránky: s `--virtual-time-budget=12000` se písma vykreslí, a ve dvou bězích stejného obsahu se snímek liší stejně.
+- Kontakt 400 px (30 %): rozdíl tvoří jen obrázky. Reference je ze SSR s desktopovým user-agentem, takže má desktopové obrázky ořezané na 400 px. Statická verze má pod 600 px záměrně mobilní varianty `-xs` (Task 7, krok 1).
+- **Zbývá:** ověření na skutečném telefonu (menu, swipe karuselu a galerie). Nejjednodušší je to udělat, až bude web na veřejné adrese, na náhledu `lukas-jarda-projects.github.io/Sunset-web-w/` v Tasku 11, krok 10. Seznam míst na Kontaktu už telefon nepotřebuje, mezeru opravila změna výše.
 
 ---
 
@@ -1082,7 +1091,7 @@ git push --force --tags origin
 gh repo edit lukas-jarda-projects/Sunset-web-w --visibility public --accept-visibility-change-consequences
 ```
 
-Pak v Settings → Pages → Source zvolit **GitHub Actions**. Spustit workflow (`gh workflow run Pages`) a ověřit náhled na `https://lukas-jarda-projects.github.io/Sunset-web-w/`: všechny 4 stránky, galerie, menu na mobilu.
+Pak v Settings → Pages → Source zvolit **GitHub Actions**. Spustit workflow (`gh workflow run Pages`) a ověřit náhled na `https://lukas-jarda-projects.github.io/Sunset-web-w/`: všechny 4 stránky, galerie, menu na mobilu. **Na skutečném telefonu** (zbylo z Tasku 9): menu, swipe karuselu a swipe v lightboxu galerie.
 
 GitHub může mít staré commity ještě nějakou dobu v cache podle hashe. Úplné odstranění řeší podpora GitHubu („remove cached views“). Při 0 forcích a soukromém repu do této chvíle to riziko je malé.
 
