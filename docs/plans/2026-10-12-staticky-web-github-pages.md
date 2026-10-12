@@ -16,7 +16,7 @@
 - ~~Task 8~~ hotový (`0090d78` úklid markupu + tag `quasar-posledni`, smazání Quasar projektu v commitu níž). Repo obsahuje jen `site/`, `tools/`, `docs/`, README a `.gitignore`.
 - ~~Task 9~~ hotový (commit „Vizuální doladění podle SSR z master“): opravena chybějící mezera v seznamu míst na Kontaktu. Ověření na skutečném telefonu se přesunulo do Tasku 11, krok 10.
 - ~~Task 10~~ hotový (`a637b53`): workflow, kontrola na runneru Ubuntu prošla, deploy čeká na zapnutí Pages.
-- Task 11: kroky 1–7 proběhly ostře (výsledky tam). **Další na řadě: krok 8, force push**, až ho uživatel odsouhlasí. Předtím zopakovat kroky 6–7 na čerstvém klonu.
+- Task 11: kroky 1–7 proběhly ostře (výsledky tam). **Další na řadě: krok 8, force push.** Uživatel ho odsouhlasil 2026-10-12 večer s tím, že proběhne v nové session. Předtím zopakovat kroky 6–7 na čerstvém klonu.
 
 Místní SSR už spustit nejde: `node_modules/` a `dist/` jsou od Tasku 8 smazané. Task 9 porovnává s `.reference/`. Kdyby bylo SSR někdy potřeba, je třeba checkout tagu `quasar-posledni` a nový build.
 
@@ -1083,6 +1083,7 @@ Očekávané: `overeni.sh` vypíše dvakrát `0` a kontrola `OK: 0 chyb`, proto�
 - Krok 2: `git_filter_repo` `a40bce548d2c`. Soupis cest jen v historii proti tagu dal 182, tedy nic nového (viz kroky 3–5).
 - Krok 6: klon `C:/work/projects/Sunset-cisteni` z `aca86c0`, filter-repo skončil exit 0 `Completely finished after 2.74 seconds.`
 - Krok 7: `overeni.sh` **0 a 0**, kontrola `OK: 0 chyb, 210 odkazů, web 18.7 MB`. Výsledek: 144 commitů, pack 89,32 MiB, tag `quasar-posledni` přepsán s sebou. Strom HEAD je shodný s originálem (`125dc1b` v obou), takže filtr aktuální soubory nezměnil. Autoři: Jaroslav Povolný, Lukas a LukasWana s `qwanap@gmail.com`, `lukas-wana` (noreply), `OpenClaw Ad Radar`.
+- **Krok 8 uživatel odsouhlasil 2026-10-12 večer** (provede se v další session).
 - **Před krokem 8 kroky 6–7 zopakovat:** `Sunset-cisteni` smazat a vyčistit znovu z aktuálního `master`. Commity, které vznikly po `aca86c0` (tento zápis a předávka), v něm totiž nejsou a force push by je zahodil. Po opakování musí znovu vyjít 0 a 0, kontrola OK a shodný strom HEAD.
 
 **Krok 8: force push.** filter-repo odstranil remote `origin`, nastavit ho znovu:
@@ -1185,7 +1186,7 @@ Skills: superpowers:executing-plans (plán má tasky s kontrolními body), super
 Stav (2026-10-12 večer): Tasky 0–10 hotové a pushnuté. Repo obsahuje jen site/, tools/, docs/, README, .gitignore a .github/workflows/pages.yml. Quasar projekt je v historii pod tagem quasar-posledni (0090d78). python tools/kontrola.py = „OK: 0 chyb, 210 odkazů, web 18.7 MB“, stejně na runneru Ubuntu ve workflow. Workflow zatím selhává na configure-pages, protože Pages nejsou zapnuté (očekávané). Odchylky od plánu jsou u každého tasku v odstavci „Provedeno 2026-10-12“.
 
 Task 11: kroky 1–7 proběhly ostře. Zálohy jsou v C:/work/archive/Sunset-web-w-pred-cistenim.git (mirror) a C:/work/archive/Sunset-web-w-lokalni.bundle. Čištění dalo 144 commitů, overeni.sh 0 a 0, kontrolu OK a strom HEAD shodný s originálem. Výsledky jsou v plánu u Tasku 11.
-Další krok: uživatel musí odsouhlasit krok 8 (force push, nevratné). Předtím smaž C:/work/projects/Sunset-cisteni a zopakuj kroky 6–7 na čerstvém klonu aktuálního master: klon vznikl z aca86c0, takže pozdější commity (zápis do plánu, tato předávka) v něm chybí. Musí znovu vyjít 0 a 0, kontrola OK a shodný strom HEAD (git rev-parse HEAD^{tree} v obou repech). Pak kroky 8–10. V kroku 10 na skutečném telefonu ověř menu, swipe karuselu a swipe v lightboxu (zbylo z Tasku 9).
+Další krok: Task 11 krok 8 (force push, nevratné). Uživatel ho ODSOUHLASIL 2026-10-12 večer, znovu se neptej. Předtím smaž C:/work/projects/Sunset-cisteni a zopakuj kroky 6–7 na čerstvém klonu aktuálního master: klon vznikl z aca86c0, takže pozdější commity (zápis do plánu, tato předávka) v něm chybí. Musí znovu vyjít 0 a 0, kontrola OK a shodný strom HEAD (git rev-parse HEAD^{tree} v obou repech). Pak kroky 8–10. V kroku 10 na skutečném telefonu ověř menu, swipe karuselu a swipe v lightboxu (zbylo z Tasku 9).
 
 Rozhodnuto uživatelem: Jardovy e-maily v historii → qwanap@gmail.com (jméno zůstane); DNS u Váš Hosting spravuje uživatel; starý server vypne Robert (šéf Altisimy), uživatel mu to řekne.
 Vstupy čištění jsou v C:/work/archive/sunset-cisteni-historie/ (mimo repo, NEPŘESOUVAT do repa).
