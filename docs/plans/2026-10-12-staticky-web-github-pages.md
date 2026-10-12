@@ -920,9 +920,9 @@ Statický web https://sunset-apartment.com (GitHub Pages). Bez buildu, bez Node.
 ## Úpravy
 - Text: upravit přímo v `site/<stránka>/index.html`.
 - Nová fotka do galerie: soubor do `site/statics/galerie/`, v `site/photo/index.html` do správného panelu přidat
-  `<a href="../statics/galerie/X.jpg"><img src="../statics/galerie/X.jpg" alt="Popis" loading="lazy" class="gek-screenshots"></a>`
+  `<a href="../statics/galerie/X.jpg" class="gallery-item"><img src="../statics/galerie/X.jpg" alt="Popis" loading="lazy" class="gek-screenshots"><span class="gallery-caption" aria-hidden="true">Popis</span></a>`
   a v `tools/kontrola.py` zvýšit `FOTEK_V_GALERII`.
-- Náhled lokálně: `python -m http.server -d site 8000` → http://localhost:8000
+- Náhled lokálně: `python -m http.server -d site 8000` → http://localhost:8000 (když je port 8000 obsazený, zvol jiný)
 
 Původní Quasar projekt je v historii gitu (poslední commit před převodem je označený tagem `quasar-posledni`).
 ```
@@ -1153,11 +1153,20 @@ curl -sI https://sunset-apartment.com/neexistuje   # 404 s vlastní stránkou
 
 ```
 Pokračuj v projektu C:\work\projects\Sunset-apartment.com podle plánu docs/plans/2026-10-12-staticky-web-github-pages.md (převod Quasar SSR webu na statické HTML na GitHub Pages, varianta B).
-Skills: superpowers:executing-plans (plán má tasky s kontrolními body), superpowers:verification-before-completion (tools/kontrola.py musí skončit „OK: 0 chyb“; mutační ověření v Tasku 4).
+Skills: superpowers:executing-plans (plán má tasky s kontrolními body), superpowers:verification-before-completion (tools/kontrola.py musí skončit „OK: 0 chyb“).
 
-Stav: plán zkontrolovaný, z Tasku 0 hotový jen build SSR z master (dist/ssr/). Začni Taskem 0 krok 1 (.gitignore), krok 2 (venv s beautifulsoup4), pak spusť místní SSR: PORT=3123 node dist/ssr/index.js (z kořene projektu, na pozadí) a udělej referenční snímky (krok 3b).
-Zdroj převodu je místní SSR z master, NE živý web: živý web běží ze staršího buildu a nemá lokální loga Netflix/YouTube.
-Textové úpravy (Bolt, odstranění sekcí) a loga jsou v master HOTOVÉ, nic z toho neupravuj.
+Stav (2026-10-12 večer): Tasky 0–7 hotové a pushnuté, poslední commit práce 4bd62bc (po něm jen předávka a kontrola). site/ je kompletní: hlavička a mobilní menu, karusel, počítadla, galerie s lightboxem, kontakt, 404, robots, sitemap a popisy stránek schválené uživatelem. python tools/kontrola.py = „OK: 0 chyb, 210 odkazů, web 18.7 MB“. Odchylky od plánu jsou u každého tasku v odstavci „Provedeno 2026-10-12“, poznatky k nástrojům v úvodu plánu pod „Stav“.
+
+Další krok: Task 8.
+- Krok 1: úklid markupu (tabindex="-1" u neovládacích prvků, prázdné divy). Atributy data-v-*, třídy q-* a vložený skript gt-* NECHAT.
+- Krok 1b: commit, pak tag quasar-posledni.
+- Krok 2: git rm Quasar projektu. Před smazáním netrackovaných node_modules/, dist/ a .quasar/ znovu ověř kontrolu OK a grep „podminky“ v site/ = 0.
+- Kroky 3–5: .gitignore, README (snippet galerie je v plánu opravený na gallery-item s popiskem), kontrola, commit, push.
+Pak Task 9: porovnání se snímky v .reference/. Většinu jsem porovnal už průběžně, výsledky jsou v plánu u Tasků 3–7. Zbývá ověřit na skutečném telefonu: menu, swipe a seznam míst na Kontaktu, kde je číslo těsně u textu.
+
+Náhled: port 8000 je na tomto stroji obsazený, použij python -m http.server -d site 8772 (port předem ověř curl -m 2). Snímky dělej headless Chromem s MSYS_NO_PATHCONV=1, mobil přes iframe 400 px (postup je v plánu pod „Poznatky z provádění“).
+Místní SSR (PORT=3123 node dist/ssr/index.js) už potřeba není. Kdybys chtěl něco změřit proti SSR, musí to být před smazáním node_modules/ a dist/ v Tasku 8.
+
 Rozhodnuto uživatelem: Jardovy e-maily v historii → qwanap@gmail.com (jméno zůstane); DNS u Váš Hosting spravuje uživatel; starý server vypne Robert (šéf Altisimy), uživatel mu to řekne.
 Task 11 (force push, zveřejnění repa) je nevratný: vstupy čištění jsou v C:/work/archive/sunset-cisteni-historie/ (mimo repo, NEPŘESOUVAT do repa), nejdřív obě zálohy z kroku 1 a ověření z kroku 7 (overeni.sh = 0 a 0), před krokem 8 se uživatele zeptej.
 Před Taskem 13 (přepnutí DNS) se zeptej, kdy to uživateli vyhovuje (HTTPS může do hodiny hlásit chybu certifikátu).
