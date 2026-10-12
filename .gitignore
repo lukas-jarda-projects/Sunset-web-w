@@ -38,3 +38,7 @@ yarn-error.log*
 
 # Windows / Git Bash crash dumps
 *.stackdump
+
+# nástroje statického webu
+tools/.venv/
+.reference/
