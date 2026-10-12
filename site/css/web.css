@@ -78,8 +78,83 @@
   }
 }
 
+/* Karusel na úvodní stránce (náhrada q-carousel, efekt jump-left zjednodušen na prolnutí) */
+.js-carousel .q-carousel__slides-container {
+  position: relative;
+}
+.js-carousel .slide {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s, visibility 0.6s;
+}
+.js-carousel .slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+/* q-slide-transition (1500 ms): text snímku se vysune shora dolů */
+.js-carousel .slide.active .carousel-content {
+  animation: vysun 1.5s ease;
+}
+@keyframes vysun {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+.js-carousel [data-dot] {
+  opacity: 0.7;
+}
+.js-carousel [data-dot][aria-current="true"] {
+  opacity: 1;
+}
+
+/* CarouselContent.vue: pod 1024 px menší text (dřív třída is-small podle $q.screen.lt.md) */
+@media (max-width: 1023px) {
+  .carousel-content h1[data-v-4b7497ec] {
+    font-size: 42px;
+    line-height: 1.2em;
+  }
+  .carousel-content h1[data-v-4b7497ec],
+  .carousel-content h6[data-v-4b7497ec] {
+    color: #fff;
+    letter-spacing: 0.035rem;
+    margin: 0;
+    padding: 0;
+  }
+  .carousel-content h6[data-v-4b7497ec] {
+    font-size: 20px;
+    line-height: 1.3em;
+  }
+  .carousel-content p[data-v-4b7497ec] {
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.3em;
+    letter-spacing: 0.035rem;
+    margin: 5px;
+    padding: 0;
+  }
+}
+
+/* Index.vue: tlačítka dopravy na střed až od 600 px ($q.screen.gt.xs) */
+@media (min-width: 600px) {
+  .doprava-tlacitka {
+    justify-content: center;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .site-nav {
+  .site-nav,
+  .js-carousel .slide {
     transition: none;
+  }
+  .js-carousel .slide.active .carousel-content {
+    animation: none;
   }
 }
