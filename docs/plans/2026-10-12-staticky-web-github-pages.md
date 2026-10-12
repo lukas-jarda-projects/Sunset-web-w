@@ -4,13 +4,21 @@
 
 **Cíl:** Web sunset-apartment.com poběží jako čisté HTML + CSS + malý vanilla JS na GitHub Pages — bez Node na serveru, bez buildu, upravitelný přímo v HTML.
 
-**Architektura:** Kostra stránek vznikne jednorázovým převodem dnešního živého SSR výstupu (je to hotové HTML s třídami Quasaru). Zkompilované CSS Quasaru zůstane jako jeden soubor. Dynamické widgety Quasaru (karusel, záložky, mobilní menu, galerie s lightboxem, počítadla) se nahradí vlastním markupem a `site/js/web.js`. Výsledek leží v `site/`, nasazuje ho GitHub Actions workflow, který soubory jen nahraje (žádný build). Repo se před zveřejněním vyčistí od cizího kódu a interních údajů (`git filter-repo`) a pak se na Pages převede doména.
+**Architektura:** Kostra stránek vznikne jednorázovým převodem SSR výstupu **aktuálního `master`**, spuštěného lokálně naposledy přes Node (je to hotové HTML s třídami Quasaru). Živý web to být nemůže, protože běží ze staršího buildu. Zkompilované CSS Quasaru zůstane jako jeden soubor. Dynamické widgety Quasaru (karusel, záložky, mobilní menu, galerie s lightboxem, počítadla) se nahradí vlastním markupem a `site/js/web.js`. Výsledek leží v `site/`, nasazuje ho GitHub Actions workflow, který soubory jen nahraje (žádný build). Repo se před zveřejněním vyčistí od cizího kódu a interních údajů (`git filter-repo`) a pak se na Pages převede doména.
 
-**Technologie:** HTML, CSS, vanilla JS (ES2017, bez knihoven). Pomocné nástroje jen v Pythonu 3: `tools/kontrola.py` je čistá stdlib, převodní skript potřebuje `beautifulsoup4` v lokálním venv. Node se nikde nepoužívá.
+**Technologie:** HTML, CSS, vanilla JS (ES2017, bez knihoven). Pomocné nástroje jen v Pythonu 3: `tools/kontrola.py` je čistá stdlib, převodní skript potřebuje `beautifulsoup4` v lokálním venv. Node se použije jen jednou, v Tasku 0 na build SSR z `master` jako zdroj převodu. Web ani nástroje ho nepotřebují.
 
-**Stav:** Plán napsán 2026-10-12, provádění nezačalo. Nanečisto ve scratchpadu (mimo repo) ověřeno:
-- `kontrola.py`, `prevod_z_ssr.py` a `galerie_z_vue.py` proběhnou proti živému webu s výstupem popsaným v Tasku 2,
-- kontrola chytí smazanou fotku (mutace),
+**Stav:** Plán napsán a zkontrolován 2026-10-12, Tasky 1–14 nezačaly.
+
+Z Tasku 0 už proběhlo:
+- krok 3 build SSR z `master` (`dist/ssr/`, `Build succeeded`),
+- starý `dist/` z 11. 8. je přesunutý do `C:/work/archive/Sunset-dist-2026-08-11/`.
+
+Server na portu 3123 se po session ukončil, další session ho spustí znovu (`PORT=3123 node dist/ssr/index.js`). `.gitignore` a venv z kroků 1–2 nejsou hotové.
+
+Nanečisto ve scratchpadu (mimo repo) ověřeno:
+- `kontrola.py`, `prevod_z_ssr.py` (proti místnímu SSR z `master`) a `galerie_z_vue.py` proběhnou s výstupem popsaným v Tasku 2,
+- kontrola chytí smazanou fotku i chybějící obrázek v `srcset`,
 - čištění historie z Tasku 11 dá 0 citlivých řetězců.
 
 `web.js` a `pages.yml` jsou ověřené **jen syntakticky** (`node --check`, `yaml.safe_load`), v prohlížeči a na GitHubu zatím neběžely.
@@ -19,18 +27,19 @@
 
 ## Výchozí stav (ověřeno 2026-10-12)
 
-- Živý web: Quasar 1 SSR (Express) na `185.175.84.157`, služba `sunset-apartment.com.service` na serveru Altisimy. Router běží v SSR režimu history, adresy jsou `/`, `/about`, `/photo`, `/contact`.
+- Živý web: Quasar 1 SSR (Express) na `185.175.84.157`, služba `sunset-apartment.com.service` na serveru Altisimy. **Běží ze staršího buildu než `master`:** loga Netflix/YouTube na O apartmánu načítá z `api.iconify.design`, ačkoli `master` je má lokálně (`c81504b`, `38b2ac2`, nenasazeno). Texty všech 4 stránek jsou na živém webu a v `master` shodné slovo od slova (ověřeno 2026-10-12 porovnáním vykreslených stránek). Router běží v SSR režimu history, adresy jsou `/`, `/about`, `/photo`, `/contact`.
 - Web za běhu nevolá žádné API. Formulář je pryč (commit `5b42f20`). `axios`, `socketio`, `vuelidate` a `vue-print-nb` jsou mrtvé závislosti, Sentry je vypnutý (`quasar.conf.js`, boot `'sentry'` zakomentován). i18n obsahuje jen ukázkový soubor a přepínač jazyků se nevykresluje.
 - **Textové úpravy od Vaška jsou HOTOVÉ** (Bolt místo Uberu, „Užitečné informace“ a „Volné termíny“ odstraněny; sekce jsou v Pugu zakomentované `//-`). Hotová je i **úprava log Netflix/YouTube v sekci O apartmánu** (`38b2ac2`, `c81504b`). Převod je jen převezme, nic se znovu neupravuje.
-- Na živém webu je `meta description` na všech 4 stránkách stejná a obecná („Sunset Apartment - pobyt u moře“), stránka má `<html lang=en-us>` a 15 obrázků nemá `alt` (2 loga v hlavičce na každé stránce, 4 navíc na O apartmánu, 3 na Kontaktu). Ověřeno nanečisto spuštěným převodem a kontrolou z tohoto plánu. V `src/index.template.html:7` je `gtag/js?id==G-5Y4HJPKVK0` (dvě `=`), a jestli GA vůbec měří, neověřeno.
+- Na živém webu je `meta description` na všech 4 stránkách stejná a obecná („Sunset Apartment - pobyt u moře“), stránka má `<html lang=en-us>` a 15 obrázků nemá `alt`: 2× logo Sunset v hlavičce na každé stránce, na O apartmánu navíc 4 vložená SVG loga streamovacích služeb (`data:image/svg`), na Kontaktu 3 obrázky (`kontakt-apartman`, `mapa-z-letadla`, `map-with-poi`). Platí i pro `master`. Ověřeno nanečisto spuštěným převodem a kontrolou z tohoto plánu. V `src/index.template.html:7` je `gtag/js?id==G-5Y4HJPKVK0` (dvě `=`), a jestli GA vůbec měří, neověřeno.
 - Interaktivní prvky:
   - `Index.vue:70` karusel (4 snímky, autoplay 2800 ms, šipky, tečky, swipe, nekonečný),
   - `Index.vue:146-158` 4× `animated-number` (1200 ms, restart při návratu do pohledu),
-  - záložky Autem / Letecky (`PageSectionDoubleCard`),
+  - přepínače podle šířky okna nebo zařízení: `Index.vue:107` a `AboutPage.vue:104` (`$q.screen`), `CarouselContent.vue:6` (`is-small` pod 1024 px), `ContactPage.vue:79-134` (`$q.platform`: desktop/mobil se liší jen obrázky `kontakt-apartman.jpg` / `-xs.jpg` a `mapa-z-letadla.jpg` / `-xs.jpg`). Záložky Autem/Letecky na úvodní stránce NEJSOU. Jsou to tři karty Autem / Vlakem / Letecky ve 3 sloupcích.
+  - `App.vue:13`: kořen `#q-app` dostává třídy `gt-xs`…`gt-lg` podle šířky a CSS komponent na ně navazuje rozvržení. Řeší to vložený skript z převodu (Task 2, „Pozor 2“).
   - `Layout.vue:19` horní záložky menu + `Layout.vue:38` mobilní drawer,
   - `PhotoPage.vue:139` svislé záložky (4 galerie: 21 + 5 + 17 + 8 = 51 fotek) + `TinyBox.vue` (lightbox, swipe, smyčka).
 - Galerie v SSR HTML nejsou: vykresluje je až JS. Zdrojem fotek je pole `poschodi/podkrovi/okoli/ostrov` v `src/pages/Public/PhotoPage.vue`. Všech 51 souborů existuje v `src/statics/galerie/`.
-- Repo `lukas-jarda-projects/Sunset-web-w`: soukromé, organizace na plánu **free**, jediná větev `master`, 0 forků, 166 commitů, ~104 MB. Autoři: lukas-wana (noreply), `qwanap@gmail.com`, Jaroslav Povolný (`qwanap@gmail.com`, `qwanap@gmail.com`), „OpenClaw Ad Radar“.
+- Repo `lukas-jarda-projects/Sunset-web-w`: soukromé, organizace na plánu **free**, jediná větev `master`, 0 forků, 166 commitů, ~104 MB. Autoři: lukas-wana (noreply), `qwanap@gmail.com`, Jaroslav Povolný (2 osobní e-maily), „OpenClaw Ad Radar“.
 - Prověřena celá historie: hesla ani tokeny v ní nejsou (`.npmrc` nikdy necommitnut, Jenkinsfile bez přístupů, `password: secret` jsou jen testovací data v `lib/fs`). V historii ale jsou věci, které se zveřejnit nesmí: sdílený kód `lib/`, celé weby jiných klientů ze šablony Altisimy a snímky obrazovky systému jídelen s možnými daty zákazníků. Soupis a postup jsou v Tasku 11 (ověřeno nanečisto).
 - DNS: NS i MX u **Váš Hosting** (`ns.vas-hosting.cz/.eu/.com`), A `185.175.84.157`, `www` je alias na apex, SPF `v=spf1 a mx ?all`. **Pošta na doméně neběží** (potvrdil uživatel) → MX a SPF se nechají beze změny.
 
@@ -39,18 +48,18 @@
 | rozhodnutí | důvod |
 |---|---|
 | Varianta B (čisté HTML), ne Quasar build v CI | úpravy bez buildu; SEO stejné jako dnes (každá stránka je hotové HTML) |
-| Kostra z živého SSR HTML, ne ruční přepis z Pugu | vzhled sedí 1:1, obsah je přesně ten, co je dnes vidět (včetně hotových úprav) |
+| Kostra ze SSR HTML aktuálního `master` (lokálně), ne ze živého webu ani ručním přepisem z Pugu | vzhled sedí 1:1 a obsahuje všechny hotové úpravy; živý web nemá lokální loga (první verze plánu to přehlédla a úpravu log by tiše vrátila) |
 | Zkompilované CSS Quasaru se ponechá celé (225 KB) | utility třídy (`row`, `col-*`, `q-mt-*`) fungují bez Vue; ořez CSS je volitelný až po spuštění |
 | Relativní odkazy všude kromě `404.html` | náhled na `lukas-jarda-projects.github.io/Sunset-web-w/` běží v podsložce; absolutní `/css/…` by tam nefungovalo |
 | Nasazení přes Actions (`upload-pages-artifact`), web v `site/` | v rootu repa zůstanou plány a nástroje a nevystaví se jako web; Jekyll se nespouští |
 | Stávající repo zveřejnit **po vyčištění historie** | rozhodnutí uživatele 2026-10-12 (varianta „stávající repo, historii vyčistit“) |
 | Pošta: MX a SPF beze změny | pošta neběží; záznamy nevadí a jejich mazání nikdo nechtěl |
 
-## Otevřené (rozhodne uživatel před Taskem 11 / 13)
+## Rozhodnuto uživatelem 2026-10-12 (dřív „Otevřené“)
 
-1. **E-maily v historii** (Task 11): na co přepsat `qwanap@gmail.com` a `qwanap@gmail.com`? Návrh: na Jardův GitHub noreply (`ID+login@users.noreply.github.com`, zná ho jen on). Přepsat i vlastní `qwanap@gmail.com` na `lukas-wana@users.noreply.github.com`? Domluvit s Jardou i samotné zveřejnění: je spoluautor a v historii je jeho kód (`lib/`).
-2. **Přístup do DNS u Váš Hosting** (Task 13): kdo ho má (ty, nebo Vašek)? Bez něj se doména nepřevede.
-3. **Starý server** (Task 14): službu na `185.175.84.157` spravuje Altisima/Jarda. Kdo ji po převodu vypne?
+1. **E-maily Jardy v historii** (jeho dva osobní) se v Tasku 11 přepíšou na **`qwanap@gmail.com`**. Jméno „Jaroslav Povolný“ u jeho commitů zůstane, mění se jen adresa. Vlastní `qwanap@gmail.com` zůstává beze změny.
+2. **Přístup do DNS u Váš Hosting má uživatel** (Task 12, 13).
+3. **Starý server** vypne **Robert (šéf Altisimy)**. Uživatel mu to řekne, až bude převod hotový (Task 14).
 
 ---
 
@@ -75,7 +84,23 @@ tools/.venv/Scripts/python -m pip install beautifulsoup4
 
 Očekávané: `Successfully installed beautifulsoup4-…`
 
-**Krok 3:** Uložit referenční snímky živého webu pro vizuální porovnání v Tasku 9. V prohlížeči (Claude in Chrome) nasnímat `/`, `/about`, `/photo`, `/contact` na 1280 px a 400 px do `.reference/` (ten se necommituje).
+**Krok 3: místní SSR z `master`** (jediné použití Node).
+
+**Build a přesun starého `dist/` jsou HOTOVÉ** (2026-10-12):
+- `mv dist …`, pak `node scripts/quasar-legacy.js build --mode ssr` (~3 min, `Build succeeded`),
+- starý build z 11. 8. leží v `C:/work/archive/Sunset-dist-2026-08-11/`.
+
+**`mv` neopakovat**, přejmenoval by nový build. Build opakovat jen tehdy, když se mezitím změnil `src/`.
+
+Zbývá spustit server (z kořene projektu, moduly bere z `node_modules/`; na pozadí, poběží do Tasku 8):
+
+```
+PORT=3123 node dist/ssr/index.js
+```
+
+Očekávané: `Server listening at port 3123`. Ověřit `curl -s http://localhost:3123/about | grep -o "data:image/svg" | wc -l` = 4 (lokální loga; ověřeno 2026-10-12). Pozor, `grep -c` počítá řádky a zhuštěné HTML jich má jen pár, vrátil by 1. Na živém webu jsou místo log odkazy na iconify.
+
+**Krok 3b:** Uložit referenční snímky z **místního SSR** (`http://localhost:3123/`, `/about`, `/photo`, `/contact`) na 1280 px a 400 px do `.reference/`. Ten se necommituje. Snímky živého webu se nehodí, protože mají stará loga.
 
 **Krok 4:** Commit
 
@@ -147,6 +172,9 @@ class Sber(HTMLParser):
         for k in ("href", "src"):
             if a.get(k):
                 self.odkazy.append((tag, a[k]))
+        for cast in (a.get("srcset") or "").split(","):
+            if cast.strip():
+                self.odkazy.append((tag, cast.split()[0]))
         for u in URL_V_CSS.findall(a.get("style") or ""):
             self.odkazy.append((tag, u))
         if tag == "script" and a.get("src"):
@@ -273,12 +301,12 @@ git commit -m "Kontrolní skript statického webu"
 
 ---
 
-## Task 2: Převod živého SSR výstupu na kostru `site/`
+## Task 2: Převod SSR výstupu z `master` na kostru `site/`
 
 **Soubory:** Vytvořit: `tools/prevod_z_ssr.py`, vygeneruje `site/**`
 
 Skript (jednorázový, commitne se kvůli dohledatelnosti původu) udělá tohle:
-- stáhne 4 stránky a CSS z živého webu,
+- stáhne 4 stránky a CSS z místního SSR (`http://localhost:3123`, Task 0 krok 3), ne ze živého webu,
 - odstraní Vue bundly (`/js/*.js`), skript s `__INITIAL_STATE__` a preload/prefetch odkazy,
 - stáhne všechny lokální soubory, na které HTML a CSS odkazují (z názvu odstraní 8znakový hash),
 - přepíše odkazy na relativní,
@@ -288,23 +316,33 @@ Skript (jednorázový, commitne se kvůli dohledatelnosti původu) udělá tohle
 **Krok 1:** Napsat `tools/prevod_z_ssr.py`:
 
 ```python
-"""Jednorázový převod živého SSR webu na statické soubory v site/.
+"""Jednorázový převod SSR webu na statické soubory v site/.
 
-Spuštění:  tools/.venv/Scripts/python tools/prevod_z_ssr.py
+Spuštění:  tools/.venv/Scripts/python tools/prevod_z_ssr.py [zdroj]
+Zdroj je místní SSR z master (Task 0, krok 3), výchozí http://localhost:3123.
 Přepíše HTML v site/, stažené soubory přeskočí, pokud už existují.
 """
 import posixpath
 import re
+import sys
 from pathlib import Path
 from urllib.parse import quote, unquote
 from urllib.request import urlopen
 
 from bs4 import BeautifulSoup
 
-ZDROJ = "https://sunset-apartment.com"
-SITE = Path(__file__).resolve().parent.parent / "site"
+ZDROJ = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:3123"
+KOREN = Path(__file__).resolve().parent.parent
+SITE = KOREN / "site"
+# Scoped CSS komponent leží v chuncích, které načítá jen JS (SSR HTML na ně neodkazuje).
+CHUNKY = KOREN / "dist/ssr/www/css"
 STRANKY = {"/": "index.html", "/about": "about/index.html", "/photo": "photo/index.html", "/contact": "contact/index.html"}
 HASH = re.compile(r"\.[0-9a-f]{8}(\.\w+)$")
+# Jako App.vue: kořen #q-app dostane třídy gt-xs/gt-sm/gt-md/gt-lg podle šířky (hranice Quasaru).
+# CSS komponent na ně navazuje rozvržení (např. karty dopravy ve 3 sloupcích jen s .gt-xs).
+TRIDY_SIRKY = ("(function(){var a=document.getElementById('q-app'),w=window.innerWidth;"
+               "[['xs',600],['sm',1024],['md',1440],['lg',1920]].forEach(function(b)"
+               "{a.classList.toggle('gt-'+b[0],w>=b[1])})})()")
 URL_V_CSS = re.compile(r"url\(\s*([\"']?)([^\"')]+)\1\s*\)")
 
 
@@ -355,8 +393,21 @@ def prevod_css_souboru(text):
     return URL_V_CSS.sub(nahrada, text)
 
 
+def spoj_chunky():
+    """Všechny CSS chunky kromě app.*.css spojí do css/komponenty.css (chunk-common první)."""
+    chunky = sorted((p for p in CHUNKY.glob("*.css") if not p.name.startswith("app.")),
+                    key=lambda p: (not p.name.startswith("chunk-common"), p.name))
+    assert chunky, f"v {CHUNKY} nejsou CSS chunky, nejdřív build (Task 0 krok 3)"
+    cil = SITE / "css" / "komponenty.css"
+    cil.parent.mkdir(parents=True, exist_ok=True)
+    cil.write_text("\n".join(f"/* {p.name} */\n" + p.read_text(encoding="utf-8") for p in chunky),
+                   encoding="utf-8", newline="\n")
+    print("chunky", ", ".join(p.name for p in chunky))
+
+
 def main():
     SITE.mkdir(exist_ok=True)
+    spoj_chunky()
     for cesta, soubor in STRANKY.items():
         prefix = "../" * soubor.count("/")
         with urlopen(ZDROJ + cesta) as r:
@@ -375,6 +426,13 @@ def main():
                     tag[attr] = prevod_odkazu(tag[attr].replace("id==", "id="), prefix)
             if tag.get("style"):
                 tag["style"] = prevod_css(tag["style"], prefix)
+        koren = soup.find(id="q-app")
+        del koren["data-server-rendered"]
+        skript = soup.new_tag("script")
+        skript.string = TRIDY_SIRKY
+        koren.insert(0, skript)
+        app_css = soup.find("link", rel="stylesheet")
+        app_css.insert_after(soup.new_tag("link", rel="stylesheet", href=prefix + "css/komponenty.css"))
         cil = SITE / soubor
         cil.parent.mkdir(parents=True, exist_ok=True)
         # formatter="minimal": čeština zůstane jako znaky (html5 by z ř udělal &rcaron;)
@@ -389,7 +447,11 @@ if __name__ == "__main__":
     main()
 ```
 
-Pozor: zkompilované CSS Quasaru odkazuje na písma **relativně** (`url(../fonts/RedHatText-Regular.e828eaa6.woff)`), ne absolutně. Proto má CSS soubor vlastní převod `prevod_css_souboru`, který cestu nejdřív vztáhne ke kořeni webu. První verze plánu to neměla a písma se nestáhla; chytila to až kontrola.
+Pozor 1: SSR HTML odkazuje jen na `app.css`. **Scoped styly komponent** (např. 77px nadpisy karuselu z `CarouselContent.vue`) jsou v CSS chuncích (`chunk-common.*.css`, `4.*.css`–`8.*.css`), které za běhu načítá až Vue JS. Bez nich by statický web přišel o vzhled komponent a kontrola by to nechytila, protože jde o chybějící styl, ne o rozbitý odkaz. Proto `spoj_chunky()` spojí chunky z lokálního buildu do `css/komponenty.css` a ten se připojí za `app.css`. První verze plánu to neměla, chytilo to čtení buildu v kontrole plánu.
+
+Pozor 2: `App.vue:13` dává kořeni `#q-app` třídy `gt-xs`, `gt-sm`, `gt-md`, `gt-lg` podle šířky okna. CSS komponent na ně navazuje rozvržení (např. `.gt-xs .page-section-card`: karty Autem / Vlakem / Letecky ve 3 sloupcích). Server šířku nezná, takže SSR je vykreslí jako na mobilu. Převod proto vloží hned za `<div id="q-app">` krátký skript, který třídy nastaví před vykreslením zbytku stránky, a `web.js` je přepočítá při změně velikosti okna (Task 3). Chytilo to až vizuální porovnání v kontrole plánu: karty byly pod sebou.
+
+Pozor 3: zkompilované CSS Quasaru odkazuje na písma **relativně** (`url(../fonts/RedHatText-Regular.e828eaa6.woff)`), ne absolutně. Proto má CSS soubor vlastní převod `prevod_css_souboru`, který cestu nejdřív vztáhne ke kořeni webu. První verze plánu to neměla a písma se nestáhla; chytila to až kontrola.
 
 **Krok 2:** Spustit:
 
@@ -397,7 +459,7 @@ Pozor: zkompilované CSS Quasaru odkazuje na písma **relativně** (`url(../font
 tools/.venv/Scripts/python tools/prevod_z_ssr.py
 ```
 
-Očekávané: řádky `stazeno …` (CSS, písma, obrázky karuselu, ikony, PDF) a 4× `stranka …`.
+Očekávané (nanečisto 2026-10-12): řádek `chunky chunk-common…, 4…, …`, 31× `stazeno …` (1 CSS, 5 písem, 19 obrázků v `img/`, 6 souborů ve `statics/`), 4× `stranka …` a `css app.css`, `css komponenty.css`. Z karuselu se stáhne jen první snímek, protože ostatní SSR nevykreslí (doplní Task 4).
 
 **Krok 3:** Zkontrolovat:
 
@@ -421,7 +483,7 @@ Celkem 10 chyb (ověřeno nanečisto 2026-10-12). Názvy záložek fotogalerie S
 
 ```
 git add tools/prevod_z_ssr.py site/
-git commit -m "Kostra statického webu z živého SSR výstupu"
+git commit -m "Kostra statického webu ze SSR výstupu master"
 ```
 
 ---
@@ -437,6 +499,15 @@ git commit -m "Kostra statického webu z živého SSR výstupu"
 (function () {
   'use strict'
   var klid = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  // Třídy gt-* na #q-app podle šířky okna (jako App.vue; první nastavení dělá vložený skript ve stránce)
+  var koren = document.getElementById('q-app')
+  window.addEventListener('resize', function () {
+    var w = window.innerWidth
+    ;[['xs', 600], ['sm', 1024], ['md', 1440], ['lg', 1920]].forEach(function (b) {
+      koren.classList.toggle('gt-' + b[0], w >= b[1])
+    })
+  })
 
   // Mobilní menu: tlačítko .js-menu otevře/zavře body.menu-open
   document.querySelectorAll('.js-menu').forEach(function (b) {
@@ -581,15 +652,15 @@ Drawer = tentýž `<nav>`, na úzkém displeji ho CSS zobrazí jako vysouvací p
 
 **Krok 3:** `site/css/web.css`: styly hlavičky (aktivní položka barvou `secondary` z `src/css/quasar.variables.styl`), mobilní panel (`@media (max-width: 1023px)`: `nav` mimo obraz, `body.menu-open nav` vysunutý, poloprůhledné pozadí), tlačítko `.js-menu` jen pod 1024 px. Hranice 1024 px odpovídá Quasaru `gt-sm`, kde se dnes desktopové záložky skrývají (`Layout.vue:19` `.gt-sm`).
 
-**Krok 4:** `python tools/kontrola.py`. Očekávané: zmizí chyby menu a `bez alt` u log. Zůstanou ostatní obrázky bez alt, galerie, 404 a záložky fotogalerie.
+**Krok 4:** `python tools/kontrola.py`. Očekávané: zmizí chyby menu a `bez alt` u log. Zůstanou ostatní obrázky bez alt, galerie a 404.
 
-**Krok 5:** Ruční ověření v prohlížeči: spustit `python -m http.server -d site 8000` a projít `http://localhost:8000/` na 1280 a 400 px. Menu musí odkazovat na všechny 4 stránky, na 400 px se otevírat tlačítkem a zavírat Esc. Server pak ukončit.
+**Krok 5:** Ruční ověření v prohlížeči: spustit `python -m http.server -d site 8000` (volnost portu ověřit jako v Tasku 9, krok 1) a projít `http://localhost:8000/` na 1280 a 400 px. Menu musí odkazovat na všechny 4 stránky, na 400 px se otevírat tlačítkem a zavírat Esc. Server pak ukončit.
 
 **Krok 6:** Commit `git add site/ && git commit -m "Hlavička, mobilní menu a web.js"`
 
 ---
 
-## Task 4: Úvodní stránka — karusel, počítadla, záložky Autem/Letecky
+## Task 4: Úvodní stránka — karusel, počítadla, responzivita
 
 **Soubory:** Upravit: `site/index.html`, `site/css/web.css`
 
@@ -611,20 +682,9 @@ CSS: `.top-carousel` výška 500 px (`Index.vue:72`), `.slide` absolutně přes 
 
 **Krok 2: počítadla.** Každý `animated-number` (`Index.vue:146-158`: 920 km, 780, 50, 13) nahradit `<span class="js-count" data-to="920" data-time="1200">920</span>`. Výchozí text je cílové číslo, takže bez JS se zobrazí správná hodnota.
 
-**Krok 3: záložky Autem/Letecky.** SSR markup `q-tabs` + `q-tab-panels` nahradit:
-
-```html
-<div class="js-tabs">
-  <div role="tablist">
-    <button role="tab" id="tab-autem" aria-controls="panel-autem" aria-selected="true">Autem</button>
-    <button role="tab" id="tab-letecky" aria-controls="panel-letecky" aria-selected="false">Letecky</button>
-  </div>
-  <div role="tabpanel" id="panel-autem" aria-labelledby="tab-autem">…</div>
-  <div role="tabpanel" id="panel-letecky" aria-labelledby="tab-letecky" hidden>…</div>
-</div>
-```
-
-Texty panelů vzít ze SSR HTML. Panel, který SSR nevykreslil, vzít z `src/pages/Index.vue:110-140`. Odkazy „Nákup letenek >“ apod. zachovat. **Text „BOLT“ musí zůstat** (kontrola to hlídá).
+**Krok 3: responzivní přepínače.** Autem / Vlakem / Letecky **nejsou záložky** (první verze plánu to tvrdila chybně). Jsou to tři karty `page-section-card` a SSR je vykreslil všechny. Do 3 sloupců je řadí třída `gt-xs` na `#q-app` (Task 2, „Pozor 2“), ne tento krok. Text „BOLT“ musí zůstat, kontrola ho hlídá. Na stránce jsou dva přepínače podle šířky okna. **SSR je vykreslil v mobilní podobě** (server šířku nezná; ověřeno v HTML z `master`). Převést je na CSS media query:
+- `Index.vue:107`: má `justify-center` jen od 600 px (`$q.screen.gt.xs`). V SSR je `class="flex q-gutter-sm"`, tedy bez něj. Prvku přidat třídu `doprava-tlacitka` a do `web.css` napsat `@media (min-width: 600px) { .doprava-tlacitka { justify-content: center } }`.
+- `CarouselContent.vue:6`: pod 1024 px (`$q.screen.lt.md`) má obsah snímku třídu `is-small`. V SSR ji má vždy (`class="text-center is-small"`). Třídu z HTML odebrat a pravidla `.is-small` z `site/css/komponenty.css` (původně `chunk-common`, scoped s `data-v-…`) zkopírovat do `web.css` pod `@media (max-width: 1023px)` se stejným selektorem bez `.is-small`.
 
 **Krok 4:** Obecnou `meta description` („Sunset Apartment - pobyt u moře“, stejná na všech stránkách) nahradit popisem stránky, např. `Apartmán Sunset v Povljaně na ostrově Pag – ubytování u moře, …`. Text navrhne prováděcí session z úvodního odstavce stránky a uživatel ho schválí. Doplnit `alt` obrázkům, které ho nemají (kontrola je vypíše).
 
@@ -636,9 +696,9 @@ Texty panelů vzít ze SSR HTML. Panel, který SSR nevykreslil, vzít z `src/pag
 - karusel se sám posouvá po ~2,8 s, šipky a tečky fungují,
 - na 400 px funguje swipe (DevTools touch emulace),
 - počítadla počítají při najetí,
-- záložky přepínají.
+- na 400 px jsou tlačítka dopravy zarovnaná vlevo a text karuselu je menší (stejně jako na `.reference/index-400.png`).
 
-**Krok 8:** Commit `git commit -am "Úvodní stránka: karusel, počítadla, záložky"`
+**Krok 8:** Commit `git commit -am "Úvodní stránka: karusel, počítadla, responzivita"`
 
 ---
 
@@ -646,11 +706,11 @@ Texty panelů vzít ze SSR HTML. Panel, který SSR nevykreslil, vzít z `src/pag
 
 **Soubory:** Upravit: `site/about/index.html`
 
-**Krok 1:** Projít SSR markup. Interaktivní jsou jen záložky v `PageSectionDoubleCard` a přesměrování `AboutPage.vue:85` na `jidelna-sql.altisima.cz`, pozůstatek šablony jiného webu. Záložky převést stejně jako v Tasku 4, krok 3. Odkaz na jídelnu odstranit (kontrola hlídá `jidelna-sql`).
+**Krok 1:** Stránka nemá žádný interaktivní prvek. `PageSectionDoubleCard` se na žádné stránce nevykresluje, jen importuje. Metoda `login()` v `AboutPage.vue:84-86` (přesměrování na `jidelna-sql.altisima.cz`, pozůstatek šablony) se nikde nevolá a v SSR HTML není. Kontrola `jidelna-sql` v HTML nenašla (ověřeno nanečisto). Jediný přepínač podle šířky je `AboutPage.vue:104`: `q-gutter-lg` jen od 600 px (`!$q.screen.lt.sm`). SSR ho vykreslil v mobilní podobě (`class="flex justify-center"`, bez `q-gutter-lg`). Prvku přidat třídu `loga-sluzeb` a do `web.css` pod `@media (min-width: 600px)` zkopírovat pravidla `.q-gutter-lg` z `app.css` (záporný margin rodiče, padding potomků) pro `.loga-sluzeb`.
 
-**Krok 2:** Loga Netflix/YouTube jsou inline SVG nebo lokální soubory z commitu `38b2ac2`. Ověřit, že se převedla a vypadají stejně jako na `.reference/about-1280.png`. **Neupravovat je** — úprava je hotová.
+**Krok 2:** Loga streamovacích služeb jsou v SSR z `master` vložená jako 4× `<img src="data:image/svg+xml;base64,…">` (webpack je vložil z `src/assets/NetflixLogo.svg` atd., commit `38b2ac2`). Ověřit, že vypadají stejně jako na `.reference/about-1280.png`. **Neupravovat je**, úprava je hotová, jen jim doplnit `alt` (název služby podle odkazu kolem).
 
-**Krok 3:** Nahradit obecnou `meta description` popisem stránky, doplnit `alt` 4 obrázkům (po Tasku 3 zbývají jen ty mimo hlavičku). Kontrola → bez chyb u `about/index.html`.
+**Krok 3:** Nahradit obecnou `meta description` popisem stránky. Kontrola → bez chyb u `about/index.html`.
 
 **Krok 4:** Commit `git commit -am "Stránka O apartmánu"`
 
@@ -704,7 +764,7 @@ print(f"<!-- celkem {celkem} fotek -->")
 
 **Krok 2:** Spustit, výpis uložit do scratchpadu a ověřit poslední řádek `<!-- celkem 51 fotek -->`. Zkontrolovat, že `site/statics/galerie/` má 51 souborů (plus případně soubory, které stáhl převod).
 
-**Krok 3:** V `site/photo/index.html` nahradit SSR markup `q-tabs` + `q-tab-panels` výpisem (bez řádku s komentářem). Odstranit přesměrování na `jidelna-sql` (`PhotoPage.vue:117`).
+**Krok 3:** V `site/photo/index.html` nahradit SSR markup `q-tabs` + `q-tab-panels` výpisem (bez řádku s komentářem). Metoda `login()` s přesměrováním na `jidelna-sql` (`PhotoPage.vue:116-118`) je mrtvý kód, nikde se nevolá a v SSR HTML není (0 výskytů), takže v HTML není co odstraňovat.
 
 **Krok 4:** `site/css/web.css`:
 - `.gallery-tabs` jako dva sloupce (svislé záložky vlevo, mřížka fotek vpravo), pod 600 px pod sebou,
@@ -737,7 +797,16 @@ git commit -m "Fotogalerie: záložky a lightbox bez Vue"
 
 **Soubory:** Upravit: `site/contact/index.html`. Vytvořit: `site/404.html`, `site/robots.txt`, `site/sitemap.xml`
 
-**Krok 1: kontakt.** SSR obsahuje větve `$q.platform.is.desktop` / `is.mobile` (`ContactPage.vue:79-134`). SSR vykreslil jen jednu z nich. Obě převést na jeden markup, který se přizpůsobí přes CSS media query. Telefon jako text a k němu odkaz `tel:` (na mobilu přímé volání). Nahradit obecnou `meta description` popisem stránky, doplnit `alt` 3 obrázkům.
+**Krok 1: kontakt.** Větve `$q.platform.is.desktop` / `is.mobile` (`ContactPage.vue:79-134`) se liší jen obrázky a SSR vykreslil desktopové. Převést je na `<picture>`:
+
+```html
+<picture>
+  <source media="(max-width: 599px)" srcset="../img/kontakt-apartman-xs.jpg">
+  <img src="../img/kontakt-apartman.jpg" alt="Apartmán Sunset" height="300">
+</picture>
+```
+
+Totéž pro `mapa-z-letadla.jpg` / `mapa-z-letadla-xs.jpg`. Mapa `map-with-poi.png` je v obou větvích stejná, liší se jen šířkou (desktop `height=420`, mobil `width=100%`), takže stačí `@media (max-width: 599px) { … width: 100%; height: auto }`. Soubory `-xs.jpg` převod nestáhl (SSR je nevykreslil), proto je zkopírovat ze `src/assets/` do `site/img/`. Quasar rozlišoval podle zařízení, ne podle šířky. Hranice 600 px je vědomá náhrada. Telefon ani formulář na stránce nejsou, nic dalšího se nepřidává. Nahradit obecnou `meta description` popisem stránky, doplnit `alt` 3 obrázkům.
 
 **Krok 2: `site/404.html`.** Samostatná stránka s vloženým CSS, nadpis „Stránka nenalezena“ a odkaz „Zpět na úvod“ s `href="/"`. Výjimka z relativních cest, protože GitHub Pages ji servíruje na libovolné adrese. Nadpis a barvy podle `src/pages/Error404.vue`.
 
@@ -774,21 +843,20 @@ Sitemap: https://sunset-apartment.com/sitemap.xml
 **Soubory:** Smazat: Quasar zdroje. Upravit: `README.md`, `.gitignore`
 
 **Krok 1:** V `site/**/*.html` vyhledat zbytky SSR, které už nic nedělají:
-- `<!--[-->`, `<!--]-->` a `data-server-rendered`,
 - atributy `tabindex="-1"` u prvků, které už nejsou ovládací,
 - prázdné `div`y po odstraněných widgetech.
 
-`data-v-xxxx` atributy **NECHAT**: scoped CSS v `app.css` se na ně váže. Ověřit kontrolou a vizuálně.
+`data-server-rendered` odstranil už převod. Atributy `data-v-xxxx` **NECHAT**: scoped CSS v `komponenty.css` se na ně váže. Stejně tak třídy `q-*` a kořen `<div id="q-app">` se vloženým skriptem tříd `gt-*`. Ověřit kontrolou a vizuálně.
 
 **Krok 1b:** Commitnout úklid markupu a **teprve pak** označit poslední stav s Quasarem tagem: `git tag quasar-posledni`.
 
 **Krok 2:** Smazat z pracovní kopie a z gitu Quasar projekt:
 
 ```
-git rm -r -q src src-pwa src-ssr lib scripts quasar.conf.js quasar.extensions.json package.json yarn.lock babel.config.js jsconfig.json .eslintrc.js .eslintignore .postcssrc.js .stylintrc .editorconfig BUILD-FIX.md install.log ads app-icon.png app-splashscreen.png .ijfw "Upravy Webu Sunset.txt"
+git rm -r -q src src-pwa src-ssr lib scripts podminky quasar.conf.js quasar.extensions.json package.json yarn.lock babel.config.js jsconfig.json .eslintrc.js .eslintignore .postcssrc.js .stylintrc .editorconfig BUILD-FIX.md install.log ads app-icon.png app-splashscreen.png .ijfw "Upravy Webu Sunset.txt"
 ```
 
-Netrackované `node_modules/`, `dist/`, `.quasar/` a `.vscode/` smazat ručně až po ověření, že `site/` je kompletní (kontrola OK). Dřív ne: převod a galerie z nich čerpají. Složku `podminky/` (podmínky ochrany osobních údajů) **zachovat**, pokud na ni web odkazuje (grep `podminky` v `site/`). Jinak ji přesunout do `site/podminky/` jen s PDF; `.odt` a `~lock` soubor smazat.
+Nejdřív ukončit místní SSR server z Tasku 0 (port 3123). Netrackované `node_modules/`, `dist/`, `.quasar/` a `.vscode/` smazat ručně až po ověření, že `site/` je kompletní (kontrola OK). Dřív ne: převod a galerie z nich čerpají. Složku `podminky/` (podmínky ochrany osobních údajů z doby formuláře) smazat taky: žádná stránka živého webu na ni neodkazuje (ověřeno 2026-10-12, 0 výskytů `podminky` ve 4 stránkách). V historii zůstane. Před smazáním to znovu ověřit grepem `podminky` v `site/`.
 
 **Krok 3:** Zjednodušit `.gitignore` na: `tools/.venv/`, `.reference/`, `*.stackdump`, `.npmrc`.
 
@@ -817,9 +885,9 @@ Původní Quasar projekt je v historii gitu (poslední commit před převodem je
 
 ---
 
-## Task 9: Vizuální porovnání s živým webem
+## Task 9: Vizuální porovnání se SSR z master
 
-**Krok 1:** `python -m http.server -d site 8000`. Nasnímat 4 stránky na 1280 a 400 px stejně jako v Tasku 0. Porovnat se snímky v `.reference/` vedle sebe.
+**Krok 1:** Nejdřív ověřit, že port je volný: `curl -m 2 -s -o /dev/null -w "%{http_code}" http://localhost:8000/` musí skončit chybou spojení (`000`). Vždy s `-m`: bez časového limitu `curl` na port, kde něco naslouchá a neodpovídá, visí donekonečna (stalo se v kontrole plánu na portu 8771). Pak `python -m http.server -d site 8000` na pozadí. Nasnímat 4 stránky na 1280 a 400 px stejně jako v Tasku 0. Porovnat se snímky v `.reference/` vedle sebe.
 
 **Krok 2:** Rozdíly sepsat. Přijatelné jsou:
 - prolínání karuselu místo `jump-left`,
@@ -827,7 +895,7 @@ Původní Quasar projekt je v historii gitu (poslední commit před převodem je
 
 Nepřijatelné je chybějící obsah, rozbitá mřížka nebo jiné písmo. Mezery z `prettify` opravit ručně spojením řádků v daném místě. Detail písma ověřovat zvětšeným výřezem, ne zmenšeným celostránkovým snímkem.
 
-**Krok 3:** Opravit, kontrola OK, commit `git commit -am "Vizuální doladění podle živého webu"`. Server ukončit.
+**Krok 3:** Opravit, kontrola OK, commit `git commit -am "Vizuální doladění podle SSR z master"`. Server ukončit.
 
 ---
 
@@ -874,7 +942,7 @@ jobs:
 
 Workflow nic nebuildí: spustí kontrolu (Python je na runneru předinstalovaný) a nahraje `site/`. Akce GitHubu běží interně na Node, to je ale infrastruktura GitHubu, ne závislost webu.
 
-**Krok 2:** Commit, zatím **nepushovat**. Push proběhne až po vyčištění historie (Task 11), aby se na GitHub nedostala nová větev starých commitů.
+**Krok 2:** Commit. Push je v pořádku, repo je do Tasku 11 soukromé a commity z Tasků 0–10 vyčištění historie stejně přepíše. Workflow ale do zapnutí Pages (Task 11, krok 10) selže na kroku `deploy-pages`. To se očekává a není to chyba.
 
 ```
 git add .github/workflows/pages.yml
@@ -885,7 +953,7 @@ git commit -m "Nasazení na GitHub Pages"
 
 ## Task 11: Vyčištění historie a zveřejnění repa
 
-**Předpoklad:** rozhodnuto „Otevřené“ bod 1 (e-maily, souhlas Jardy). **Nevratné na GitHubu** — force push přepíše všechny hashe.
+**Předpoklad:** e-maily rozhodnuty (sekce „Rozhodnuto“, bod 1). **Nevratné na GitHubu** — force push přepíše všechny hashe.
 
 **Ověřeno nanečisto 2026-10-12** na klonu tehdejšího `master` (166 commitů) ve scratchpadu. Seznamy níže daly:
 - 125 commitů (prázdné filter-repo vynechá), pack 101,6 → 88,6 MiB,
@@ -909,86 +977,39 @@ git clone --mirror https://github.com/lukas-jarda-projects/Sunset-web-w.git C:/w
 git -C C:/work/projects/Sunset-apartment.com bundle create C:/work/archive/Sunset-web-w-lokalni.bundle --all
 ```
 
-Ověřit `git -C C:/work/archive/Sunset-web-w-pred-cistenim.git log --oneline | wc -l` ≥ 166. Bundle je potřeba, protože commity z Tasků 0–10 ještě nejsou na GitHubu.
+Ověřit `git -C C:/work/archive/Sunset-web-w-pred-cistenim.git log --oneline | wc -l` ≥ 166. Bundle je pojistka pro lokální commity, které ještě nemusí být na GitHubu.
 
 **Krok 2: nástroj.** `python -m pip install --user git-filter-repo`, ověřit `python -m git_filter_repo --version` (nanečisto: `a40bce548d2c`).
 
-**Krok 3: seznam cest** `cesty.txt` (ve scratchpadu):
+**Kroky 3–5: vstupy čištění leží MIMO repo** v `C:/work/archive/sunset-cisteni-historie/` (`cesty.txt`, `nahrady.txt`, `mailmap.txt`, `overeni.sh`, `README.md`). Samy obsahují řetězce, které se z historie odstraňují. Kdyby byly v plánu, zveřejnil by je plán sám a ověření by našlo samo sebe. První verze plánu je v repu měla (commit `762968f`). Proto `nahrady.txt` obsahuje i jejich escapované tvary, aby zmizely i z té verze plánu v historii.
+- `cesty.txt`: `lib/`, `Jenkinsfile`, `install.log`, `.ijfw/`, drobné odpadní soubory, `Upravy Webu Sunset.txt`, `src/boot/sentry.js`, backend zrušeného formuláře, weby jiných klientů (`src/dorsys.cz/`, `src/gekon.cz/`, `src/jidelnasql.cz/`) a regexy na snímky systému jídelen v galerii a cizí loga a fotky v `src/assets/`.
+- `nahrady.txt`: interní hostitelé a cesty serveru, port SSH a e-maily Jardy (→ `qwanap@gmail.com`).
+- `mailmap.txt`: autoři commitů Jardy → `Jaroslav Povolný <qwanap@gmail.com>`.
 
-```
-lib/
-Jenkinsfile
-install.log
-.ijfw/
-ads
-asd
-ble.txt
-Upravy Webu Sunset.txt
-podminky/.~lock.UniverzalniPodminkyOchranyOsobnichUdaju.odt#
-src/boot/sentry.js
-src/getRestServerUrl.js
-src/postForm.js
-src/dorsys.cz/
-src/gekon.cz/
-src/jidelnasql.cz/
-src/statics/gekon/
-src/statics/jidelnasql/
-src/pages/IndexJidelna.vue
-src/components/JidelnaGalleryInternet.vue
-regex:^src/statics/galerie/(internetové objednávky|JídelnaSQL|jid-sql|objednávkový terminál|obj-ter|výdejní terminál|vyd-ter|zolik)/
-regex:^src/assets/(1-gek-|background-doors-|background-gekon-|carusel-jidelnasql-|dorsys-|logo-(altisima|dorsys|gekon|jidelnasql)|gekon-|Jidelna-icon|ornamenty-gekon|lzice-vidlicka|reseni-|00[1-4]-)
-```
-
-Před ostrým během znovu projít soupis cest, které jsou jen v historii: `git log --all --format= --name-only | sort -u` porovnat (`comm -23`) s `git ls-files | sort`. Zkontrolovat, jestli od 2026-10-12 nic nepřibylo.
-
-**Krok 4: náhrady v textu** `nahrady.txt`:
-
-```
-example.invalid==>example.invalid
-example.invalid==>example.invalid
-example.invalid==>example.invalid
-qwanap@gmail.com==>NOVY-EMAIL-JARDY
-qwanap@gmail.com==>NOVY-EMAIL-JARDY
-regex:/srv/www-[a-z-]+==>/srv/www
-regex:-([pP]) 22==>-\1 22
-```
-
-E-maily Jardy jsou i v **obsahu** souborů (`"author"` v `package.json`), ne jen v hlavičkách commitů. Proto je potřeba mailmap i náhrada textu. Nanečisto to první verze bez náhrady nechytila.
-
-**Krok 5: autoři** `mailmap.txt` (hodnoty podle „Otevřené“ bod 1):
-
-```
-Jaroslav Povolný <NOVY-EMAIL-JARDY> <qwanap@gmail.com>
-Jaroslav Povolný <NOVY-EMAIL-JARDY> <qwanap@gmail.com>
-```
-
-(a případně `lukas-wana <lukas-wana@users.noreply.github.com> <qwanap@gmail.com>`)
+Před ostrým během znovu projít soupis cest, které jsou jen v historii: `git log --all --format= --name-only | sort -u` porovnat (`comm -23`) s `git ls-files | sort`. Zkontrolovat, jestli od 2026-10-12 nic nepřibylo. Nové soubory s citlivým obsahem doplnit do souborů v archivu, ne do plánu.
 
 **Krok 6: spustit na čerstvém klonu.** Dvě pasti, obě ověřené nanečisto:
 - klon z lokální cesty musí mít `--no-local`, jinak ho filter-repo odmítne jako „not a fresh clone“;
 - globální `~/.gitconfig` obsahuje víceřádkové aliasy (`alias.i`), na kterých filter-repo spadne (`ValueError: dictionary update sequence element #55`). Proto se spouští s prázdnou globální konfigurací.
 
 ```
+A=C:/work/archive/sunset-cisteni-historie
 git clone --no-local C:/work/projects/Sunset-apartment.com C:/work/projects/Sunset-cisteni
 cd C:/work/projects/Sunset-cisteni
-: > <scratchpad>/prazdny.gitconfig
-GIT_CONFIG_GLOBAL=<scratchpad>/prazdny.gitconfig python -m git_filter_repo --invert-paths --paths-from-file <scratchpad>/cesty.txt --replace-text <scratchpad>/nahrady.txt --mailmap <scratchpad>/mailmap.txt
+: > "$A/prazdny.gitconfig"
+GIT_CONFIG_GLOBAL="$A/prazdny.gitconfig" python -m git_filter_repo --invert-paths --paths-from-file "$A/cesty.txt" --replace-text "$A/nahrady.txt" --mailmap "$A/mailmap.txt"
 ```
 
 Očekávané: `Completely finished after … seconds.`
 
-**Krok 7: ověření** (každý příkaz zvlášť; `grep -c` při 0 nálezech vrací exit 1, nespojovat přes `&&`):
+**Krok 7: ověření.**
 
 ```
-git log --all -p --no-color | grep -c -E "example\.invalid|example\.invalid|glitchtip\.|/srv/www-|22|qwanap@|qwanap@"
-git log --all --format= --name-only | sort -u | grep -i -E "^lib/|Jenkinsfile|gek|dorsys|zolik|terminál|objednávky|jid-sql|JídelnaSQL|reseni-|doors|install\.log|Upravy Webu|sentry\.js|postForm|getRestServer"
+sh C:/work/archive/sunset-cisteni-historie/overeni.sh
 python tools/kontrola.py
 ```
 
-Očekávané:
-- 1. příkaz: `0`.
-- 2. příkaz nevypíše nic. Kontrola, že vzor funguje: na původní historii nanečisto našel 130 cest.
-- 3. příkaz: `OK: 0 chyb`, protože `site/` filtr nesmí zasáhnout.
+Očekávané: `overeni.sh` vypíše dvakrát `0` a kontrola `OK: 0 chyb`, protože filtr nesmí zasáhnout `site/`. Kontrola, že vzory fungují: na původní historii našel vzor cest nanečisto 130 cest.
 
 **Krok 8: force push.** filter-repo odstranil remote `origin`, nastavit ho znovu:
 
@@ -1030,7 +1051,7 @@ Proč: bez ověření by doménu mohl na svůj Pages web navázat kdokoli, kdyby
 
 ## Task 13: Převod domény
 
-**Předpoklad:** náhled na `github.io` funguje (Task 11, krok 10), přístup do DNS u Váš Hosting („Otevřené“ bod 2).
+**Předpoklad:** náhled na `github.io` funguje (Task 11, krok 10), přístup do DNS u Váš Hosting má uživatel.
 
 **Krok 1 (den předem):** snížit TTL záznamů `@` A a `www` na 300 s (výchozí TTL zóny je 3600 podle SOA; skutečné TTL záznamů ověřit v administraci). Rollback i převod se pak projeví do 5 minut.
 
@@ -1073,7 +1094,7 @@ curl -sI https://sunset-apartment.com/neexistuje   # 404 s vlastní stránkou
 
 ## Task 14: Vypnutí starého serveru (za ~týden)
 
-**Krok 1:** Po týdnu bez problémů požádat správce serveru Altisimy („Otevřené“ bod 3), aby zastavil a zakázal `sunset-apartment.com.service` a smazal `/srv/www-quasar-webs/sunset-apartment.com`.
+**Krok 1:** Po týdnu bez problémů řekne uživatel Robertovi (šéf Altisimy), aby zastavil a zakázal `sunset-apartment.com.service` a smazal složku webu na serveru (cesta je v historii v `package.json`, skript `deploy:prod`).
 
 **Krok 2:** Vrátit TTL na 3600. Smazat `C:/work/projects/Sunset-apartment.com-stare`. Zálohy v `C:/work/archive/` ponechat.
 
@@ -1084,12 +1105,13 @@ curl -sI https://sunset-apartment.com/neexistuje   # 404 s vlastní stránkou
 ## Předávka
 
 ```
-Pokračuj v projektu C:\work\projects\Sunset-apartment.com podle plánu docs/plans/2026-10-12-staticky-web-github-pages.md.
-Skills: superpowers:executing-plans (plán má tasky s kontrolními body), superpowers:verification-before-completion (kontrola tools/kontrola.py musí skončit OK: 0 chyb, mutační ověření v Tasku 4).
+Pokračuj v projektu C:\work\projects\Sunset-apartment.com podle plánu docs/plans/2026-10-12-staticky-web-github-pages.md (převod Quasar SSR webu na statické HTML na GitHub Pages, varianta B).
+Skills: superpowers:executing-plans (plán má tasky s kontrolními body), superpowers:verification-before-completion (tools/kontrola.py musí skončit „OK: 0 chyb“; mutační ověření v Tasku 4).
 
-Stav: plán napsán 2026-10-12, provádění nezačalo. Začni Taskem 0.
-Před Taskem 11 se zeptej uživatele na bod 1 sekce „Otevřené“ (e-maily v historii, souhlas Jardy).
-Před Taskem 13 se zeptej na bod 2 (přístup do DNS u Váš Hosting).
-Textové úpravy (Bolt, odstranění sekcí) a loga Netflix/YouTube jsou HOTOVÉ, nic z toho znovu neupravuj.
-Force push (Task 11, krok 8) je nevratný: nejdřív obě zálohy z kroku 1 a ověření z kroku 7.
+Stav: plán zkontrolovaný, z Tasku 0 hotový jen build SSR z master (dist/ssr/). Začni Taskem 0 krok 1 (.gitignore), krok 2 (venv s beautifulsoup4), pak spusť místní SSR: PORT=3123 node dist/ssr/index.js (z kořene projektu, na pozadí) a udělej referenční snímky (krok 3b).
+Zdroj převodu je místní SSR z master, NE živý web: živý web běží ze staršího buildu a nemá lokální loga Netflix/YouTube.
+Textové úpravy (Bolt, odstranění sekcí) a loga jsou v master HOTOVÉ, nic z toho neupravuj.
+Rozhodnuto uživatelem: Jardovy e-maily v historii → qwanap@gmail.com (jméno zůstane); DNS u Váš Hosting spravuje uživatel; starý server vypne Robert (šéf Altisimy), uživatel mu to řekne.
+Task 11 (force push, zveřejnění repa) je nevratný: nejdřív obě zálohy z kroku 1 a ověření z kroku 7, před krokem 8 se uživatele zeptej.
+Před Taskem 13 (přepnutí DNS) se zeptej, kdy to uživateli vyhovuje (HTTPS může do hodiny hlásit chybu certifikátu).
 ```
