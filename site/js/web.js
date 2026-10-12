@@ -83,30 +83,169 @@
     pocitadla.forEach(function (el) { el.textContent = el.dataset.to })
   }
 
-  // Záložky: .js-tabs s [role=tab][aria-controls] a [role=tabpanel]
+  // Fotky galerie se postupně objeví, jak vjíždějí do pohledu (a znovu po přepnutí záložky)
+  var odhal = function () {}
+  if (!klid && 'IntersectionObserver' in window) {
+    var pozorovatel = new IntersectionObserver(function (zaznamy) {
+      var n = 0
+      zaznamy.forEach(function (z) {
+        if (!z.isIntersecting) return
+        z.target.style.setProperty('--zpozdeni', Math.min(n++, 8) * 60 + 'ms')
+        z.target.classList.add('videt')
+        pozorovatel.unobserve(z.target)
+      })
+    }, { rootMargin: '0px 0px -40px 0px' })
+    odhal = function (panel) {
+      panel.querySelectorAll('.gallery-item').forEach(function (a) {
+        a.classList.remove('videt')
+        pozorovatel.observe(a)
+      })
+    }
+    document.querySelectorAll('.js-gallery').forEach(function (g) {
+      g.classList.add('js-odhal')
+      odhal(g)
+    })
+  }
+
+  // Záložky: .js-tabs s [role=tab][aria-controls] a [role=tabpanel];
+  // u svislých se oranžový ukazatel posouvá na vybranou záložku
   document.querySelectorAll('.js-tabs').forEach(function (skupina) {
     var tlacitka = skupina.querySelectorAll('[role=tab]')
+    var lista = skupina.querySelector('[role=tablist]')
+    var ukazatel = null
+    function posunUkazatel () {
+      if (!ukazatel) return
+      var b = lista.querySelector('[aria-selected="true"]')
+      ukazatel.style.transform = 'translateY(' + b.offsetTop + 'px)'
+      ukazatel.style.height = b.offsetHeight + 'px'
+    }
+    if (!klid && lista.getAttribute('aria-orientation') === 'vertical') {
+      ukazatel = document.createElement('span')
+      ukazatel.className = 'tab-indikator'
+      ukazatel.setAttribute('aria-hidden', 'true')
+      lista.appendChild(ukazatel)
+      lista.classList.add('ma-indikator')
+      ukazatel.style.transition = 'none'
+      posunUkazatel()
+      void ukazatel.offsetHeight
+      ukazatel.style.transition = ''
+      window.addEventListener('resize', posunUkazatel)
+    }
     function vyber (b) {
+      if (b.getAttribute('aria-selected') === 'true') return
       tlacitka.forEach(function (x) {
         var ano = x === b
         x.setAttribute('aria-selected', ano ? 'true' : 'false')
         document.getElementById(x.getAttribute('aria-controls')).hidden = !ano
       })
+      posunUkazatel()
+      odhal(document.getElementById(b.getAttribute('aria-controls')))
     }
     tlacitka.forEach(function (b) { b.addEventListener('click', function () { vyber(b) }) })
   })
 
-  // Lightbox: odkazy v .js-gallery > a[href] na velké foto; smyčka, šipky, Esc, swipe
+  // Lightbox: odkazy v .js-gallery > a[href] na velké foto; smyčka, šipky, Esc, swipe.
+  // Otevření a zavření: fotka přeletí z náhledu a zpět (View Transitions, bez podpory prolnutí);
+  // listování: stará fotka odjede a nová přijede ve směru kroku.
   var box = null
   var obr = null
   var seznam = []
   var poloha = 0
-  function ukazFoto (n) {
-    poloha = (n + seznam.length) % seznam.length
-    obr.src = seznam[poloha].href
-    obr.alt = seznam[poloha].querySelector('img').alt
+  var bezi = false
+  var umiVT = !klid && typeof document.startViewTransition === 'function'
+  function nic () {}
+  function index (n) { return (n + seznam.length) % seznam.length }
+  function nahled () { return seznam[poloha].querySelector('img') }
+  function viditelny (el) {
+    var r = el.getBoundingClientRect()
+    return r.width > 0 && r.bottom > 0 && r.top < window.innerHeight
   }
-  function zavri () { box.hidden = true; document.body.classList.remove('lightbox-open') }
+  // Načte a dekóduje velkou fotku, ať se do přechodu nedostane prázdný obrázek (nejdéle 1,5 s)
+  function nacti (n) {
+    var img = new Image()
+    img.src = seznam[index(n)].href
+    var dekod = img.decode ? img.decode().catch(nic) : Promise.resolve()
+    return Promise.race([dekod, new Promise(function (r) { setTimeout(r, 1500) })])
+  }
+  function nastav (n) {
+    poloha = index(n)
+    obr.src = seznam[poloha].href
+    obr.alt = nahled().alt
+    new Image().src = seznam[index(poloha + 1)].href
+    new Image().src = seznam[index(poloha - 1)].href
+  }
+  // Přechod uvnitř stránky; třída vt-lokal vypne proužek hlavního menu a nastaví délku prolnutí
+  function prechod (zmena) {
+    if (!umiVT) { zmena(); return Promise.resolve() }
+    var html = document.documentElement
+    html.classList.add('vt-lokal')
+    return document.startViewTransition(zmena).finished.catch(nic).then(function () {
+      html.classList.remove('vt-lokal')
+    })
+  }
+  function otevri (n) {
+    if (bezi) return
+    bezi = true
+    poloha = index(n)
+    var maly = nahled()
+    nacti(poloha).then(function () {
+      var letet = umiVT && viditelny(maly)
+      if (letet) maly.style.viewTransitionName = 'foto'
+      return prechod(function () {
+        maly.style.viewTransitionName = ''
+        nastav(poloha)
+        if (letet) obr.style.viewTransitionName = 'foto'
+        box.hidden = false
+        document.body.classList.add('lightbox-open')
+        if (!umiVT && !klid && box.animate) box.animate([{ opacity: 0 }, { opacity: 1 }], 250)
+      })
+    }).then(function () {
+      obr.style.viewTransitionName = ''
+      bezi = false
+    })
+  }
+  function zavri () {
+    if (box.hidden) return
+    var maly = nahled()
+    // Náhled mimo obraz posuň do pohledu (pod lightboxem to není vidět), ať má fotka kam doletět
+    if (umiVT && !viditelny(maly)) maly.scrollIntoView({ block: 'center' })
+    var polozka = seznam[poloha]
+    polozka.style.transition = 'none'
+    polozka.classList.add('videt')
+    var letet = umiVT && viditelny(maly)
+    if (letet) obr.style.viewTransitionName = 'foto'
+    bezi = true
+    prechod(function () {
+      obr.style.viewTransitionName = ''
+      if (letet) maly.style.viewTransitionName = 'foto'
+      box.hidden = true
+      document.body.classList.remove('lightbox-open')
+    }).then(function () {
+      maly.style.viewTransitionName = ''
+      polozka.style.transition = ''
+      bezi = false
+    })
+  }
+  function ukazFoto (n) {
+    if (bezi || box.hidden) return
+    var smer = n > poloha ? 1 : -1
+    if (klid || !obr.animate) { nastav(n); return }
+    bezi = true
+    var ven = obr.animate([
+      { opacity: 1, transform: 'none' },
+      { opacity: 0, transform: 'translateX(' + (-smer * 48) + 'px)' }
+    ], { duration: 160, easing: 'ease-in', fill: 'forwards' })
+    Promise.all([ven.finished, nacti(n)]).then(function () {
+      nastav(n)
+      return obr.decode ? obr.decode().catch(nic) : null
+    }).then(function () {
+      ven.cancel()
+      return obr.animate([
+        { opacity: 0, transform: 'translateX(' + (smer * 48) + 'px)' },
+        { opacity: 1, transform: 'none' }
+      ], { duration: 220, easing: 'cubic-bezier(0.4, 0, 0.2, 1)' }).finished
+    }).catch(nic).then(function () { bezi = false })
+  }
   function vytvorBox () {
     box = document.createElement('div')
     box.className = 'lightbox'
@@ -135,10 +274,9 @@
       a.addEventListener('click', function (e) {
         e.preventDefault()
         if (!box) vytvorBox()
+        if (bezi) return
         seznam = odkazy
-        ukazFoto(j)
-        box.hidden = false
-        document.body.classList.add('lightbox-open')
+        otevri(j)
       })
     })
   })

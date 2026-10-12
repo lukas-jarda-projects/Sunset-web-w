@@ -17,6 +17,7 @@
 - ~~Task 9~~ hotový (commit „Vizuální doladění podle SSR z master“): opravena chybějící mezera v seznamu míst na Kontaktu. Ověření na skutečném telefonu se přesunulo do Tasku 11, krok 10.
 - ~~Task 10~~ hotový (`a637b53`): workflow, kontrola na runneru Ubuntu prošla, deploy čeká na zapnutí Pages.
 - Task 11: kroky 1–10 hotové 2026-10-12 večer (výsledky tam). Repo na GitHubu bylo smazáno a znovu založeno z vyčištěné historie, protože GitHub po force pushi vydával staré commity podle hashe. Repo je veřejné a náhled běží na `https://lukas-jarda-projects.github.io/Sunset-web-w/`. **Zbývá: ověření na skutečném telefonu** (menu, swipe karuselu, swipe v lightboxu), pak Task 12.
+- Mimo plán, na přání uživatele 2026-10-12 v noci: animace menu a galerie (commit „Animace menu a galerie“, podrobnosti v sekci „Úprava: animace menu a galerie“ před Taskem 12). Uživatel hlásí, že swipe na mobilu funguje.
 
 Místní SSR už spustit nejde: `node_modules/` a `dist/` jsou od Tasku 8 smazané. Task 9 porovnává s `.reference/`. Kdyby bylo SSR někdy potřeba, je třeba checkout tagu `quasar-posledni` a nový build.
 
@@ -1118,6 +1119,23 @@ Pak v Settings → Pages → Source zvolit **GitHub Actions**. Spustit workflow 
 
 ---
 
+## Úprava: animace menu a galerie (2026-10-12 noc, na přání uživatele)
+
+Uživatel chtěl, aby oranžové zvýraznění v menu přejíždělo z položky na položku. Po schválení prvního kroku chtěl podobné animace i v galerii.
+
+- **Hlavní menu** (`site/css/web.css`): stránky jsou samostatná HTML, proto se použily View Transitions mezi dokumenty (`@view-transition { navigation: auto; types: stranka }`). Aktivní `.q-tab__indicator` má `view-transition-name: nav-indikator` a prohlížeč ho přesune na novou položku (0,35 s). Zbytek stránky se přepne okamžitě (`::view-transition-group(root)` bez animace, jen u typu `stranka`). Platí jen od 1024 px: na mobilu je menu po načtení zavřené a proužek by odjel mimo obraz. Podpora: Chrome a Edge od 126, Safari 18.2. Firefox přepne stránku bez animace.
+- **Záložky galerie** (`web.js`, sekce Záložky): u svislého `tablist` vznikne `span.tab-indikator`, který se posouvá na vybranou záložku. Původní `box-shadow` zvýraznění zůstává, když JS neběží.
+- **Fotky v mřížce:** objeví se postupně (vyjedou o 16 px a zesílí, s odstupem 60 ms, nejvýš 8 kroků), jakmile vjedou do pohledu. Po přepnutí záložky znovu. Skryté jsou jen přes třídu `js-odhal`, kterou přidává JS, takže bez JS je galerie vidět celá.
+- **Detail (lightbox):** fotka přeletí z náhledu do lightboxu a při zavření zpět, i po přelistování na jinou fotku. Náhled mimo obraz se před zavřením posune do pohledu. Velká fotka se před přechodem dekóduje (nejdéle 1,5 s). Během přechodu má `html` třídu `vt-lokal`, která vypne jméno proužku hlavního menu, jinak by proužek vyskočil nad tmavé pozadí.
+- **Listování:** stará fotka odjede o 48 px proti směru kroku a nová přijede (Web Animations). Funguje pro šipky, klávesy i swipe. Sousední fotky se přednačítají.
+- Všechno se vypíná při `prefers-reduced-motion: reduce`.
+
+**Ověřeno 2026-10-12:** headless Chrome 154 přes CDP, skript `vt_test.mjs` ve scratchpadu, na šířkách 1400 a 400 px. Přechod z úvodní stránky do galerie má typ `stranka` a jedinou skupinu `nav-indikator` (na 400 px přechod není, jak má být). Ukazatel záložek je za 150 ms v polovině cesty a pak skončí na `translateY(96px)`. Fotky přepnuté záložky jsou za 150 ms napůl průhledné a za 1 s všechny viditelné, na 400 px 11 ze 17. Otevření i zavření (i po přelistování přes začátek na poslední fotku) má skupinu `foto`. Listování za 80 ms ukazuje `opacity 0,73` a posun −13 px, smyčka přes začátek funguje. Po zavření nezůstalo žádné `view-transition-name` ani třída `vt-lokal`, chyby v konzoli 0. `tools/kontrola.py` = OK.
+- **Neplatný pokus:** v okně Chrome přes rozšíření se přechody netestují, protože okno bylo na pozadí. Skrytý dokument přechod zruší („Document hidden“) a zmrazí i animace. Testovat jen headless (stránka je tam viditelná), nebo s oknem v popředí.
+- **Past cache:** `location.reload()` v Chrome 154 načetl `web.js` znovu z cache (`deliveryType: cache`). Pomohl `fetch(url, {cache: 'reload'})` a pak reload, v CDP `Network.setCacheDisabled`. Pages posílá `max-age=600`, takže návštěvníci dostanou novou verzi nejpozději do 10 minut.
+
+---
+
 ## Task 12: Ověření domény v organizaci (ochrana proti převzetí)
 
 **Krok 1:** GitHub → organizace `lukas-jarda-projects` → Settings → Pages → **Add a domain** → `sunset-apartment.com`. GitHub vypíše TXT záznam `_github-pages-challenge-lukas-jarda-projects.sunset-apartment.com` s hodnotou.
@@ -1194,10 +1212,11 @@ Pokračuj v projektu C:\work\projects\Sunset-apartment.com podle plánu docs/pla
 Skills: superpowers:executing-plans (plán má tasky s kontrolními body), superpowers:verification-before-completion (ověření DNS a curl v Tasku 13 mají přesné očekávané výstupy).
 
 Stav (2026-10-12 večer): Tasky 0–11 hotové, z Tasku 11 chybí jen test na telefonu. Repo lukas-jarda-projects/Sunset-web-w je VEŘEJNÉ s vyčištěnou historií. Na GitHubu bylo smazáno a založeno znovu, protože po force pushi GitHub dál vydával staré commity podle hashe (podrobnosti u Tasku 11, „Provedeno“ u kroku 8). Pages běží z GitHub Actions, náhled je https://lukas-jarda-projects.github.io/Sunset-web-w/ (4 stránky 200, 404 vlastní, 84 interních odkazů bez chyby). python tools/kontrola.py = „OK: 0 chyb, 210 odkazů, web 18.7 MB“.
+Navíc na přání uživatele hotové animace menu a galerie (sekce „Úprava: animace menu a galerie“ před Taskem 12), nasazené na Pages.
 Pracovní kopie C:\work\projects\Sunset-apartment.com je vyčištěné repo. Staré repo je v C:\work\projects\Sunset-apartment.com-stare BEZ remote (aby se stará historie nedala pushnout zpět), smazat až v Tasku 14. Zálohy staré historie: C:/work/archive/Sunset-web-w-pred-cistenim.git (mirror do aca86c0) a C:/work/archive/Sunset-web-w-lokalni-45017f9.bundle.
 
 Další kroky:
-1. Zeptej se uživatele na výsledek testu na skutečném telefonu (menu, swipe karuselu, swipe v lightboxu galerie). Zatím NEOVĚŘENO. Výsledek zapiš do Tasku 11, krok 10.
+1. Uživatel 2026-10-12 hlásil „swipe na mobilu funguje“ (bez upřesnění, jestli karusel, lightbox, nebo obojí). Doptej se na menu, karusel a lightbox včetně nových animací galerie a výsledek zapiš do Tasku 11, krok 10.
 2. Task 12: přidání domény v organizaci dělá uživatel v UI GitHubu, TXT záznam u Váš Hosting taky on. Ty ověříš nslookupem podle plánu.
 3. Task 13 (přepnutí DNS): předem se zeptej, kdy to uživateli vyhovuje (HTTPS může do hodiny hlásit chybu certifikátu). IP adresy GitHubu ověř v aktuální dokumentaci.
 

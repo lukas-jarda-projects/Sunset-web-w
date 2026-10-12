@@ -13,6 +13,30 @@
   display: none;
 }
 
+/* Oranžový proužek pod položkou menu při prokliku dojede na novou položku
+   (View Transitions mezi stránkami; prohlížeč bez podpory jen přepne stránku).
+   Jen desktop: na mobilu je menu po načtení stránky zavřené a proužek by odjel mimo obraz. */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+    types: stranka;
+  }
+  .site-nav .q-tab--active .q-tab__indicator {
+    view-transition-name: nav-indikator;
+  }
+  /* Při přechodech uvnitř stránky (detail fotky) proužek nesmí vyskočit nad tmavé pozadí */
+  html.vt-lokal .site-nav .q-tab__indicator {
+    view-transition-name: none;
+  }
+  html:active-view-transition-type(stranka)::view-transition-group(root) {
+    animation: none;
+  }
+  ::view-transition-group(nav-indikator) {
+    animation-duration: 0.35s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
 @media (max-width: 1023px) {
   .site-nav {
     position: fixed;
@@ -266,6 +290,42 @@
 }
 body.lightbox-open {
   overflow: hidden;
+}
+
+/* Animace galerie (web.js je zapíná jen bez prefers-reduced-motion) */
+.gallery-tabs [role="tablist"] {
+  position: relative;
+}
+.tab-indikator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2px;
+  background: #ffad14;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ma-indikator [role="tab"][aria-selected="true"] {
+  box-shadow: none;
+}
+.js-odhal .gallery-item {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.js-odhal .gallery-item.videt {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.45s ease-out, transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: var(--zpozdeni, 0ms);
+}
+/* Detail: fotka přeletí z náhledu do lightboxu a zpět, tmavé pozadí se prolne */
+::view-transition-group(foto) {
+  animation-duration: 0.35s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+html.vt-lokal::view-transition-old(root),
+html.vt-lokal::view-transition-new(root) {
+  animation-duration: 0.35s;
 }
 
 @media (prefers-reduced-motion: reduce) {
