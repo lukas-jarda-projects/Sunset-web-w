@@ -1014,7 +1014,7 @@ git add .github/workflows/pages.yml
 git commit -m "Nasazení na GitHub Pages"
 ```
 
-**Provedeno 2026-10-12:** `pages.yml` beze změny proti plánu, commit `a637b53`, pushnuto. Běh `38287832071`: checkout a **„Kontrola webu“ na Ubuntu prošly** (`OK: 0 chyb, 210 odkazů, web 18.7 MB`), `configure-pages` selhal na nezapnutých Pages (očekávané), zbytek přeskočen. Před pushem ověřeno, že Linux nebude mít problém s velikostí písmen: všech 203 odkazů na soubory webu v HTML a CSS (relativních i od kořene, bez externích a `data:`) sedí přesně na názvy na disku a názvy v gitu sedí s diskem 97/97. Repo má `core.ignorecase=true`, takže tyhle rozdíly by Windows neukázal. Každý další push do zapnutí Pages spustí workflow, který stejně selže: 2026-10-12 to byly ještě běhy pro `aca86c0`, `3675b2f` a `c6ea628`, všechny `failure`. GitHub o nich může posílat e-maily.
+**Provedeno 2026-10-12:** `pages.yml` beze změny proti plánu, commit `a637b53`, pushnuto. Běh `38287832071`: checkout a **„Kontrola webu“ na Ubuntu prošly** (`OK: 0 chyb, 210 odkazů, web 18.7 MB`), `configure-pages` selhal na nezapnutých Pages (očekávané), zbytek přeskočen. Před pushem ověřeno, že Linux nebude mít problém s velikostí písmen: všech 203 odkazů na soubory webu v HTML a CSS (relativních i od kořene, bez externích a `data:`) sedí přesně na názvy na disku a názvy v gitu sedí s diskem 97/97. Repo má `core.ignorecase=true`, takže tyhle rozdíly by Windows neukázal. Každý další push do zapnutí Pages spustí workflow, který selže stejně (všechny běhy po `a637b53` jsou `failure`, viz `gh run list`). GitHub o nich může posílat e-maily.
 
 ---
 
