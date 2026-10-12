@@ -16,7 +16,10 @@
 - ~~Task 8~~ hotový (`0090d78` úklid markupu + tag `quasar-posledni`, smazání Quasar projektu v commitu níž). Repo obsahuje jen `site/`, `tools/`, `docs/`, README a `.gitignore`.
 - ~~Task 9~~ hotový (commit „Vizuální doladění podle SSR z master“): opravena chybějící mezera v seznamu míst na Kontaktu. Ověření na skutečném telefonu se přesunulo do Tasku 11, krok 10.
 - ~~Task 10~~ hotový (`a637b53`): workflow, kontrola na runneru Ubuntu prošla, deploy čeká na zapnutí Pages.
-- Task 11: kroky 1–10 hotové 2026-10-12 večer (výsledky tam). Repo na GitHubu bylo smazáno a znovu založeno z vyčištěné historie, protože GitHub po force pushi vydával staré commity podle hashe. Repo je veřejné a náhled běží na `https://lukas-jarda-projects.github.io/Sunset-web-w/`. **Zbývá: ověření na skutečném telefonu** (menu, swipe karuselu, swipe v lightboxu), pak Task 12.
+- Task 11: kroky 1–10 hotové 2026-10-12 večer (výsledky tam). Repo na GitHubu bylo smazáno a znovu založeno z vyčištěné historie, protože GitHub po force pushi vydával staré commity podle hashe. Repo je veřejné a náhled běží na `https://lukas-jarda-projects.github.io/Sunset-web-w/`. Neověřené na skutečném telefonu zůstává mobilní menu, swipe karuselu a animace galerie.
+- ~~Task 12~~ hotový 2026-10-12 v noci: doména ověřena v organizaci.
+- ~~Task 13~~ hotový 2026-10-13 kolem 00:20: **web běží na `https://sunset-apartment.com/`**, `www` přesměrovává, HTTPS vynucené. Výsledky jsou v „Provedeno“ u Tasku 13. Search Console a GA (krok 6) čekají na uživatele.
+- Task 14 (vypnutí starého serveru) nejdřív 2026-10-20.
 - Mimo plán, na přání uživatele 2026-10-12 v noci: animace menu a galerie (commit „Animace menu a galerie“, podrobnosti v sekci „Úprava: animace menu a galerie“ před Taskem 12). Uživatel na telefonu potvrdil swipe a pinch zoom v detailu.
 
 Místní SSR už spustit nejde: `node_modules/` a `dist/` jsou od Tasku 8 smazané. Task 9 porovnává s `.reference/`. Kdyby bylo SSR někdy potřeba, je třeba checkout tagu `quasar-posledni` a nový build.
@@ -1158,6 +1161,9 @@ Pak na GitHubu **Verify**.
 
 Proč: bez ověření by doménu mohl na svůj Pages web navázat kdokoli, kdyby ji repo přestalo používat.
 
+**Provedeno 2026-10-12 (na pokyn uživatele, přes Chrome):** doména přidána v organizaci, TXT záznam `_github-pages-challenge-lukas-jarda-projects` založen u Váš Hosting s TTL 300. Autoritativní `ns.vas-hosting.cz` ho vydával během pár minut a GitHub hlásí „Successfully verified sunset-apartment.com“ (stav `Verified`). TXT záznam musí v DNS zůstat.
+- Past: dokud TXT nebyl v zóně, dotaz na něj vracel SPF apexu. Příčinou byl wildcard `*.sunset-apartment.com` CNAME na apex (smazán v Tasku 13).
+
 ---
 
 ## Task 13: Převod domény
@@ -1201,13 +1207,22 @@ curl -sI https://sunset-apartment.com/neexistuje   # 404 s vlastní stránkou
 
 **Rollback:** vrátit A záznam na `185.175.84.157`, smazat AAAA a `www` vrátit na alias apexu. Starý server zatím běží (Task 14), takže web je zpět do 5 minut.
 
+**Provedeno 2026-10-12/13 v noci (na pokyn uživatele „web sprovozni“, DNS v administraci Váš Hosting přes Chrome):**
+- Krok 1 vynechán: uživatel chtěl přepnout hned. Původní TTL záznamů bylo **1800**, ne 3600. Nové záznamy mají TTL 300.
+- Krok 2: IP adresy ověřeny v dokumentaci GitHubu a souhlasí s tabulkou. Zadány 4× A, 4× AAAA a `www` CNAME `lukas-jarda-projects.github.io` (záznam upraven, ne smazán). Starý A `185.175.84.157` smazán. **Navíc smazán wildcard `*.sunset-apartment.com` CNAME na apex**: po přepnutí by mířil na GitHub, a dokumentace GitHubu wildcard výslovně nedoporučuje kvůli převzetí subdomén. Rozhodl uživatel. Pošta (MX, `autoconfig`, `autodiscover`, SRV, SPF, DKIM) beze změny. Autoritativní servery vydávaly nový stav do ~10 minut. Google DNS 8.8.8.8 držel starou IP z cache ještě asi 30 minut.
+- Krok 3: doména nastavena přes `gh api -X PUT repos/lukas-jarda-projects/Sunset-web-w/pages -f cname=sunset-apartment.com` (`protected_domain_state: verified`). U Actions workflow stačí, redeploy nebyl potřeba.
+- Krok 4: **certifikát se 20 minut vůbec nezačal vydávat** (`https_certificate: null`, `/pages/health` prázdné). Doménu jsem ukládal ve chvíli, kdy Google DNS ještě vracel starou IP. Pomohlo ji smazat a uložit znovu (`-F cname=null`, pak znovu `-f cname=…`): do 20 s byl certifikát `approved` pro apex i `www`, platný do 2027-01-10. Pak `-F https_enforced=true`.
+- Krok 5, výsledky 2026-10-13 kolem 00:20: `nslookup` na 8.8.8.8 dává 4× `185.199.10x.153` a 4× AAAA. `https://sunset-apartment.com/` = 200, `server: GitHub.com`. `https://www.` → 301 na `https://sunset-apartment.com/`. `/about` → 301 na `/about/`. `http://` (apex i www) → 301 na https. `/neexistuje` = 404 s titulkem „Stránka nenalezena – Sunset Apartment“. `/about/`, `/photo/`, `/contact/` a `sitemap.xml` = 200. Stránky odkazují na `web.css?v=43f23be` a `web.js?v=43f23be`. Prohlídka všech 4 stránek a 404 skriptem (`href`, `src`, `srcset`): **84 interních odkazů, 0 chyb**, stejně jako na náhledu. Úvodní stránka v Chrome vypadá správně. Starý náhled na `github.io/Sunset-web-w/` teď přesměruje na doménu.
+  - Neplatné měření: první `curl -sI` na `/neexistuje`, `/photo/` a `/contact/` nevrátil nic (příčinu jsem nezjišťoval). Opakování přes GET (`curl -s -o /dev/null -w '%{http_code}'`) vrátilo hodnoty výše.
+- Krok 6 neproveden: přístup do Search Console a GA má uživatel.
+
 ---
 
 ## Task 14: Vypnutí starého serveru (za ~týden)
 
 **Krok 1:** Po týdnu bez problémů řekne uživatel Robertovi (šéf Altisimy), aby zastavil a zakázal `sunset-apartment.com.service` a smazal složku webu na serveru (cesta je v historii v `package.json`, skript `deploy:prod`). Navíc ať smaže job webu v Jenkinsu Altisimy: webhook z GitHubu zmizel se smazáním repa 2026-10-12, ale job na jejich straně nejspíš zůstal.
 
-**Krok 2:** Vrátit TTL na 3600. Smazat `C:/work/projects/Sunset-apartment.com-stare`. Zálohy v `C:/work/archive/` ponechat.
+**Krok 2:** Vrátit TTL záznamů A, AAAA a `www` z 300 na 1800 (původní hodnota zóny u Váš Hosting). TXT `_github-pages-challenge-…` nechat, ověření domény ho potřebuje. Smazat `C:/work/projects/Sunset-apartment.com-stare`. Zálohy v `C:/work/archive/` ponechat.
 
 **Krok 3:** Plán označit jako dokončený a v `Stav` uvést hash posledního commitu a datum převodu.
 
@@ -1216,24 +1231,22 @@ curl -sI https://sunset-apartment.com/neexistuje   # 404 s vlastní stránkou
 ## Předávka
 
 ```
-Pokračuj v projektu C:\work\projects\Sunset-apartment.com podle plánu docs/plans/2026-10-12-staticky-web-github-pages.md (převod Quasar SSR webu na statické HTML na GitHub Pages, varianta B).
-Skills: superpowers:executing-plans (plán má tasky s kontrolními body), superpowers:verification-before-completion (ověření DNS a curl v Tasku 13 mají přesné očekávané výstupy).
+Pokračuj v projektu C:\work\projects\Sunset-apartment.com podle plánu docs/plans/2026-10-12-staticky-web-github-pages.md (statický web na GitHub Pages, varianta B).
+Skills: superpowers:executing-plans (zbývá Task 14 s kroky a kontrolním bodem).
 
-Stav (2026-10-12 večer): Tasky 0–11 hotové, z Tasku 11 chybí jen test na telefonu. Repo lukas-jarda-projects/Sunset-web-w je VEŘEJNÉ s vyčištěnou historií. Na GitHubu bylo smazáno a založeno znovu, protože po force pushi GitHub dál vydával staré commity podle hashe (podrobnosti u Tasku 11, „Provedeno“ u kroku 8). Pages běží z GitHub Actions, náhled je https://lukas-jarda-projects.github.io/Sunset-web-w/ (4 stránky 200, 404 vlastní, 84 interních odkazů bez chyby). python tools/kontrola.py = „OK: 0 chyb, 210 odkazů, web 18.7 MB“.
-Navíc na přání uživatele hotové animace menu a galerie a zoom v detailu fotky (sekce „Úprava: animace menu a galerie“ před Taskem 12), nasazené na Pages.
-Pracovní kopie C:\work\projects\Sunset-apartment.com je vyčištěné repo. Staré repo je v C:\work\projects\Sunset-apartment.com-stare BEZ remote (aby se stará historie nedala pushnout zpět), smazat až v Tasku 14. Zálohy staré historie: C:/work/archive/Sunset-web-w-pred-cistenim.git (mirror do aca86c0) a C:/work/archive/Sunset-web-w-lokalni-45017f9.bundle.
+Stav (2026-10-13 kolem 00:20): Tasky 0–13 hotové. Web běží na https://sunset-apartment.com/ z GitHub Pages (repo lukas-jarda-projects/Sunset-web-w, veřejné). www i http přesměrovávají na https apex, certifikát pro apex i www je approved (platnost do 2027-01-10), HTTPS vynucené. Na živé doméně 84 interních odkazů bez chyby, 404 vlastní. Doména je ověřená v organizaci (TXT _github-pages-challenge-lukas-jarda-projects musí v DNS zůstat). DNS u Váš Hosting: 4× A a 4× AAAA GitHubu, www CNAME lukas-jarda-projects.github.io, vše TTL 300. Wildcard *.sunset-apartment.com smazán (rozhodl uživatel), pošta beze změny. Výsledky jsou v „Provedeno“ u Tasků 12 a 13.
 
 Další kroky:
-1. Na telefonu uživatel potvrdil swipe a pinch zoom v detailu galerie. Neověřené zbývá mobilní menu, swipe karuselu na úvodní stránce a animace galerie (ukazatel záložek, postupné objevení fotek, přelet do detailu). Doptej se a výsledek zapiš do Tasku 11, krok 10.
-2. Task 12: přidání domény v organizaci dělá uživatel v UI GitHubu, TXT záznam u Váš Hosting taky on. Ty ověříš nslookupem podle plánu.
-3. Task 13 (přepnutí DNS): předem se zeptej, kdy to uživateli vyhovuje (HTTPS může do hodiny hlásit chybu certifikátu). IP adresy GitHubu ověř v aktuální dokumentaci.
+1. Krok 6 Tasku 13 dělá uživatel: Search Console (odeslat sitemap.xml, pokud je doména přidaná) a GA Realtime. Zeptej se na výsledek a zapiš ho.
+2. Na skutečném telefonu zůstává neověřené mobilní menu, swipe karuselu a animace galerie (Task 11, krok 10). Doptej se.
+3. Task 14 nejdřív 2026-10-20: uživatel řekne Robertovi, ať vypne službu a job v Jenkinsu. Pak TTL A, AAAA a www z 300 zpět na 1800 (původní hodnota, ne 3600) a smazat C:\work\projects\Sunset-apartment.com-stare.
 
 Pozor:
-- Auto režim blokuje force push, mazání repa i změnu viditelnosti. Takové příkazy dávej uživateli k spuštění přes ! a vždy na JEDEN řádek (zalomený příkaz se rozpadne).
-- Token gh má od této session scope delete_repo. Uživatel ho VĚDOMĚ ponechal: stejný postup (vyčištění historie a nové založení repa) čeká projekt chatavpekle.cz. Neodebírat a nepřipomínat; odebrat (gh auth refresh -h github.com -r delete_repo) až po dokončení chatavpekle.cz.
-- Do plánu ani commitů nepiš interní hostitele Altisimy. Vzory jsou v C:/work/archive/sunset-cisteni-historie/overeni.sh (mimo repo). Před commitem plánu je projdi grepem.
-- Rozhodnuto uživatelem: DNS u Váš Hosting spravuje uživatel. Starý server a job v Jenkinsu Altisimy vypne Robert, uživatel mu to řekne (Task 14).
-- Snímky headless Chromem: čerstvý --user-data-dir pro každý běh, mobil přes iframe 400 px, MSYS_NO_PATHCONV=1. Port 8000 je obsazený, náhled jde na 8772.
-- Animace a gesta se netestují v okně Chrome přes rozšíření, když okno není v popředí: skrytý dokument zruší View Transitions a zmrazí animace. Testuj headless přes CDP (postup v sekci „Úprava: animace menu a galerie“).
-- Workflow přidává k web.css a web.js ?v=<commit> (krok „Verze CSS a JS“). Nová stránka, která je načítá, musí mít odkaz končící přesně web.css" nebo web.js", jinak ji sed nechytí.
+- Rollback do té doby: A zpět na 185.175.84.157, smazat AAAA, www CNAME zpět na sunset-apartment.com. Starý server běží až do Tasku 14.
+- Když GitHub nevydá certifikát (https_certificate null), smaž a znovu ulož custom doménu: gh api -X PUT repos/lukas-jarda-projects/Sunset-web-w/pages -F cname=null a pak -f cname=sunset-apartment.com. Tak to vyřešilo převod 13. 10.
+- Smazání záznamu v administraci Váš Hosting potvrzuje vlastní panel vpravo („Ano, smazat“), ne dialog prohlížeče. Typ záznamu je vlastní rozbalovací seznam: po přidání záznamu se vrátí na A a první klik na něj se často nechytí.
+- Auto režim blokuje force push, mazání repa i změnu viditelnosti. Takové příkazy dávej uživateli k spuštění přes ! a vždy na JEDEN řádek.
+- Token gh má scope delete_repo VĚDOMĚ (čeká ho projekt chatavpekle.cz). Neodebírat a nepřipomínat.
+- Do plánu ani commitů nepiš interní hostitele Altisimy. Vzory jsou v C:/work/archive/sunset-cisteni-historie/overeni.sh. Před commitem plánu je projdi grepem.
+- Workflow přidává k web.css a web.js ?v=<commit>. Nová stránka, která je načítá, musí mít odkaz končící přesně web.css" nebo web.js".
 ```
