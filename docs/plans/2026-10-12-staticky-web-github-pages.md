@@ -16,7 +16,7 @@
 - ~~Task 8~~ hotový (`0090d78` úklid markupu + tag `quasar-posledni`, smazání Quasar projektu v commitu níž). Repo obsahuje jen `site/`, `tools/`, `docs/`, README a `.gitignore`.
 - ~~Task 9~~ hotový (commit „Vizuální doladění podle SSR z master“): opravena chybějící mezera v seznamu míst na Kontaktu. Ověření na skutečném telefonu se přesunulo do Tasku 11, krok 10.
 - ~~Task 10~~ hotový (`a637b53`): workflow, kontrola na runneru Ubuntu prošla, deploy čeká na zapnutí Pages.
-- Task 11: kroky 1–9 hotové 2026-10-12 večer (výsledky tam). Repo na GitHubu bylo smazáno a znovu založeno z vyčištěné historie, protože GitHub po force pushi vydával staré commity podle hashe. **Další na řadě: krok 10, zveřejnění a zapnutí Pages.**
+- Task 11: kroky 1–10 hotové 2026-10-12 večer (výsledky tam). Repo na GitHubu bylo smazáno a znovu založeno z vyčištěné historie, protože GitHub po force pushi vydával staré commity podle hashe. Repo je veřejné a náhled běží na `https://lukas-jarda-projects.github.io/Sunset-web-w/`. **Zbývá: ověření na skutečném telefonu** (menu, swipe karuselu, swipe v lightboxu), pak Task 12.
 
 Místní SSR už spustit nejde: `node_modules/` a `dist/` jsou od Tasku 8 smazané. Task 9 porovnává s `.reference/`. Kdyby bylo SSR někdy potřeba, je třeba checkout tagu `quasar-posledni` a nový build.
 
@@ -1112,7 +1112,9 @@ gh repo edit lukas-jarda-projects/Sunset-web-w --visibility public --accept-visi
 
 Pak v Settings → Pages → Source zvolit **GitHub Actions**. Spustit workflow (`gh workflow run Pages`) a ověřit náhled na `https://lukas-jarda-projects.github.io/Sunset-web-w/`: všechny 4 stránky, galerie, menu na mobilu. **Na skutečném telefonu** (zbylo z Tasku 9): menu, swipe karuselu a swipe v lightboxu galerie.
 
-GitHub může mít staré commity ještě nějakou dobu v cache podle hashe. Úplné odstranění řeší podpora GitHubu („remove cached views“). Při 0 forcích a soukromém repu do této chvíle to riziko je malé.
+~~GitHub může mít staré commity ještě nějakou dobu v cache podle hashe. Úplné odstranění řeší podpora GitHubu („remove cached views“). Při 0 forcích a soukromém repu do této chvíle to riziko je malé.~~ Vyřešeno smazáním a novým založením repa (viz „Provedeno“ u kroku 8).
+
+**Provedeno 2026-10-12 večer (krok 10):** zveřejnění spustil uživatel přes `!` (auto režim ho blokuje jako „Create Public Surface“). Pages zapnuté přes API: `gh api -X POST repos/lukas-jarda-projects/Sunset-web-w/pages -f build_type=workflow`, takže zdroj je GitHub Actions. Běh `38299222731` (`workflow_dispatch` na `162b7f0`) prošel všemi kroky včetně kontroly webu a `deploy-pages`. Náhled: `/`, `/about/`, `/contact/` a `/photo/` vrací 200, `/neexistuje` vrací 404 s vlastní stránkou („Stránka nenalezena – Sunset Apartment“). Skript ve scratchpadu prošel `href`, `src` a `srcset` ve všech stránkách náhledu: 84 interních odkazů, 0 chybných. Odkazy v CSS (`url()`) kontroluje jen `tools/kontrola.py` lokálně a na runneru. Workflow hlásí jen varování: Node 20 v akcích je zastaralý a od 19. 10. 2026 se `ubuntu-latest` přepne na Ubuntu 26. Nic z toho zatím nevadí. **Na skutečném telefonu zatím neověřeno.**
 
 ---
 
