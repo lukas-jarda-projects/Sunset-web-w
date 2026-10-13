@@ -19,7 +19,7 @@
 - Task 11: kroky 1–10 hotové 2026-10-12 večer (výsledky tam). Repo na GitHubu bylo smazáno a znovu založeno z vyčištěné historie, protože GitHub po force pushi vydával staré commity podle hashe. Repo je veřejné a náhled běží na `https://lukas-jarda-projects.github.io/Sunset-web-w/`. ~~Neověřené na skutečném telefonu zůstává mobilní menu, swipe karuselu a animace galerie.~~ Uživatel 2026-10-13 na telefonu potvrdil: menu, swipe i galerie fungují.
 - ~~Task 12~~ hotový 2026-10-12 v noci: doména ověřena v organizaci.
 - ~~Task 13~~ hotový 2026-10-13 kolem 00:20: **web běží na `https://sunset-apartment.com/`**, `www` přesměrovává, HTTPS vynucené. Výsledky jsou v „Provedeno“ u Tasku 13. Krok 6 (Search Console a GA) se nedělá, uživatel 2026-10-13: „nepotřebuju“.
-- Task 14 (vypnutí starého serveru) nejdřív 2026-10-20.
+- Task 14 (vypnutí starého serveru): ~~nejdřív 2026-10-20~~ uživatel 2026-10-13 rozhodl, že Robertovi řekne hned. Týdenní lhůta byla jen pojistka pro rychlý rollback. Technicky nic nebrání: DNS přepnuto ve 23:55, staré TTL 1800, a žádný záznam zóny na `185.175.84.157` nemíří (ověřeno `nslookup` proti `ns.vas-hosting.cz`, `autoconfig` vede na `mail.vas-hosting.cz`).
 - Mimo plán, na přání uživatele 2026-10-12 v noci: animace menu a galerie (commit „Animace menu a galerie“, podrobnosti v sekci „Úprava: animace menu a galerie“ před Taskem 12). Uživatel na telefonu potvrdil swipe a pinch zoom v detailu.
 
 Místní SSR už spustit nejde: `node_modules/` a `dist/` jsou od Tasku 8 smazané. Task 9 porovnává s `.reference/`. Kdyby bylo SSR někdy potřeba, je třeba checkout tagu `quasar-posledni` a nový build.
@@ -1219,9 +1219,9 @@ curl -sI https://sunset-apartment.com/neexistuje   # 404 s vlastní stránkou
 
 ---
 
-## Task 14: Vypnutí starého serveru (za ~týden)
+## Task 14: Vypnutí starého serveru (~~za ~týden~~ hned po převodu, rozhodl uživatel 2026-10-13)
 
-**Krok 1:** Po týdnu bez problémů řekne uživatel Robertovi (šéf Altisimy), aby zastavil a zakázal `sunset-apartment.com.service` a smazal složku webu na serveru (cesta je v historii v `package.json`, skript `deploy:prod`). Navíc ať smaže job webu v Jenkinsu Altisimy: webhook z GitHubu zmizel se smazáním repa 2026-10-12, ale job na jejich straně nejspíš zůstal.
+**Krok 1:** ~~Po týdnu bez problémů~~ Hned (rozhodnutí uživatele 2026-10-13, cenou je ztráta rollbacku na starý server) řekne uživatel Robertovi (šéf Altisimy), aby zastavil a zakázal `sunset-apartment.com.service` a smazal složku webu na serveru (cesta je v historii v `package.json`, skript `deploy:prod`). Navíc ať smaže job webu v Jenkinsu Altisimy: webhook z GitHubu zmizel se smazáním repa 2026-10-12, ale job na jejich straně nejspíš zůstal.
 
 **Krok 2:** Vrátit TTL záznamů A, AAAA a `www` z 300 na 1800 (původní hodnota zóny u Váš Hosting). TXT `_github-pages-challenge-…` nechat, ověření domény ho potřebuje. Smazat `C:/work/projects/Sunset-apartment.com-stare`. Zálohy v `C:/work/archive/` ponechat.
 
@@ -1237,13 +1237,13 @@ Skills: superpowers:executing-plans (zbývá Task 14 s kroky a kontrolním bodem
 
 Stav (2026-10-13): Tasky 0–13 hotové a ověřené. Web běží na https://sunset-apartment.com/ z GitHub Pages (repo lukas-jarda-projects/Sunset-web-w, veřejné). Kontrola 13. 10. kolem 00:30: apex 200, www i http 301 na https apex, 404 vlastní, certifikát approved do 2027-01-10, HTTPS vynucené. Na telefonu uživatel potvrdil, že fungují menu, swipe karuselu i galerie. Search Console a GA uživatel nechce (krok 6 Tasku 13 zrušen). Web stejně žádný kód GA nemá, protože v master byl zakomentovaný. DNS u Váš Hosting: 4× A a 4× AAAA GitHubu, www CNAME lukas-jarda-projects.github.io, vše s TTL 300. TXT _github-pages-challenge-lukas-jarda-projects musí zůstat.
 
-Další krok — Task 14, nejdřív 2026-10-20:
-1. Zeptej se uživatele, jestli web týden běžel bez problémů a jestli už Robertovi řekl, ať vypne sunset-apartment.com.service, smaže složku webu a job v Jenkinsu.
+Další krok — Task 14 (uživatel 2026-10-13 rozhodl, že Robertovi řekne hned, ne až za týden):
+1. Zeptej se uživatele, jestli už Robertovi řekl a jestli Robert potvrdil, ať vypne sunset-apartment.com.service, smaže složku webu a job v Jenkinsu.
 2. Až to potvrdí: v administraci Váš Hosting vrať TTL A, AAAA a www z 300 na 1800 (původní hodnota, ne 3600). Smaž C:\work\projects\Sunset-apartment.com-stare. Zálohy v C:/work/archive/ nech.
 3. Plán označ jako dokončený (Stav: hash posledního commitu a datum převodu 2026-10-13) a aktualizuj paměť sunset-apartment-github-pages.md.
 
 Pozor:
-- Rollback do Tasku 14: A zpět na 185.175.84.157, smazat AAAA, www CNAME zpět na sunset-apartment.com. Starý server běží, dokud ho Robert nevypne.
+- Rollback jen do chvíle, kdy Robert server vypne: A zpět na 185.175.84.157, smazat AAAA, www CNAME zpět na sunset-apartment.com. Pak už rollback není, případnou chybu Pages řeš na Pages.
 - Když GitHub nevydá certifikát (https_certificate null), smaž custom doménu a ulož ji znovu: gh api -X PUT repos/lukas-jarda-projects/Sunset-web-w/pages -F cname=null, pak -f cname=sunset-apartment.com.
 - Smazání záznamu v administraci Váš Hosting se potvrzuje ve vlastním panelu vpravo („Ano, smazat“), ne v dialogu prohlížeče. Typ záznamu je vlastní rozbalovací seznam a první klik se často nechytí.
 - Auto režim blokuje force push, mazání repa i změnu viditelnosti. Takové příkazy dávej uživateli ke spuštění přes ! a vždy na JEDEN řádek.
